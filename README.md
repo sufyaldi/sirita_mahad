@@ -5,6 +5,8 @@ Modul utama Odoo untuk tata kelola operasional hunian fisik, inventaris sarana p
 
 Modul ini menyediakan instrumen terintegrasi untuk pengawasan fasilitas asrama, pemantauan daya tampung santri secara langsung (real-time), serta terhubung dengan modul akuntansi lembaga.
 
+![Dashboard Manajemen Ma'had Al-Jami'ah](static/description/dashboard_screenshot.png)
+
 ---
 
 ### Informasi Modul
