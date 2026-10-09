@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="menu_hostel_root"
+              name="Ma'had Al-Jami'ah"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- ============================================================ -->
+    <!--  Master Data                                                 -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_master"
+              name="Data Master"
+              parent="menu_hostel_root"
+              sequence="5"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- Config items — Manager + Admin -->
+    <menuitem id="menu_building"
+              name="Gedung Asrama"
+              parent="menu_hostel_master"
+              action="action_building"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_unit"
+              name="Blok / Lantai"
+              parent="menu_hostel_master"
+              action="action_unit"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_room"
+              name="Kamar"
+              parent="menu_hostel_master"
+              action="action_room"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_bed"
+              name="Tempat Tidur / Bed"
+              parent="menu_hostel_master"
+              action="action_bed"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <!-- Daily operations — all hostel users -->
+    <menuitem id="menu_contract"
+              name="Kontrak Hunian"
+              parent="menu_hostel_master"
+              action="action_contract"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_checkin"
+              name="Check-In / Check-Out"
+              parent="menu_hostel_master"
+              action="action_checkin"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_visitor"
+              name="Buku Tamu / Pengunjung"
+              parent="menu_hostel_master"
+              action="action_visitor"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_student_attendance"
+              name="Student Attendance"
+              parent="menu_hostel_master"
+              action="action_student_attendance"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_student_document"
+              name="Dokumen Mahasantri"
+              parent="menu_hostel_master"
+              action="action_student_document"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- ============================================================ -->
+    <!--  Dashboard — all hostel users                                -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_dashboard"
+              name="Dashboard"
+              parent="menu_hostel_root"
+              action="action_hostel_dashboard"
+              sequence="1"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- ============================================================ -->
+    <!--  Automation — Admin only                                     -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_automation"
+              name="Otomatisasi System"
+              parent="menu_hostel_root"
+              sequence="90"
+              groups="sirita_mahad.group_hostel_admin"/>
+
+    <menuitem id="menu_birthday_greeting"
+              name="Ucapan Milad Mahasantri"
+              parent="menu_hostel_automation"
+              action="action_birthday_greeting"
+              groups="sirita_mahad.group_hostel_admin"/>
+
+    <menuitem id="menu_renewal_reminder"
+              name="Pengingat Perpanjangan Mukim"
+              parent="menu_hostel_automation"
+              action="action_renewal_reminder"
+              groups="sirita_mahad.group_hostel_admin"/>
+
+    <!-- ============================================================ -->
+    <!--  Asset Management — Manager + Admin                          -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_assets"
+              name="Asset Management"
+              parent="menu_hostel_root"
+              sequence="65"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_asset"
+              name="Fasilitas &amp; Aset"
+              parent="menu_hostel_assets"
+              action="action_asset"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_asset_category"
+              name="Kategori Sarana &amp; Aset"
+              parent="menu_hostel_assets"
+              action="action_asset_category"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <!-- ============================================================ -->
+    <!--  Communication — Manager + Admin                             -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_communication"
+              name="Komunikasi &amp; Info"
+              parent="menu_hostel_root"
+              sequence="60"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_group_communication"
+              name="Pesan &amp; Siaran Musyrif"
+              parent="menu_hostel_communication"
+              action="action_group_communication"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_notice_board"
+              name="Papan Mading &amp; Pengumuman"
+              parent="menu_hostel_communication"
+              action="action_notice_board"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_announcement"
+              name="Daftar Maklumat Asrama"
+              parent="menu_hostel_communication"
+              action="action_announcement"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_announcement_category"
+              name="Kategori Informasi"
+              parent="menu_hostel_communication"
+              action="action_announcement_category"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <!-- ============================================================ -->
+    <!--  Human Resources — Admin only                                -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_hr"
+              name="Pengasuh &amp; Musyrif"
+              parent="menu_hostel_root"
+              sequence="25"
+              groups="sirita_mahad.group_hostel_admin"/>
+
+    <!-- ============================================================ -->
+    <!--  Maintenance — all hostel users                              -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_maintenance"
+              name="Pemeliharaan Fasilitas"
+              parent="menu_hostel_root"
+              sequence="45"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_maintenance_request"
+              name="Pengajuan Perbaikan"
+              parent="menu_hostel_maintenance"
+              action="action_maintenance_request"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- ============================================================ -->
+    <!--  Complaints — all hostel users                               -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_complaints"
+              name="Pengaduan &amp; Keluhan"
+              parent="menu_hostel_root"
+              sequence="40"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_complaint"
+              name="Daftar Keluhan"
+              parent="menu_hostel_complaints"
+              action="action_complaint"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- ============================================================ -->
+    <!--  Mess / Food — parent visible to all, config to Manager      -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_mess"
+              name="Konsumsi &amp; Dapur"
+              parent="menu_hostel_root"
+              sequence="50"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_mess"
+              name="Mess"
+              parent="menu_hostel_mess"
+              action="action_mess"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_mess_menu"
+              name="Menus"
+              parent="menu_hostel_mess"
+              action="action_mess_menu"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_meal_booking"
+              name="Meal Bookings"
+              parent="menu_hostel_mess"
+              action="action_meal_booking"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- ============================================================ -->
+    <!--  Laundry — all hostel users                                  -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_laundry"
+              name="Layanan Laundry"
+              parent="menu_hostel_root"
+              sequence="55"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <menuitem id="menu_laundry_request"
+              name="Antrean Laundry Mahasantri"
+              parent="menu_hostel_laundry"
+              action="action_laundry_request"
+              groups="sirita_mahad.group_hostel_user"/>
+
+    <!-- ============================================================ -->
+    <!--  Fee Management — Manager + Admin                            -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_fee"
+              name="Keuangan &amp; Tagihan"
+              parent="menu_hostel_root"
+              sequence="35"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_rent_invoice"
+              name="Tagihan Hunian"
+              parent="menu_hostel_fee"
+              action="action_rent_invoice"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <!-- ============================================================ -->
+    <!--  Room Inspections — Manager + Admin                          -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_room_inspection"
+              name="Inspeksi Kamar"
+              parent="menu_hostel_root"
+              sequence="30"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_room_inspection"
+              name="Riwayat Sidak Kamar"
+              parent="menu_hostel_room_inspection"
+              action="action_room_inspection"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <!-- ============================================================ -->
+    <!--  Reports — Manager + Admin                                   -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_reports"
+              name="Laporan &amp; Analisis"
+              parent="menu_hostel_root"
+              sequence="70"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_generate_report"
+              name="Cetak Laporan"
+              parent="menu_hostel_reports"
+              action="action_hostel_report_wizard"
+              sequence="1"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_students_inhouse"
+              name="Daftar Mahasantri Mukim"
+              parent="menu_hostel_reports"
+              action="action_contract"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_damage_charges"
+              name="Laporan Ganti Rugi Sarpras"
+              parent="menu_hostel_reports"
+              action="action_checkin"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <menuitem id="menu_violation_charges"
+              name="Rekapitulasi Sanksi &amp; Takzir"
+              parent="menu_hostel_reports"
+              action="action_checkin"
+              groups="sirita_mahad.group_hostel_manager"/>
+
+    <!-- ============================================================ -->
+    <!--  Help — all hostel users                                     -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_hostel_help"
+              name="Bantuan &amp; Panduan"
+              parent="menu_hostel_root"
+              action="action_hostel_help"
+              sequence="99"
+              groups="sirita_mahad.group_hostel_user"/>
+
+</odoo>

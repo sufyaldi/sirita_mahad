@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Master Gedung Asrama -->
+        <record id="building_putra_alfarabi" model="hostel.building">
+            <field name="name">Gedung Al-Farabi (Asrama Putra)</field>
+            <field name="code">PA-FARABI</field>
+            <field name="gender_allowed">male</field>
+            <field name="address">Kompleks Ma'had Al-Jami'ah Kampus IAIN Parepare</field>
+        </record>
+
+        <record id="building_putri_khadijah" model="hostel.building">
+            <field name="name">Gedung Khadijah (Asrama Putri)</field>
+            <field name="code">PI-KHADIJAH</field>
+            <field name="gender_allowed">female</field>
+            <field name="address">Kompleks Ma'had Al-Jami'ah Kampus IAIN Parepare</field>
+        </record>
+
+        <!-- Master Unit / Lantai -->
+        <record id="unit_farabi_l1" model="hostel.unit">
+            <field name="name">Lantai 1 - Al-Farabi</field>
+            <field name="floor">1</field>
+            <field name="building_id" ref="building_putra_alfarabi"/>
+        </record>
+
+        <record id="unit_khadijah_l1" model="hostel.unit">
+            <field name="name">Lantai 1 - Khadijah</field>
+            <field name="floor">1</field>
+            <field name="building_id" ref="building_putri_khadijah"/>
+        </record>
+    </data>
+</odoo>

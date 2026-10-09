@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_checkin_tree" model="ir.ui.view">
+        <field name="name">hostel.checkin.tree</field>
+        <field name="model">hostel.checkin</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'checked_in'" decoration-muted="state == 'checked_out'">
+                <field name="student_id"/>
+                <field name="building_id"/>
+                <field name="room_id"/>
+                <field name="bed_id"/>
+                <field name="contract_id"/>
+                <field name="checkin_datetime"/>
+                <field name="checkout_datetime"/>
+                <field name="state" widget="badge" decoration-success="state == 'checked_in'" decoration-danger="state == 'checked_out'" decoration-info="state == 'draft'"/>
+                <field name="total_penalty_amount" sum="Total Penalties"/>
+                <field name="invoice_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_checkin_form" model="ir.ui.view">
+        <field name="model">hostel.checkin</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_checkin"
+                            type="object"
+                            string="Check In"/>
+                    <button name="action_checkout"
+                            type="object"
+                            string="Check Out"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <field name="contract_id"/>
+                        <field name="student_id" readonly="1"/>
+                        <field name="bed_id" readonly="1"/>
+                    </group>
+
+                    <group>
+                        <field name="inventory_notes"/>
+                        <field name="damage_notes"/>
+                    </group>
+
+                    <group>
+                        <field name="photo_ids" widget="many2many_binary"/>
+                    </group>
+
+                    <group>
+                        <field name="checkin_signature"/>
+                        <field name="checkout_signature"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Penalties" name="penalties" invisible="state != 'checked_out'">
+                            <field name="penalty_ids">
+                                <list>
+                                    <field name="penalty_type_id"/>
+                                    <field name="penalty_category"/>
+                                    <field name="description"/>
+                                    <field name="amount"/>
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="penalty_type_id"/>
+                                            <field name="penalty_category"/>
+                                            <field name="amount"/>
+                                        </group>
+                                        <group>
+                                            <field name="description"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <group>
+                                <field name="total_penalty_amount" readonly="1"/>
+                                <field name="invoice_id" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_checkin_search" model="ir.ui.view">
+        <field name="model">hostel.checkin</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="student_id"/>
+                <field name="bed_id"/>
+                <field name="room_id"/>
+                <field name="building_id"/>
+                <field name="contract_id"/>
+                <field name="state"/>
+
+                <filter name="draft" string="Draft"
+                        domain="[('state','=','draft')]"/>
+
+                <filter name="checked_in" string="Checked In"
+                        domain="[('state','=','checked_in')]"/>
+
+                <filter name="checked_out" string="Checked Out"
+                        domain="[('state','=','checked_out')]"/>
+
+                <filter name="damage_charges" string="Has Damage Charges"
+                        domain="[('penalty_ids.penalty_category','=','damage')]"/>
+
+                <filter name="violation_charges" string="Has Violation Charges"
+                        domain="[('penalty_ids.penalty_category','=','violation')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_checkin" model="ir.actions.act_window">
+        <field name="res_model">hostel.checkin</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

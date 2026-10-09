@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Group Communication Views -->
+    <record id="view_group_communication_tree" model="ir.ui.view">
+        <field name="model">hostel.group.communication</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="target_type"/>
+                <field name="state"/>
+                <field name="total_recipients"/>
+                <field name="sent_count"/>
+                <field name="sent_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_group_communication_form" model="ir.ui.view">
+        <field name="model">hostel.group.communication</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send" string="Send Communication" type="object" class="oe_highlight" invisible="state == 'sent'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="template_id"/>
+                    </group>
+                    <group>
+                        <field name="target_type"/>
+                    </group>
+                    <group invisible="target_type != 'building'">
+                        <field name="building_ids" widget="many2many_tags"/>
+                    </group>
+                    <group invisible="target_type != 'unit'">
+                        <field name="unit_ids" widget="many2many_tags"/>
+                    </group>
+                    <group invisible="target_type != 'room'">
+                        <field name="room_ids" widget="many2many_tags"/>
+                    </group>
+                    <group invisible="target_type != 'bed'">
+                        <field name="bed_ids" widget="many2many_tags"/>
+                    </group>
+                    <group invisible="target_type != 'custom'">
+                        <field name="student_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="send_email"/>
+                        <field name="send_sms"/>
+                        <field name="send_notification"/>
+                    </group>
+                    <group>
+                        <field name="total_recipients" readonly="1"/>
+                        <field name="sent_count" readonly="1"/>
+                        <field name="failed_count" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Message" name="message">
+                            <field name="message" widget="html"/>
+                        </page>
+                        <page string="Communication Log" name="log">
+                            <field name="communication_log_ids">
+                                <list>
+                                    <field name="student_id"/>
+                                    <field name="sent_date"/>
+                                    <field name="status"/>
+                                    <field name="channel"/>
+                                    <field name="error_message"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_group_communication_search" model="ir.ui.view">
+        <field name="model">hostel.group.communication</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="target_type"/>
+                <field name="state"/>
+                <filter name="sent" string="Sent" domain="[('state', '=', 'sent')]"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_group_communication" model="ir.actions.act_window">
+        <field name="name">Group Communication</field>
+        <field name="res_model">hostel.group.communication</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

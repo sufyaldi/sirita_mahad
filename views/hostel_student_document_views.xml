@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Student Document Tree -->
+    <record id="view_student_document_tree" model="ir.ui.view">
+        <field name="name">hostel.student.document.tree</field>
+        <field name="model">hostel.student.document</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="is_expired" decoration-warning="is_expiring_soon">
+                <field name="student_id"/>
+                <field name="name"/>
+                <field name="document_type"/>
+                <field name="document_number"/>
+                <field name="issue_date"/>
+                <field name="expiry_date"/>
+                <field name="days_to_expiry"/>
+                <field name="is_expired" column_invisible="1"/>
+                <field name="is_expiring_soon" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Student Document Form -->
+    <record id="view_student_document_form" model="ir.ui.view">
+        <field name="name">hostel.student.document.form</field>
+        <field name="model">hostel.student.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id" options="{'no_create': True}"/>
+                            <field name="name" placeholder="e.g. National ID"/>
+                            <field name="document_type"/>
+                            <field name="document_number"/>
+                            <field name="issue_date"/>
+                            <field name="expiry_date"/>
+                            <field name="days_to_expiry" readonly="1"/>
+                            <field name="is_expired" invisible="1"/>
+                            <field name="is_expiring_soon" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Document File">
+                        <field name="document_file" filename="filename"/>
+                        <field name="filename" invisible="1"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Additional notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Student Document Search -->
+    <record id="view_student_document_search" model="ir.ui.view">
+        <field name="name">hostel.student.document.search</field>
+        <field name="model">hostel.student.document</field>
+        <field name="arch" type="xml">
+            <search string="Student Documents">
+                <field name="name"/>
+                <field name="document_number"/>
+                <field name="student_id"/>
+                <filter name="expired" string="Expired" domain="[('is_expired', '=', True)]"/>
+                <filter name="expiring_soon" string="Expiring Soon (30 days)" domain="[('is_expiring_soon', '=', True)]"/>
+                <filter name="valid" string="Valid" domain="[('is_expired', '=', False)]"/>
+                <separator/>
+                <filter name="type_id_card" string="ID Card" domain="[('document_type', '=', 'id_card')]"/>
+                <filter name="type_passport" string="Passport" domain="[('document_type', '=', 'passport')]"/>
+                <filter name="type_visa" string="Visa" domain="[('document_type', '=', 'visa')]"/>
+                <group>
+                    <filter name="group_student" string="Student" domain="[]" context="{'group_by': 'student_id'}"/>
+                    <filter name="group_type" string="Document Type" domain="[]" context="{'group_by': 'document_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action: Student Documents -->
+    <record id="action_student_document" model="ir.actions.act_window">
+        <field name="name">Student Documents</field>
+        <field name="res_model">hostel.student.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_valid': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No student documents yet.</p>
+            <p>Upload ID, passport, visa, and other documents for students. Set expiry dates to track renewals.</p>
+        </field>
+    </record>
+
+    <!-- Action: Documents Expiring Soon -->
+    <record id="action_student_document_expiring" model="ir.actions.act_window">
+        <field name="name">Documents Expiring Soon</field>
+        <field name="res_model">hostel.student.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_expiring_soon': 1}</field>
+    </record>
+
+    <!-- Partner form: Documents tab for students -->
+    <record id="view_partner_form_student_documents" model="ir.ui.view">
+        <field name="name">res.partner.form.student.documents</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="view_student_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Documents" name="student_documents" invisible="not is_student">
+                    <field name="student_document_ids">
+                        <list decoration-danger="is_expired" decoration-warning="is_expiring_soon" create="1" delete="1" edit="1">
+                            <field name="name"/>
+                            <field name="document_type"/>
+                            <field name="document_number"/>
+                            <field name="issue_date"/>
+                            <field name="expiry_date"/>
+                            <field name="days_to_expiry"/>
+                            <field name="document_file" filename="filename" optional="hide"/>
+                            <field name="filename" column_invisible="1"/>
+                            <field name="is_expired" column_invisible="1"/>
+                            <field name="is_expiring_soon" column_invisible="1"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

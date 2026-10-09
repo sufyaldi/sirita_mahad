@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_building_tree" model="ir.ui.view">
+        <field name="name">hostel.building.tree</field>
+        <field name="model">hostel.building</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="gender_allowed"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_building_form" model="ir.ui.view">
+        <field name="name">hostel.building.form</field>
+        <field name="model">hostel.building</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="gender_allowed"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="address"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_building_search" model="ir.ui.view">
+        <field name="name">hostel.building.search</field>
+        <field name="model">hostel.building</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="gender_allowed"/>
+                <group>
+                    <filter name="gender" string="Gender" domain="[]" context="{'group_by': 'gender_allowed'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_building" model="ir.actions.act_window">
+        <field name="name">Buildings</field>
+        <field name="res_model">hostel.building</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

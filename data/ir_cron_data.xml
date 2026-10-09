@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Birthday Greeting Cron Job -->
+    <record id="ir_cron_birthday_greeting" model="ir.cron">
+        <field name="name">Send Birthday Greetings</field>
+        <field name="model_id" ref="model_hostel_birthday_greeting"/>
+        <field name="state">code</field>
+        <field name="code">model.send_birthday_greetings_all()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Renewal Reminder Cron Job - 30 days -->
+    <record id="ir_cron_renewal_reminder_30" model="ir.cron">
+        <field name="name">Send Renewal Reminders (30 days)</field>
+        <field name="model_id" ref="model_hostel_renewal_reminder"/>
+        <field name="state">code</field>
+        <field name="code">
+for reminder in model.search([('days_before_expiry', '=', 30), ('active', '=', True)]):
+    reminder.send_renewal_reminders()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Renewal Reminder Cron Job - 15 days -->
+    <record id="ir_cron_renewal_reminder_15" model="ir.cron">
+        <field name="name">Send Renewal Reminders (15 days)</field>
+        <field name="model_id" ref="model_hostel_renewal_reminder"/>
+        <field name="state">code</field>
+        <field name="code">
+for reminder in model.search([('days_before_expiry', '=', 15), ('active', '=', True)]):
+    reminder.send_renewal_reminders()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Renewal Reminder Cron Job - 7 days -->
+    <record id="ir_cron_renewal_reminder_7" model="ir.cron">
+        <field name="name">Send Renewal Reminders (7 days)</field>
+        <field name="model_id" ref="model_hostel_renewal_reminder"/>
+        <field name="state">code</field>
+        <field name="code">
+for reminder in model.search([('days_before_expiry', '=', 7), ('active', '=', True)]):
+    reminder.send_renewal_reminders()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Generate monthly rent invoices for active contracts -->
+    <record id="ir_cron_generate_rent_invoices" model="ir.cron">
+        <field name="name">Generate Hostel Rent Invoices (Monthly)</field>
+        <field name="model_id" ref="model_hostel_rent_invoice"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_generate_rent_invoices()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Expire announcements past date_end -->
+    <record id="ir_cron_expire_announcements" model="ir.cron">
+        <field name="name">Expire Hostel Announcements</field>
+        <field name="model_id" ref="model_hostel_announcement"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_expire_announcements()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

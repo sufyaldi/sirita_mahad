@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_rent_invoice_tree" model="ir.ui.view">
+        <field name="name">hostel.rent.invoice.tree</field>
+        <field name="model">hostel.rent.invoice</field>
+        <field name="arch" type="xml">
+            <list
+                  decoration-success="state == 'paid'"
+                  decoration-danger="state == 'overdue'"
+                  decoration-warning="state == 'invoiced'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="contract_id"/>
+                <field name="student_id"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="amount"/>
+                <field name="due_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'paid'"
+                       decoration-danger="state == 'overdue'"
+                       decoration-warning="state == 'invoiced'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="invoice_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_rent_invoice_form" model="ir.ui.view">
+        <field name="name">hostel.rent.invoice.form</field>
+        <field name="model">hostel.rent.invoice</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_invoice"
+                            type="object"
+                            string="Create Invoice"
+                            class="oe_highlight"
+                            invisible="state not in ('draft', 'overdue') or invoice_id"/>
+                    <button name="action_view_invoice"
+                            type="object"
+                            string="View Invoice"
+                            invisible="not invoice_id"/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            invisible="state == 'cancelled'"
+                            class="btn-danger"/>
+                    <button name="action_set_draft"
+                            type="object"
+                            string="Reset to Draft"
+                            invisible="state != 'cancelled'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="contract_id" options="{'no_create': True}"/>
+                            <field name="student_id" readonly="1"/>
+                            <field name="name"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="due_date"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="state"/>
+                            <field name="invoice_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_rent_invoice_search" model="ir.ui.view">
+        <field name="name">hostel.rent.invoice.search</field>
+        <field name="model">hostel.rent.invoice</field>
+        <field name="arch" type="xml">
+            <search string="Rent Invoices">
+                <field name="name"/>
+                <field name="contract_id"/>
+                <field name="student_id"/>
+                <field name="period_start"/>
+                <field name="due_date"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Invoiced" name="invoiced" domain="[('state', '=', 'invoiced')]"/>
+                <filter string="Paid" name="paid" domain="[('state', '=', 'paid')]"/>
+                <filter string="Overdue" name="overdue" domain="[('state', '=', 'overdue')]"/>
+                <separator/>
+                <filter string="Outstanding" name="outstanding" domain="[('state', 'in', ['invoiced', 'overdue'])]"/>
+                <group>
+                    <filter string="Student" name="group_student" domain="[]" context="{'group_by': 'student_id'}"/>
+                    <filter string="Contract" name="group_contract" domain="[]" context="{'group_by': 'contract_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_rent_invoice" model="ir.actions.act_window">
+        <field name="name">Rent Invoices</field>
+        <field name="res_model">hostel.rent.invoice</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_outstanding': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create rent invoices for hostel contracts.
+            </p>
+            <p>
+                Rent invoices can be generated automatically each month via the scheduled action, or created manually. Use "Create Invoice" to generate the accounting invoice (Customer Invoice) from a draft rent invoice.
+            </p>
+        </field>
+    </record>
+</odoo>

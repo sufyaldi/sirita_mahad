@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="seq_hostel_announcement" model="ir.sequence">
+        <field name="name">Hostel Announcement</field>
+        <field name="code">hostel.announcement</field>
+        <field name="prefix">ANN</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

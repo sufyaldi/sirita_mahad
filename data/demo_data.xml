@@ -1,0 +1,1245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Universities -->
+        <record id="demo_university_1" model="res.partner">
+            <field name="name">State University</field>
+            <field name="is_company" eval="True"/>
+            <field name="email">info@stateuniversity.edu</field>
+            <field name="phone">+1-555-0100</field>
+        </record>
+        
+        <record id="demo_university_2" model="res.partner">
+            <field name="name">Tech Institute</field>
+            <field name="is_company" eval="True"/>
+            <field name="email">contact@techinstitute.edu</field>
+            <field name="phone">+1-555-0200</field>
+        </record>
+
+        <!-- Students -->
+        <record id="demo_student_1" model="res.partner">
+            <field name="name">John Smith</field>
+            <field name="is_student" eval="True"/>
+            <field name="email">john.smith@student.edu</field>
+            <field name="phone">+1-555-1001</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - timedelta(days=7300)).strftime('%Y-%m-%d')"/>
+            <field name="university_id" ref="demo_university_1"/>
+        </record>
+
+        <record id="demo_student_2" model="res.partner">
+            <field name="name">Sarah Johnson</field>
+            <field name="is_student" eval="True"/>
+            <field name="email">sarah.johnson@student.edu</field>
+            <field name="phone">+1-555-1002</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - timedelta(days=6935)).strftime('%Y-%m-%d')"/>
+            <field name="university_id" ref="demo_university_1"/>
+        </record>
+
+        <record id="demo_student_3" model="res.partner">
+            <field name="name">Michael Brown</field>
+            <field name="is_student" eval="True"/>
+            <field name="email">michael.brown@student.edu</field>
+            <field name="phone">+1-555-1003</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - timedelta(days=7665)).strftime('%Y-%m-%d')"/>
+            <field name="university_id" ref="demo_university_2"/>
+        </record>
+
+        <record id="demo_student_4" model="res.partner">
+            <field name="name">Emily Davis</field>
+            <field name="is_student" eval="True"/>
+            <field name="email">emily.davis@student.edu</field>
+            <field name="phone">+1-555-1004</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - timedelta(days=7300)).strftime('%Y-%m-%d')"/>
+            <field name="university_id" ref="demo_university_2"/>
+        </record>
+
+        <record id="demo_student_5" model="res.partner">
+            <field name="name">David Wilson</field>
+            <field name="is_student" eval="True"/>
+            <field name="email">david.wilson@student.edu</field>
+            <field name="phone">+1-555-1005</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - timedelta(days=8030)).strftime('%Y-%m-%d')"/>
+            <field name="university_id" ref="demo_university_1"/>
+        </record>
+
+        <record id="demo_student_6" model="res.partner">
+            <field name="name">Lisa Anderson</field>
+            <field name="is_student" eval="True"/>
+            <field name="email">lisa.anderson@student.edu</field>
+            <field name="phone">+1-555-1006</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - timedelta(days=6935)).strftime('%Y-%m-%d')"/>
+            <field name="university_id" ref="demo_university_1"/>
+        </record>
+
+        <!-- Buildings -->
+        <record id="demo_building_male" model="hostel.building">
+            <field name="name">Men's Hostel A</field>
+            <field name="code">MHA</field>
+            <field name="gender_allowed">male</field>
+            <field name="address">123 University Avenue, Building A, Floor 1-5</field>
+        </record>
+
+        <record id="demo_building_female" model="hostel.building">
+            <field name="name">Women's Hostel B</field>
+            <field name="code">WHB</field>
+            <field name="gender_allowed">female</field>
+            <field name="address">123 University Avenue, Building B, Floor 1-5</field>
+        </record>
+
+        <record id="demo_building_mixed" model="hostel.building">
+            <field name="name">Mixed Hostel C</field>
+            <field name="code">MHC</field>
+            <field name="gender_allowed">mixed</field>
+            <field name="address">123 University Avenue, Building C, Floor 1-3</field>
+        </record>
+
+        <!-- Units (Apartments/Floors) -->
+        <record id="demo_unit_male_1" model="hostel.unit">
+            <field name="name">Floor 1 - Men's Hostel A</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="floor">1</field>
+            <field name="unit_type">Standard Floor</field>
+        </record>
+
+        <record id="demo_unit_male_2" model="hostel.unit">
+            <field name="name">Floor 2 - Men's Hostel A</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="floor">2</field>
+            <field name="unit_type">Standard Floor</field>
+        </record>
+
+        <record id="demo_unit_female_1" model="hostel.unit">
+            <field name="name">Floor 1 - Women's Hostel B</field>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="floor">1</field>
+            <field name="unit_type">Standard Floor</field>
+        </record>
+
+        <record id="demo_unit_female_2" model="hostel.unit">
+            <field name="name">Floor 2 - Women's Hostel B</field>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="floor">2</field>
+            <field name="unit_type">Premium Floor</field>
+        </record>
+
+        <record id="demo_unit_mixed_1" model="hostel.unit">
+            <field name="name">Floor 1 - Mixed Hostel C</field>
+            <field name="building_id" ref="demo_building_mixed"/>
+            <field name="floor">1</field>
+            <field name="unit_type">Studio Floor</field>
+        </record>
+
+        <!-- Rooms -->
+        <!-- Men's Hostel Rooms -->
+        <record id="demo_room_male_101" model="hostel.room">
+            <field name="name">Room 101</field>
+            <field name="unit_id" ref="demo_unit_male_1"/>
+            <field name="room_type">twin</field>
+            <field name="gender">male</field>
+            <field name="room_status">ready</field>
+        </record>
+
+        <record id="demo_room_male_102" model="hostel.room">
+            <field name="name">Room 102</field>
+            <field name="unit_id" ref="demo_unit_male_1"/>
+            <field name="room_type">twin</field>
+            <field name="gender">male</field>
+            <field name="room_status">ready</field>
+        </record>
+
+        <record id="demo_room_male_201" model="hostel.room">
+            <field name="name">Room 201</field>
+            <field name="unit_id" ref="demo_unit_male_2"/>
+            <field name="room_type">single</field>
+            <field name="gender">male</field>
+            <field name="room_status">dirty</field>
+        </record>
+
+        <record id="demo_room_male_202" model="hostel.room">
+            <field name="name">Room 202</field>
+            <field name="unit_id" ref="demo_unit_male_2"/>
+            <field name="room_type">studio</field>
+            <field name="gender">male</field>
+            <field name="room_status">ready</field>
+        </record>
+
+        <!-- Women's Hostel Rooms -->
+        <record id="demo_room_female_101" model="hostel.room">
+            <field name="name">Room 101</field>
+            <field name="unit_id" ref="demo_unit_female_1"/>
+            <field name="room_type">twin</field>
+            <field name="gender">female</field>
+            <field name="room_status">ready</field>
+        </record>
+
+        <record id="demo_room_female_102" model="hostel.room">
+            <field name="name">Room 102</field>
+            <field name="unit_id" ref="demo_unit_female_1"/>
+            <field name="room_type">single</field>
+            <field name="gender">female</field>
+            <field name="room_status">buffer</field>
+        </record>
+
+        <record id="demo_room_female_201" model="hostel.room">
+            <field name="name">Room 201</field>
+            <field name="unit_id" ref="demo_unit_female_2"/>
+            <field name="room_type">studio</field>
+            <field name="gender">female</field>
+            <field name="room_status">ready</field>
+        </record>
+
+        <!-- Mixed Hostel Rooms -->
+        <record id="demo_room_mixed_101" model="hostel.room">
+            <field name="name">Room 101</field>
+            <field name="unit_id" ref="demo_unit_mixed_1"/>
+            <field name="room_type">studio</field>
+            <field name="gender">mixed</field>
+            <field name="room_status">ready</field>
+        </record>
+
+        <!-- Beds -->
+        <!-- Men's Hostel Beds -->
+        <record id="demo_bed_male_101_a" model="hostel.bed">
+            <field name="name">Bed A - Room 101</field>
+            <field name="room_id" ref="demo_room_male_101"/>
+        </record>
+
+        <record id="demo_bed_male_101_b" model="hostel.bed">
+            <field name="name">Bed B - Room 101</field>
+            <field name="room_id" ref="demo_room_male_101"/>
+        </record>
+
+        <record id="demo_bed_male_102_a" model="hostel.bed">
+            <field name="name">Bed A - Room 102</field>
+            <field name="room_id" ref="demo_room_male_102"/>
+        </record>
+
+        <record id="demo_bed_male_102_b" model="hostel.bed">
+            <field name="name">Bed B - Room 102</field>
+            <field name="room_id" ref="demo_room_male_102"/>
+        </record>
+
+        <record id="demo_bed_male_201" model="hostel.bed">
+            <field name="name">Bed - Room 201</field>
+            <field name="room_id" ref="demo_room_male_201"/>
+        </record>
+
+        <record id="demo_bed_male_202" model="hostel.bed">
+            <field name="name">Bed - Room 202</field>
+            <field name="room_id" ref="demo_room_male_202"/>
+        </record>
+
+        <!-- Women's Hostel Beds -->
+        <record id="demo_bed_female_101_a" model="hostel.bed">
+            <field name="name">Bed A - Room 101</field>
+            <field name="room_id" ref="demo_room_female_101"/>
+        </record>
+
+        <record id="demo_bed_female_101_b" model="hostel.bed">
+            <field name="name">Bed B - Room 101</field>
+            <field name="room_id" ref="demo_room_female_101"/>
+        </record>
+
+        <record id="demo_bed_female_102" model="hostel.bed">
+            <field name="name">Bed - Room 102</field>
+            <field name="room_id" ref="demo_room_female_102"/>
+        </record>
+
+        <record id="demo_bed_female_201" model="hostel.bed">
+            <field name="name">Bed - Room 201</field>
+            <field name="room_id" ref="demo_room_female_201"/>
+        </record>
+
+        <!-- Mixed Hostel Beds -->
+        <record id="demo_bed_mixed_101" model="hostel.bed">
+            <field name="name">Bed - Room 101</field>
+            <field name="room_id" ref="demo_room_mixed_101"/>
+        </record>
+
+        <!-- Asset Categories -->
+        <record id="demo_asset_category_furniture" model="hostel.asset.category">
+            <field name="name">Furniture</field>
+            <field name="description">Beds, tables, chairs, wardrobes</field>
+        </record>
+
+        <record id="demo_asset_category_appliances" model="hostel.asset.category">
+            <field name="name">Appliances</field>
+            <field name="description">Refrigerators, air conditioners, heaters</field>
+        </record>
+
+        <record id="demo_asset_category_electronics" model="hostel.asset.category">
+            <field name="name">Electronics</field>
+            <field name="description">TVs, computers, projectors</field>
+        </record>
+
+        <!-- Assets -->
+        <record id="demo_asset_bed_1" model="hostel.asset">
+            <field name="name">Single Bed Frame - Room 201</field>
+            <field name="asset_code">BED-001</field>
+            <field name="asset_category_id" ref="demo_asset_category_furniture"/>
+            <field name="room_id" ref="demo_room_male_201"/>
+            <field name="bed_id" ref="demo_bed_male_201"/>
+            <field name="purchase_date" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d')"/>
+            <field name="purchase_cost" eval="500.0"/>
+            <field name="condition">good</field>
+            <field name="state">allocated</field>
+        </record>
+
+        <record id="demo_asset_ac_1" model="hostel.asset">
+            <field name="name">Air Conditioner - Room 202</field>
+            <field name="asset_code">AC-001</field>
+            <field name="asset_category_id" ref="demo_asset_category_appliances"/>
+            <field name="room_id" ref="demo_room_male_202"/>
+            <field name="purchase_date" eval="(DateTime.today() - timedelta(days=90)).strftime('%Y-%m-%d')"/>
+            <field name="purchase_cost" eval="800.0"/>
+            <field name="warranty_expiry" eval="(DateTime.today() + timedelta(days=275)).strftime('%Y-%m-%d')"/>
+            <field name="condition">excellent</field>
+            <field name="state">allocated</field>
+        </record>
+
+        <record id="demo_asset_tv_1" model="hostel.asset">
+            <field name="name">LED TV - Room 201</field>
+            <field name="asset_code">TV-001</field>
+            <field name="asset_category_id" ref="demo_asset_category_electronics"/>
+            <field name="room_id" ref="demo_room_female_201"/>
+            <field name="purchase_date" eval="(DateTime.today() - timedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="purchase_cost" eval="600.0"/>
+            <field name="condition">good</field>
+            <field name="state">allocated</field>
+        </record>
+
+        <!-- Penalty Types -->
+        <record id="demo_penalty_damage_wall" model="hostel.penalty.type">
+            <field name="name">Wall Damage</field>
+            <field name="penalty_category">damage</field>
+            <field name="default_amount" eval="100.0"/>
+        </record>
+
+        <record id="demo_penalty_damage_furniture" model="hostel.penalty.type">
+            <field name="name">Furniture Damage</field>
+            <field name="penalty_category">damage</field>
+            <field name="default_amount" eval="200.0"/>
+        </record>
+
+        <record id="demo_penalty_violation_noise" model="hostel.penalty.type">
+            <field name="name">Noise Violation</field>
+            <field name="penalty_category">violation</field>
+            <field name="default_amount" eval="50.0"/>
+        </record>
+
+        <record id="demo_penalty_violation_late" model="hostel.penalty.type">
+            <field name="name">Late Check-in</field>
+            <field name="penalty_category">violation</field>
+            <field name="default_amount" eval="25.0"/>
+        </record>
+
+        <!-- Contracts -->
+        <!-- Active Contract -->
+        <record id="demo_contract_active_1" model="hostel.contract">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="bed_id" ref="demo_bed_male_101_a"/>
+            <field name="contract_start" eval="(DateTime.today() - timedelta(days=90)).strftime('%Y-%m-%d')"/>
+            <field name="contract_end" eval="(DateTime.today() + timedelta(days=270)).strftime('%Y-%m-%d')"/>
+            <field name="monthly_rent" eval="500.0"/>
+            <field name="security_deposit" eval="1000.0"/>
+            <field name="deposit_status">held</field>
+            <field name="state">active</field>
+        </record>
+
+        <record id="demo_contract_active_2" model="hostel.contract">
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="bed_id" ref="demo_bed_female_101_a"/>
+            <field name="contract_start" eval="(DateTime.today() - timedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="contract_end" eval="(DateTime.today() + timedelta(days=300)).strftime('%Y-%m-%d')"/>
+            <field name="monthly_rent" eval="600.0"/>
+            <field name="security_deposit" eval="1200.0"/>
+            <field name="deposit_status">held</field>
+            <field name="state">active</field>
+        </record>
+
+        <record id="demo_contract_active_3" model="hostel.contract">
+            <field name="student_id" ref="demo_student_3"/>
+            <field name="bed_id" ref="demo_bed_male_102_a"/>
+            <field name="contract_start" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="contract_end" eval="(DateTime.today() + timedelta(days=330)).strftime('%Y-%m-%d')"/>
+            <field name="monthly_rent" eval="500.0"/>
+            <field name="security_deposit" eval="1000.0"/>
+            <field name="deposit_status">held</field>
+            <field name="state">active</field>
+        </record>
+
+        <!-- Draft Contract -->
+        <record id="demo_contract_draft_1" model="hostel.contract">
+            <field name="student_id" ref="demo_student_4"/>
+            <field name="bed_id" ref="demo_bed_female_102"/>
+            <field name="contract_start" eval="(DateTime.today() + timedelta(days=7)).strftime('%Y-%m-%d')"/>
+            <field name="contract_end" eval="(DateTime.today() + timedelta(days=365)).strftime('%Y-%m-%d')"/>
+            <field name="monthly_rent" eval="550.0"/>
+            <field name="security_deposit" eval="1100.0"/>
+            <field name="deposit_status">held</field>
+            <field name="state">draft</field>
+        </record>
+
+        <!-- Closed Contract (for demo) -->
+        <record id="demo_contract_closed_1" model="hostel.contract">
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="bed_id" ref="demo_bed_male_201"/>
+            <field name="contract_start" eval="(DateTime.today() - timedelta(days=365)).strftime('%Y-%m-%d')"/>
+            <field name="contract_end" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="monthly_rent" eval="450.0"/>
+            <field name="security_deposit" eval="900.0"/>
+            <field name="deposit_status">refunded</field>
+            <field name="state">closed</field>
+        </record>
+
+        <!-- Check-ins - Draft State (Pending Check-in) -->
+        <record id="demo_checkin_draft_1" model="hostel.checkin">
+            <field name="contract_id" ref="demo_contract_draft_1"/>
+            <field name="state">draft</field>
+            <field name="inventory_notes">Pre-check-in inspection scheduled. Room will be inspected before student arrival.</field>
+        </record>
+
+        <!-- Check-ins - Active (Checked In) -->
+        <record id="demo_checkin_active_1" model="hostel.checkin">
+            <field name="contract_id" ref="demo_contract_active_1"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=90)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="state">checked_in</field>
+            <field name="inventory_notes">Room in good condition. All furniture present. Bed, wardrobe, study table, and chair verified. Air conditioning working properly.</field>
+        </record>
+
+        <record id="demo_checkin_active_2" model="hostel.checkin">
+            <field name="contract_id" ref="demo_contract_active_2"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=60)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="state">checked_in</field>
+            <field name="inventory_notes">Room clean and ready. All amenities working. Studio apartment fully furnished. TV and refrigerator functional.</field>
+        </record>
+
+        <record id="demo_checkin_active_3" model="hostel.checkin">
+            <field name="contract_id" ref="demo_contract_active_3"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="state">checked_in</field>
+            <field name="inventory_notes">Standard check-in. No issues reported. Twin room with shared facilities. Both beds inspected and ready.</field>
+        </record>
+
+        <!-- Check-outs - Completed with Different Scenarios -->
+        <!-- Check-out with single damage penalty -->
+        <record id="demo_checkin_closed_1" model="hostel.checkin">
+            <field name="contract_id" ref="demo_contract_closed_1"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=365)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="state">checked_out</field>
+            <field name="inventory_notes">Initial check-in completed successfully. Room was in excellent condition.</field>
+            <field name="damage_notes">Minor wall scratches found during checkout inspection. Located near the bed area. Estimated repair cost: $100.</field>
+        </record>
+
+        <!-- Penalties for closed check-in 1 -->
+        <record id="demo_penalty_1" model="hostel.checkin.penalty">
+            <field name="checkin_id" ref="demo_checkin_closed_1"/>
+            <field name="penalty_type_id" ref="demo_penalty_damage_wall"/>
+            <field name="penalty_category">damage</field>
+            <field name="description">Minor scratches on wall near bed area. Requires repainting.</field>
+            <field name="amount" eval="100.0"/>
+        </record>
+
+        <!-- Additional Check-out Scenario - Multiple Penalties -->
+        <!-- First, create a closed contract for this -->
+        <record id="demo_contract_closed_2" model="hostel.contract">
+            <field name="student_id" ref="demo_student_6"/>
+            <field name="bed_id" ref="demo_bed_female_101_b"/>
+            <field name="contract_start" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d')"/>
+            <field name="contract_end" eval="(DateTime.today() - timedelta(days=15)).strftime('%Y-%m-%d')"/>
+            <field name="monthly_rent" eval="500.0"/>
+            <field name="security_deposit" eval="1000.0"/>
+            <field name="deposit_status">held</field>
+            <field name="state">closed</field>
+        </record>
+
+        <!-- Check-out with multiple penalties -->
+        <record id="demo_checkin_closed_2" model="hostel.checkin">
+            <field name="contract_id" ref="demo_contract_closed_2"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=15)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="state">checked_out</field>
+            <field name="inventory_notes">Check-in completed. Room was clean and all items accounted for.</field>
+            <field name="damage_notes">Multiple issues found: Broken chair leg, damaged wardrobe door, and noise violation reported by neighbors during stay.</field>
+        </record>
+
+        <!-- Multiple penalties for check-out 2 -->
+        <record id="demo_penalty_2" model="hostel.checkin.penalty">
+            <field name="checkin_id" ref="demo_checkin_closed_2"/>
+            <field name="penalty_type_id" ref="demo_penalty_damage_furniture"/>
+            <field name="penalty_category">damage</field>
+            <field name="description">Broken chair leg - requires replacement</field>
+            <field name="amount" eval="200.0"/>
+        </record>
+
+        <record id="demo_penalty_3" model="hostel.checkin.penalty">
+            <field name="checkin_id" ref="demo_checkin_closed_2"/>
+            <field name="penalty_type_id" ref="demo_penalty_damage_furniture"/>
+            <field name="penalty_category">damage</field>
+            <field name="description">Damaged wardrobe door hinge - repair needed</field>
+            <field name="amount" eval="150.0"/>
+        </record>
+
+        <record id="demo_penalty_4" model="hostel.checkin.penalty">
+            <field name="checkin_id" ref="demo_checkin_closed_2"/>
+            <field name="penalty_type_id" ref="demo_penalty_violation_noise"/>
+            <field name="penalty_category">violation</field>
+            <field name="description">Noise violation reported by neighbors on multiple occasions</field>
+            <field name="amount" eval="50.0"/>
+        </record>
+
+        <!-- Check-out with no penalties (clean checkout) -->
+        <!-- Create another closed contract - using demo_student_5's previous contract -->
+        <record id="demo_contract_closed_3" model="hostel.contract">
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="bed_id" ref="demo_bed_mixed_101"/>
+            <field name="contract_start" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d')"/>
+            <field name="contract_end" eval="(DateTime.today() - timedelta(days=100)).strftime('%Y-%m-%d')"/>
+            <field name="monthly_rent" eval="700.0"/>
+            <field name="security_deposit" eval="1400.0"/>
+            <field name="deposit_status">refunded</field>
+            <field name="state">closed</field>
+        </record>
+
+        <record id="demo_checkin_closed_3" model="hostel.checkin">
+            <field name="contract_id" ref="demo_contract_closed_3"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=100)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="state">checked_out</field>
+            <field name="inventory_notes">Check-in completed successfully. Room was in excellent condition. Studio apartment fully furnished.</field>
+            <field name="damage_notes">No damages found. Room left in excellent condition. Security deposit fully refunded.</field>
+        </record>
+
+        <!-- Automation Configurations -->
+        <!-- Birthday Greeting -->
+        <record id="demo_birthday_greeting" model="hostel.birthday.greeting">
+            <field name="name">Student Birthday Greeting</field>
+            <field name="email_template_id" ref="email_template_birthday_greeting"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Renewal Reminders -->
+        <record id="demo_renewal_reminder_30" model="hostel.renewal.reminder">
+            <field name="name">30 Days Before Expiry</field>
+            <field name="days_before_expiry" eval="30"/>
+            <field name="email_template_id" ref="email_template_renewal_reminder_30"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="demo_renewal_reminder_15" model="hostel.renewal.reminder">
+            <field name="name">15 Days Before Expiry</field>
+            <field name="days_before_expiry" eval="15"/>
+            <field name="email_template_id" ref="email_template_renewal_reminder_15"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="demo_renewal_reminder_7" model="hostel.renewal.reminder">
+            <field name="name">7 Days Before Expiry</field>
+            <field name="days_before_expiry" eval="7"/>
+            <field name="email_template_id" ref="email_template_renewal_reminder_7"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Visitors -->
+        <!-- Pending Visitor Requests -->
+        <record id="demo_visitor_pending_1" model="hostel.visitor">
+            <field name="name">Robert Williams</field>
+            <field name="visitor_id_number">ID-12345</field>
+            <field name="phone">+1-555-2001</field>
+            <field name="email">robert.williams@email.com</field>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="visit_datetime" eval="(DateTime.today() + timedelta(days=1)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="expected_duration" eval="2.0"/>
+            <field name="purpose">Family visit - bringing personal belongings</field>
+            <field name="status">pending</field>
+        </record>
+
+        <record id="demo_visitor_pending_2" model="hostel.visitor">
+            <field name="name">Emily Davis</field>
+            <field name="visitor_id_number">ID-12346</field>
+            <field name="phone">+1-555-2002</field>
+            <field name="email">emily.davis@email.com</field>
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="visit_datetime" eval="(DateTime.today() + timedelta(days=2)).strftime('%Y-%m-%d 10:00:00')"/>
+            <field name="expected_duration" eval="1.5"/>
+            <field name="purpose">Friend visit - study session</field>
+            <field name="status">pending</field>
+        </record>
+
+        <!-- Approved Visitor Requests -->
+        <record id="demo_visitor_approved_1" model="hostel.visitor">
+            <field name="name">James Wilson</field>
+            <field name="visitor_id_number">ID-12347</field>
+            <field name="phone">+1-555-2003</field>
+            <field name="email">james.wilson@email.com</field>
+            <field name="student_id" ref="demo_student_3"/>
+            <field name="visit_datetime" eval="(DateTime.today() + timedelta(days=3)).strftime('%Y-%m-%d 16:00:00')"/>
+            <field name="expected_duration" eval="3.0"/>
+            <field name="purpose">Parent visit - discussing academic progress</field>
+            <field name="status">approved</field>
+            <field name="approval_datetime" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+
+        <!-- Checked In Visitors -->
+        <record id="demo_visitor_checkedin_1" model="hostel.visitor">
+            <field name="name">Mary Thompson</field>
+            <field name="visitor_id_number">ID-12348</field>
+            <field name="phone">+1-555-2004</field>
+            <field name="email">mary.thompson@email.com</field>
+            <field name="student_id" ref="demo_student_4"/>
+            <field name="visit_datetime" eval="DateTime.today().strftime('%Y-%m-%d 11:00:00')"/>
+            <field name="expected_duration" eval="2.0"/>
+            <field name="purpose">Sibling visit - helping with room setup</field>
+            <field name="status">checked_in</field>
+            <field name="approval_datetime" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="checkin_datetime" eval="DateTime.today().strftime('%Y-%m-%d 11:15:00')"/>
+        </record>
+
+        <!-- Completed Visits -->
+        <record id="demo_visitor_completed_1" model="hostel.visitor">
+            <field name="name">David Martinez</field>
+            <field name="visitor_id_number">ID-12349</field>
+            <field name="phone">+1-555-2005</field>
+            <field name="email">david.martinez@email.com</field>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="visit_datetime" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d 15:00:00')"/>
+            <field name="expected_duration" eval="1.5"/>
+            <field name="purpose">Friend visit - returning borrowed books</field>
+            <field name="status">completed</field>
+            <field name="approval_datetime" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d 15:10:00')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d 16:30:00')"/>
+            <field name="notes">Visit completed successfully. Visitor was courteous and followed all rules.</field>
+        </record>
+
+        <record id="demo_visitor_completed_2" model="hostel.visitor">
+            <field name="name">Jennifer Lee</field>
+            <field name="visitor_id_number">ID-12350</field>
+            <field name="phone">+1-555-2006</field>
+            <field name="email">jennifer.lee@email.com</field>
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="visit_datetime" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d 13:00:00')"/>
+            <field name="expected_duration" eval="2.0"/>
+            <field name="purpose">Family visit - birthday celebration</field>
+            <field name="status">completed</field>
+            <field name="approval_datetime" eval="(DateTime.today() - timedelta(days=4)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d 13:05:00')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d 15:00:00')"/>
+        </record>
+
+        <!-- Rejected Visitor Request -->
+        <record id="demo_visitor_rejected_1" model="hostel.visitor">
+            <field name="name">Thomas Anderson</field>
+            <field name="visitor_id_number">ID-12351</field>
+            <field name="phone">+1-555-2007</field>
+            <field name="email">thomas.anderson@email.com</field>
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="visit_datetime" eval="(DateTime.today() + timedelta(days=1)).strftime('%Y-%m-%d 20:00:00')"/>
+            <field name="expected_duration" eval="4.0"/>
+            <field name="purpose">Late night visit request</field>
+            <field name="status">rejected</field>
+            <field name="rejection_reason">Visiting hours are restricted to 8 AM - 8 PM. Late night visits are not permitted for security reasons.</field>
+        </record>
+
+        <!-- Cancelled Visitor Request -->
+        <record id="demo_visitor_cancelled_1" model="hostel.visitor">
+            <field name="name">Patricia White</field>
+            <field name="visitor_id_number">ID-12352</field>
+            <field name="phone">+1-555-2008</field>
+            <field name="email">patricia.white@email.com</field>
+            <field name="student_id" ref="demo_student_6"/>
+            <field name="visit_datetime" eval="(DateTime.today() + timedelta(days=5)).strftime('%Y-%m-%d 12:00:00')"/>
+            <field name="expected_duration" eval="1.0"/>
+            <field name="purpose">Planned visit - cancelled due to schedule conflict</field>
+            <field name="status">cancelled</field>
+        </record>
+
+        <!-- Student Attendance -->
+        <record id="demo_attendance_present_1" model="hostel.student.attendance">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="date" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d 08:15:00')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d 22:30:00')"/>
+            <field name="status">present</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="remarks">Regular entry via main gate.</field>
+        </record>
+
+        <record id="demo_attendance_present_2" model="hostel.student.attendance">
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="date" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d 09:00:00')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d 21:00:00')"/>
+            <field name="status">present</field>
+            <field name="building_id" ref="demo_building_female"/>
+        </record>
+
+        <record id="demo_attendance_late_1" model="hostel.student.attendance">
+            <field name="student_id" ref="demo_student_3"/>
+            <field name="date" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d 23:45:00')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=0)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="status">late</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="remarks">Late return after curfew - noted for record.</field>
+        </record>
+
+        <record id="demo_attendance_early_1" model="hostel.student.attendance">
+            <field name="student_id" ref="demo_student_4"/>
+            <field name="date" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="checkin_datetime" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d 08:00:00')"/>
+            <field name="checkout_datetime" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="status">early_departure</field>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="remarks">Left early for family function.</field>
+        </record>
+
+        <record id="demo_attendance_absent_1" model="hostel.student.attendance">
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="date" eval="(DateTime.today() - timedelta(days=4)).strftime('%Y-%m-%d')"/>
+            <field name="status">absent</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="remarks">Student did not check in - overnight leave approved.</field>
+        </record>
+
+        <record id="demo_attendance_present_today" model="hostel.student.attendance">
+            <field name="student_id" ref="demo_student_6"/>
+            <field name="date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="checkin_datetime" eval="DateTime.today().strftime('%Y-%m-%d 07:30:00')"/>
+            <field name="status">present</field>
+            <field name="building_id" ref="demo_building_mixed"/>
+        </record>
+
+        <!-- Rent Invoices (Fee Management) -->
+        <record id="demo_rent_invoice_1" model="hostel.rent.invoice">
+            <field name="contract_id" ref="demo_contract_active_1"/>
+            <field name="name">Rent Jan 2025</field>
+            <field name="period_start" eval="(DateTime.today().replace(day=1) - timedelta(days=32)).strftime('%Y-%m-01')"/>
+            <field name="period_end" eval="(DateTime.today().replace(day=1) - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="amount" eval="500.0"/>
+            <field name="due_date" eval="(DateTime.today().replace(day=1) - timedelta(days=25)).strftime('%Y-%m-%d')"/>
+            <field name="state">paid</field>
+        </record>
+
+        <record id="demo_rent_invoice_2" model="hostel.rent.invoice">
+            <field name="contract_id" ref="demo_contract_active_1"/>
+            <field name="name">Rent Feb 2025</field>
+            <field name="period_start" eval="DateTime.today().replace(day=1).strftime('%Y-%m-%d')"/>
+            <field name="period_end" eval="(DateTime.today().replace(day=1) + timedelta(days=27)).strftime('%Y-%m-%d')"/>
+            <field name="amount" eval="500.0"/>
+            <field name="due_date" eval="(DateTime.today().replace(day=1) + timedelta(days=7)).strftime('%Y-%m-%d')"/>
+            <field name="state">invoiced</field>
+        </record>
+
+        <record id="demo_rent_invoice_3" model="hostel.rent.invoice">
+            <field name="contract_id" ref="demo_contract_active_2"/>
+            <field name="name">Rent Feb 2025</field>
+            <field name="period_start" eval="DateTime.today().replace(day=1).strftime('%Y-%m-%d')"/>
+            <field name="period_end" eval="(DateTime.today().replace(day=1) + timedelta(days=27)).strftime('%Y-%m-%d')"/>
+            <field name="amount" eval="600.0"/>
+            <field name="due_date" eval="(DateTime.today().replace(day=1) + timedelta(days=7)).strftime('%Y-%m-%d')"/>
+            <field name="state">draft</field>
+        </record>
+
+        <!-- Maintenance Requests -->
+        <record id="demo_maintenance_request_1" model="hostel.maintenance.request">
+            <field name="name">MREQ00001</field>
+            <field name="request_type">plumbing</field>
+            <field name="priority">high</field>
+            <field name="state">submitted</field>
+            <field name="description">Tap leaking in common bathroom, Floor 1. Needs washer replacement.</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="room_id" ref="demo_room_male_101"/>
+        </record>
+
+        <record id="demo_maintenance_request_2" model="hostel.maintenance.request">
+            <field name="name">MREQ00002</field>
+            <field name="request_type">electrical</field>
+            <field name="priority">medium</field>
+            <field name="state">in_progress</field>
+            <field name="description">AC not cooling in Room 102. Filter cleaning and refrigerant check requested.</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="room_id" ref="demo_room_male_102"/>
+            <field name="cost" eval="75.0"/>
+        </record>
+
+        <record id="demo_maintenance_request_3" model="hostel.maintenance.request">
+            <field name="name">MREQ00003</field>
+            <field name="request_type">cleaning</field>
+            <field name="priority">low</field>
+            <field name="state">completed</field>
+            <field name="description">Deep cleaning of common area after renovation. Completed as scheduled.</field>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="completed_date" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d 16:00:00')"/>
+            <field name="cost" eval="50.0"/>
+        </record>
+
+        <record id="demo_maintenance_request_4" model="hostel.maintenance.request">
+            <field name="name">MREQ00004</field>
+            <field name="request_type">hvac</field>
+            <field name="priority">urgent</field>
+            <field name="state">draft</field>
+            <field name="description">Central AC unit making noise. Urgent inspection required.</field>
+            <field name="building_id" ref="demo_building_mixed"/>
+        </record>
+
+        <!-- Complaints &amp; Grievances -->
+        <record id="demo_complaint_1" model="hostel.complaint">
+            <field name="name">COMP00001</field>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="category">noise</field>
+            <field name="subject">Noise from adjacent room after 10 PM</field>
+            <field name="description">Neighbors in Room 102 play music loudly after 10 PM on weekdays. This violates quiet hours. Request intervention.</field>
+            <field name="priority">medium</field>
+            <field name="state">submitted</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="room_id" ref="demo_room_male_101"/>
+        </record>
+
+        <record id="demo_complaint_2" model="hostel.complaint">
+            <field name="name">COMP00002</field>
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="category">cleanliness</field>
+            <field name="subject">Common bathroom not cleaned regularly</field>
+            <field name="description">Floor 1 common bathroom is not cleaned daily as promised. Toilets and sinks are often dirty.</field>
+            <field name="priority">high</field>
+            <field name="state">under_review</field>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="room_id" ref="demo_room_female_101"/>
+        </record>
+
+        <record id="demo_complaint_3" model="hostel.complaint">
+            <field name="name">COMP00003</field>
+            <field name="student_id" ref="demo_student_3"/>
+            <field name="category">facilities</field>
+            <field name="subject">Wi-Fi not working in Room 102</field>
+            <field name="description">Wi-Fi signal is very weak in my room. Technical team was informed but no resolution yet.</field>
+            <field name="priority">medium</field>
+            <field name="state">resolved</field>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="room_id" ref="demo_room_male_102"/>
+            <field name="resolution_notes">Router repositioned. Signal strength improved. Student confirmed.</field>
+            <field name="resolved_date" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d 14:00:00')"/>
+        </record>
+
+        <record id="demo_complaint_4" model="hostel.complaint">
+            <field name="name">COMP00004</field>
+            <field name="student_id" ref="demo_student_4"/>
+            <field name="category">room_issue</field>
+            <field name="subject">Bed frame broken</field>
+            <field name="description">Bed frame in my room has a broken slat. Request repair or replacement.</field>
+            <field name="priority">high</field>
+            <field name="state">draft</field>
+            <field name="building_id" ref="demo_building_female"/>
+        </record>
+
+        <!-- Mess / Food Management -->
+        <record id="demo_mess_1" model="hostel.mess">
+            <field name="name">Men's Hostel Mess</field>
+            <field name="code">MHM</field>
+            <field name="building_id" ref="demo_building_male"/>
+        </record>
+
+        <record id="demo_mess_2" model="hostel.mess">
+            <field name="name">Women's Hostel Mess</field>
+            <field name="code">WHM</field>
+            <field name="building_id" ref="demo_building_female"/>
+        </record>
+
+        <record id="demo_mess_menu_1" model="hostel.mess.menu">
+            <field name="mess_id" ref="demo_mess_1"/>
+            <field name="menu_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="meal_type">breakfast</field>
+            <field name="name">North Indian Breakfast</field>
+            <field name="description">Poha, Upma, Idli, Chutney, Tea/Coffee</field>
+        </record>
+
+        <record id="demo_mess_menu_2" model="hostel.mess.menu">
+            <field name="mess_id" ref="demo_mess_1"/>
+            <field name="menu_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="meal_type">lunch</field>
+            <field name="name">Lunch - Veg Thali</field>
+            <field name="description">Rice, Dal, Sabzi, Roti, Salad, Curd</field>
+        </record>
+
+        <record id="demo_meal_booking_1" model="hostel.meal.booking">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="mess_id" ref="demo_mess_1"/>
+            <field name="booking_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="meal_type">lunch</field>
+            <field name="state">booked</field>
+        </record>
+
+        <record id="demo_meal_booking_2" model="hostel.meal.booking">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="mess_id" ref="demo_mess_1"/>
+            <field name="booking_date" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+            <field name="meal_type">breakfast</field>
+            <field name="state">attended</field>
+            <field name="attended_at" eval="(DateTime.today() - timedelta(days=1)).strftime('%Y-%m-%d 08:30:00')"/>
+        </record>
+
+        <record id="demo_meal_booking_3" model="hostel.meal.booking">
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="mess_id" ref="demo_mess_2"/>
+            <field name="booking_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="meal_type">dinner</field>
+            <field name="state">booked</field>
+        </record>
+
+        <!-- Laundry Management -->
+        <record id="demo_laundry_request_1" model="hostel.laundry.request">
+            <field name="name">LAUN00001</field>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="request_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="service_type">wash_iron</field>
+            <field name="quantity" eval="5"/>
+            <field name="items_description">2 shirts, 2 T-shirts, 1 jeans</field>
+            <field name="state">submitted</field>
+            <field name="fee" eval="75.0"/>
+        </record>
+
+        <record id="demo_laundry_request_2" model="hostel.laundry.request">
+            <field name="name">LAUN00002</field>
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="request_date" eval="(DateTime.today() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="service_type">wash</field>
+            <field name="quantity" eval="3"/>
+            <field name="items_description">3 T-shirts</field>
+            <field name="state">in_progress</field>
+            <field name="fee" eval="30.0"/>
+        </record>
+
+        <record id="demo_laundry_request_3" model="hostel.laundry.request">
+            <field name="name">LAUN00003</field>
+            <field name="student_id" ref="demo_student_3"/>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="request_date" eval="(DateTime.today() - timedelta(days=5)).strftime('%Y-%m-%d')"/>
+            <field name="service_type">dry_clean</field>
+            <field name="quantity" eval="2"/>
+            <field name="items_description">1 blazer, 1 formal trousers</field>
+            <field name="state">completed</field>
+            <field name="fee" eval="150.0"/>
+            <field name="delivery_date" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        </record>
+
+        <record id="demo_laundry_request_4" model="hostel.laundry.request">
+            <field name="name">LAUN00004</field>
+            <field name="student_id" ref="demo_student_4"/>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="request_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="service_type">iron</field>
+            <field name="quantity" eval="4"/>
+            <field name="items_description">4 shirts</field>
+            <field name="state">draft</field>
+            <field name="fee" eval="40.0"/>
+        </record>
+
+        <!-- Room Inspections -->
+        <record id="demo_room_inspection_1" model="hostel.room.inspection">
+            <field name="name">INSP00001</field>
+            <field name="inspection_date" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="scheduled_date" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="room_id" ref="demo_room_male_101"/>
+            <field name="state">completed</field>
+            <field name="checklist_note">Routine weekly inspection. All items checked.</field>
+            <field name="findings">Room in good condition. No issues.</field>
+        </record>
+
+        <record id="demo_room_inspection_line_1" model="hostel.room.inspection.line">
+            <field name="inspection_id" ref="demo_room_inspection_1"/>
+            <field name="sequence" eval="10"/>
+            <field name="name">Cleanliness</field>
+            <field name="result">ok</field>
+            <field name="remarks">Room clean</field>
+        </record>
+
+        <record id="demo_room_inspection_line_2" model="hostel.room.inspection.line">
+            <field name="inspection_id" ref="demo_room_inspection_1"/>
+            <field name="sequence" eval="20"/>
+            <field name="name">Furniture condition</field>
+            <field name="result">ok</field>
+        </record>
+
+        <record id="demo_room_inspection_line_3" model="hostel.room.inspection.line">
+            <field name="inspection_id" ref="demo_room_inspection_1"/>
+            <field name="sequence" eval="30"/>
+            <field name="name">Electrical / AC</field>
+            <field name="result">ok</field>
+        </record>
+
+        <record id="demo_room_inspection_2" model="hostel.room.inspection">
+            <field name="name">INSP00002</field>
+            <field name="inspection_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="scheduled_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="building_id" ref="demo_building_female"/>
+            <field name="state">scheduled</field>
+        </record>
+
+        <record id="demo_room_inspection_3" model="hostel.room.inspection">
+            <field name="name">INSP00003</field>
+            <field name="inspection_date" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="building_id" ref="demo_building_male"/>
+            <field name="room_id" ref="demo_room_male_102"/>
+            <field name="state">in_progress</field>
+            <field name="checklist_note">Spot check Room 102.</field>
+        </record>
+
+        <record id="demo_room_inspection_4" model="hostel.room.inspection">
+            <field name="name">INSP00004</field>
+            <field name="inspection_date" eval="(DateTime.today() + timedelta(days=2)).strftime('%Y-%m-%d')"/>
+            <field name="building_id" ref="demo_building_mixed"/>
+            <field name="state">draft</field>
+        </record>
+
+        <!-- Group Communication -->
+        <record id="demo_group_communication_draft" model="hostel.group.communication">
+            <field name="name">Hostel Rules Reminder - Draft</field>
+            <field name="message">&lt;p&gt;Please remember to follow quiet hours (10 PM - 6 AM) and keep common areas clean.&lt;/p&gt;</field>
+            <field name="target_type">building</field>
+            <field name="building_ids" eval="[(6, 0, [ref('demo_building_male')])]"/>
+            <field name="state">draft</field>
+            <field name="send_email" eval="True"/>
+            <field name="send_notification" eval="True"/>
+        </record>
+
+        <record id="demo_group_communication_sent" model="hostel.group.communication">
+            <field name="name">Maintenance Notice - Men's Hostel</field>
+            <field name="message">&lt;p&gt;Water supply will be interrupted on Block A, Floor 2 from 9 AM - 12 PM for pipeline repair. Please store water in advance.&lt;/p&gt;</field>
+            <field name="target_type">building</field>
+            <field name="building_ids" eval="[(6, 0, [ref('demo_building_male')])]"/>
+            <field name="state">sent</field>
+            <field name="sent_date" eval="(DateTime.today() - timedelta(days=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="send_email" eval="True"/>
+        </record>
+
+        <!-- Communication Log (linked to sent communication) -->
+        <record id="demo_communication_log_1" model="hostel.communication.log">
+            <field name="communication_id" ref="demo_group_communication_sent"/>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="sent_date" eval="(DateTime.today() - timedelta(days=5)).strftime('%Y-%m-%d 10:00:00')"/>
+            <field name="status">sent</field>
+            <field name="channel">email</field>
+        </record>
+
+        <record id="demo_communication_log_2" model="hostel.communication.log">
+            <field name="communication_id" ref="demo_group_communication_sent"/>
+            <field name="student_id" ref="demo_student_3"/>
+            <field name="sent_date" eval="(DateTime.today() - timedelta(days=5)).strftime('%Y-%m-%d 10:01:00')"/>
+            <field name="status">sent</field>
+            <field name="channel">email</field>
+        </record>
+
+        <!-- Notice Board / Announcements: Categories -->
+        <record id="demo_announcement_category_general" model="hostel.announcement.category">
+            <field name="name">General</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="demo_announcement_category_maintenance" model="hostel.announcement.category">
+            <field name="name">Maintenance</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="demo_announcement_category_events" model="hostel.announcement.category">
+            <field name="name">Events</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="demo_announcement_category_rules" model="hostel.announcement.category">
+            <field name="name">Rules &amp; Policies</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Notice Board / Announcements -->
+        <record id="demo_announcement_draft" model="hostel.announcement">
+            <field name="name">Upcoming Fire Drill - Draft</field>
+            <field name="category_id" ref="demo_announcement_category_general"/>
+            <field name="priority">normal</field>
+            <field name="content">&lt;p&gt;A fire drill will be scheduled next month. Details will be shared soon.&lt;/p&gt;</field>
+            <field name="target_type">all</field>
+            <field name="date_start" eval="(DateTime.today() + timedelta(days=7)).strftime('%Y-%m-%d')"/>
+            <field name="state">draft</field>
+        </record>
+        <record id="demo_announcement_published" model="hostel.announcement">
+            <field name="name">Quiet Hours Reminder</field>
+            <field name="category_id" ref="demo_announcement_category_rules"/>
+            <field name="priority">normal</field>
+            <field name="content">&lt;p&gt;Please observe quiet hours from 10 PM to 6 AM. Use common areas for group discussions.&lt;/p&gt;</field>
+            <field name="target_type">all</field>
+            <field name="date_start" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + timedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="state">published</field>
+            <field name="published_date" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d 09:00:00')"/>
+        </record>
+        <record id="demo_announcement_urgent" model="hostel.announcement">
+            <field name="name">Water Supply Interruption - Block A</field>
+            <field name="category_id" ref="demo_announcement_category_maintenance"/>
+            <field name="priority">urgent</field>
+            <field name="content">&lt;p&gt;Water supply will be interrupted in Block A on Saturday 9 AM - 12 PM for pipeline repair. Please store water in advance.&lt;/p&gt;</field>
+            <field name="target_type">building</field>
+            <field name="building_ids" eval="[(6, 0, [ref('demo_building_male')])]"/>
+            <field name="date_start" eval="DateTime.today().strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + timedelta(days=3)).strftime('%Y-%m-%d')"/>
+            <field name="state">published</field>
+            <field name="published_date" eval="(DateTime.today()).strftime('%Y-%m-%d 09:00:00')"/>
+        </record>
+        <record id="demo_announcement_expired" model="hostel.announcement">
+            <field name="name">Semester Break Notice (Expired)</field>
+            <field name="category_id" ref="demo_announcement_category_events"/>
+            <field name="priority">high</field>
+            <field name="content">&lt;p&gt;Hostel will remain open during semester break. Students must register if staying back.&lt;/p&gt;</field>
+            <field name="target_type">all</field>
+            <field name="date_start" eval="(DateTime.today() - timedelta(days=90)).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="state">expired</field>
+        </record>
+
+        <!-- Student Documents -->
+        <record id="demo_student_document_1" model="hostel.student.document">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="name">National ID Card</field>
+            <field name="document_type">id_card</field>
+            <field name="document_number">NID-2020-001234</field>
+            <field name="issue_date" eval="(DateTime.today() - timedelta(days=1825)).strftime('%Y-%m-%d')"/>
+            <field name="expiry_date" eval="(DateTime.today() + timedelta(days=730)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_student_document_2" model="hostel.student.document">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="name">Passport</field>
+            <field name="document_type">passport</field>
+            <field name="document_number">AB1234567</field>
+            <field name="issue_date" eval="(DateTime.today() - timedelta(days=365)).strftime('%Y-%m-%d')"/>
+            <field name="expiry_date" eval="(DateTime.today() + timedelta(days=25)).strftime('%Y-%m-%d')"/>
+            <field name="notes">Expiring soon - renewal reminder sent.</field>
+        </record>
+        <record id="demo_student_document_3" model="hostel.student.document">
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="name">Student ID Card</field>
+            <field name="document_type">id_card</field>
+            <field name="document_number">SU-2022-5678</field>
+            <field name="issue_date" eval="(DateTime.today() - timedelta(days=400)).strftime('%Y-%m-%d')"/>
+            <field name="expiry_date" eval="(DateTime.today() + timedelta(days=365)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_student_document_4" model="hostel.student.document">
+            <field name="student_id" ref="demo_student_3"/>
+            <field name="name">Visa - Study Permit</field>
+            <field name="document_type">visa</field>
+            <field name="document_number">VISA-2023-8899</field>
+            <field name="issue_date" eval="(DateTime.today() - timedelta(days=300)).strftime('%Y-%m-%d')"/>
+            <field name="expiry_date" eval="(DateTime.today() - timedelta(days=15)).strftime('%Y-%m-%d')"/>
+            <field name="notes">Expired - renewal in progress.</field>
+        </record>
+
+        <!-- Asset Maintenance -->
+        <record id="demo_asset_maintenance_1" model="hostel.asset.maintenance">
+            <field name="asset_id" ref="demo_asset_ac_1"/>
+            <field name="maintenance_date" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="maintenance_type">inspection</field>
+            <field name="description">Annual AC servicing and filter cleaning. Unit running normally.</field>
+            <field name="cost" eval="75.0"/>
+            <field name="notes">Scheduled annual maintenance.</field>
+        </record>
+
+        <record id="demo_asset_maintenance_2" model="hostel.asset.maintenance">
+            <field name="asset_id" ref="demo_asset_bed_1"/>
+            <field name="maintenance_date" eval="(DateTime.today() - timedelta(days=14)).strftime('%Y-%m-%d')"/>
+            <field name="maintenance_type">repair</field>
+            <field name="description">Bed frame screw tightened. Minor wobble fixed.</field>
+            <field name="cost" eval="0.0"/>
+        </record>
+
+        <record id="demo_asset_maintenance_3" model="hostel.asset.maintenance">
+            <field name="asset_id" ref="demo_asset_tv_1"/>
+            <field name="maintenance_date" eval="(DateTime.today() - timedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="maintenance_type">service</field>
+            <field name="description">Remote replacement and software update.</field>
+            <field name="cost" eval="25.0"/>
+        </record>
+
+        <!-- Asset Service -->
+        <record id="demo_asset_service_1" model="hostel.asset.service">
+            <field name="asset_id" ref="demo_asset_ac_1"/>
+            <field name="service_date" eval="(DateTime.today() - timedelta(days=90)).strftime('%Y-%m-%d')"/>
+            <field name="service_type">Annual Service</field>
+            <field name="description">Full HVAC check, refrigerant level, duct cleaning.</field>
+            <field name="cost" eval="120.0"/>
+        </record>
+
+        <record id="demo_asset_service_2" model="hostel.asset.service">
+            <field name="asset_id" ref="demo_asset_tv_1"/>
+            <field name="service_date" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d')"/>
+            <field name="service_type">Installation</field>
+            <field name="description">New TV installation and wall mount.</field>
+            <field name="cost" eval="50.0"/>
+        </record>
+
+        <!-- Occupancy History -->
+        <record id="demo_occupancy_history_1" model="hostel.occupancy.history">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="bed_id" ref="demo_bed_male_101_a"/>
+            <field name="contract_id" ref="demo_contract_active_1"/>
+            <field name="check_in" eval="(DateTime.today() - timedelta(days=90)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="remarks">Initial check-in for academic year.</field>
+        </record>
+
+        <record id="demo_occupancy_history_2" model="hostel.occupancy.history">
+            <field name="student_id" ref="demo_student_5"/>
+            <field name="bed_id" ref="demo_bed_male_201"/>
+            <field name="contract_id" ref="demo_contract_closed_1"/>
+            <field name="check_in" eval="(DateTime.today() - timedelta(days=365)).strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="check_out" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d 11:00:00')"/>
+            <field name="remarks">Contract ended. Room vacated.</field>
+        </record>
+
+        <record id="demo_occupancy_history_3" model="hostel.occupancy.history">
+            <field name="student_id" ref="demo_student_6"/>
+            <field name="bed_id" ref="demo_bed_female_101_b"/>
+            <field name="contract_id" ref="demo_contract_closed_2"/>
+            <field name="check_in" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d 10:00:00')"/>
+            <field name="check_out" eval="(DateTime.today() - timedelta(days=15)).strftime('%Y-%m-%d 09:00:00')"/>
+            <field name="remarks">Check-out with damage charges applied.</field>
+        </record>
+
+        <!-- Birthday Greeting Log -->
+        <record id="demo_birthday_greeting_log_1" model="hostel.birthday.greeting.log">
+            <field name="greeting_id" ref="demo_birthday_greeting"/>
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="sent_date" eval="(DateTime.today() - timedelta(days=100)).strftime('%Y-%m-%d 08:00:00')"/>
+            <field name="status">sent</field>
+        </record>
+
+        <record id="demo_birthday_greeting_log_2" model="hostel.birthday.greeting.log">
+            <field name="greeting_id" ref="demo_birthday_greeting"/>
+            <field name="student_id" ref="demo_student_4"/>
+            <field name="sent_date" eval="(DateTime.today() - timedelta(days=200)).strftime('%Y-%m-%d 08:00:00')"/>
+            <field name="status">sent</field>
+        </record>
+
+        <!-- Renewal Reminder Log -->
+        <record id="demo_renewal_reminder_log_1" model="hostel.renewal.reminder.log">
+            <field name="reminder_id" ref="demo_renewal_reminder_30"/>
+            <field name="contract_id" ref="demo_contract_active_1"/>
+            <field name="sent_date" eval="(DateTime.today() - timedelta(days=10)).strftime('%Y-%m-%d 09:00:00')"/>
+            <field name="days_before_expiry" eval="30"/>
+            <field name="status">sent</field>
+        </record>
+
+        <record id="demo_renewal_reminder_log_2" model="hostel.renewal.reminder.log">
+            <field name="reminder_id" ref="demo_renewal_reminder_15"/>
+            <field name="contract_id" ref="demo_contract_active_2"/>
+            <field name="sent_date" eval="(DateTime.today() - timedelta(days=5)).strftime('%Y-%m-%d 09:00:00')"/>
+            <field name="days_before_expiry" eval="15"/>
+            <field name="status">sent</field>
+        </record>
+
+    </data>
+</odoo>

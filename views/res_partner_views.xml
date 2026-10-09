@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_student_form" model="ir.ui.view">
+        <field name="name">res.partner.student.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_student"/>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Student Information"
+                      invisible="not is_student">
+                    <group>
+                        <field name="gender"/>
+                        <field name="date_of_birth"/>
+                    </group>
+
+                    <group>
+                        <field name="age_category" readonly="1"/>
+                        <field name="university_id"
+
+                               domain="[('is_company','=',True)]"/>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_student_search" model="ir.ui.view">
+        <field name="name">res.partner.student.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='supplier']" position="after">
+                <filter name="is_student" string="Students" domain="[('is_student', '=', True)]"/>
+                <filter name="age_underage" string="Underage" domain="[('age_category', '=', 'underage')]"/>
+                <filter name="age_overage" string="Overage" domain="[('age_category', '=', 'overage')]"/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="age_category"/>
+                <field name="university_id"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="group_by_university" string="University" domain="[]" context="{'group_by': 'university_id'}"/>
+                <filter name="group_by_age_category" string="Age Category" domain="[]" context="{'group_by': 'age_category'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

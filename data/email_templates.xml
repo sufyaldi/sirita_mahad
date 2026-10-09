@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- Birthday Greeting Email Template -->
+        <record id="email_template_birthday_greeting" model="mail.template">
+            <field name="name">Birthday Greeting - Hostel Student</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="subject">🎉 Happy Birthday, {{ object.name }}</field>
+            <field name="email_from">{{ (user.email_formatted or '') }}</field>
+            <field name="email_to">{{ object.email or '' }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                        <h1 style="color: #ffffff; margin: 0; font-size: 32px;">🎂 Happy Birthday!</h1>
+                    </div>
+                    
+                    <div style="background-color: #ffffff; padding: 40px; border-radius: 0 0 10px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <p style="font-size: 18px; color: #333333; line-height: 1.6; margin-bottom: 20px;">
+                            Dear <strong>{{ object.name }}</strong>,
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            On this special day, we want to take a moment to wish you a <strong>wonderful and joyful birthday!</strong> 🎉
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            We hope your special day brings you lots of happiness, love, and fun. May all your wishes come true, and may this new year of your life be filled with success, growth, and amazing experiences!
+                        </p>
+                        
+                        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #667eea;">
+                            <p style="margin: 0; font-size: 16px; color: #333333;">
+                                <strong>🎁 Birthday Wishes from Your Hostel Management Team</strong>
+                            </p>
+                            <p style="margin: 10px 0 0 0; font-size: 14px; color: #666666;">
+                                We're grateful to have you as part of our hostel community. Enjoy your special day to the fullest!
+                            </p>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            Once again, <strong>Happy Birthday!</strong> May this year be your best one yet! 🎈🎊
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-top: 30px;">
+                            Warm regards,<br/>
+                            <strong>The Hostel Management Team</strong>
+                        </p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; color: #999999; font-size: 12px;">
+                        <p style="margin: 0;">This is an automated birthday greeting from your hostel management system.</p>
+                        <p style="margin: 5px 0 0 0;">If you have any questions, please contact the hostel administration.</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <!-- Renewal Reminder Email Template - 30 Days -->
+        <record id="email_template_renewal_reminder_30" model="mail.template">
+            <field name="name">Contract Renewal Reminder - 30 Days</field>
+            <field name="model_id" ref="model_hostel_contract"/>
+            <field name="subject">📅 Contract Renewal Reminder - {{ object.student_id.name }}</field>
+            <field name="email_from">{{ (user.email_formatted or '') }}</field>
+            <field name="email_to">{{ object.student_id.email or '' }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                        <h1 style="color: #ffffff; margin: 0; font-size: 28px;">📅 Contract Renewal Reminder</h1>
+                    </div>
+                    
+                    <div style="background-color: #ffffff; padding: 40px; border-radius: 0 0 10px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <p style="font-size: 18px; color: #333333; line-height: 1.6; margin-bottom: 20px;">
+                            Dear <strong>{{ object.student_id.name }}</strong>,
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            This is a friendly reminder that your hostel contract is scheduled to expire in <strong style="color: #f5576c;">30 days</strong>.
+                        </p>
+                        
+                        <div style="background-color: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                            <h3 style="margin: 0 0 15px 0; color: #856404; font-size: 18px;">📋 Contract Details</h3>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold; width: 40%;">Contract End Date:</td>
+                                    <td style="padding: 8px 0; color: #856404; font-size: 16px;"><strong>{{ format_date(object.contract_end) }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Building:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ object.building_id.name or 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Room:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ object.room_id.name or 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Monthly Rent:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ format_amount(object.monthly_rent, object.currency_id) if object.monthly_rent else 'N/A' }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            To ensure a smooth transition and avoid any inconvenience, we encourage you to:
+                        </p>
+                        
+                        <ul style="font-size: 16px; color: #555555; line-height: 1.8; padding-left: 25px;">
+                            <li style="margin-bottom: 10px;">Review your contract renewal options</li>
+                            <li style="margin-bottom: 10px;">Contact the hostel administration to discuss renewal terms</li>
+                            <li style="margin-bottom: 10px;">Complete the renewal process before the expiration date</li>
+                        </ul>
+                        
+                        <div style="background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #2196F3;">
+                            <p style="margin: 0; font-size: 15px; color: #0c5460;">
+                                <strong>💡 Important:</strong> Please note that if you wish to renew your contract, it's advisable to initiate the renewal process as soon as possible to secure your accommodation.
+                            </p>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            If you have any questions or need assistance with the renewal process, please don't hesitate to contact our administration office.
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-top: 30px;">
+                            Best regards,<br/>
+                            <strong>The Hostel Management Team</strong>
+                        </p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; color: #999999; font-size: 12px;">
+                        <p style="margin: 0;">This is an automated reminder. Please contact the hostel administration for any queries.</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <!-- Renewal Reminder Email Template - 15 Days -->
+        <record id="email_template_renewal_reminder_15" model="mail.template">
+            <field name="name">Contract Renewal Reminder - 15 Days</field>
+            <field name="model_id" ref="model_hostel_contract"/>
+            <field name="subject">⚠️ Urgent: Contract Renewal Reminder - {{ object.student_id.name }}</field>
+            <field name="email_from">{{ (user.email_formatted or '') }}</field>
+            <field name="email_to">{{ object.student_id.email or '' }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
+                    <div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                        <h1 style="color: #ffffff; margin: 0; font-size: 28px;">⚠️ Urgent Renewal Reminder</h1>
+                    </div>
+                    
+                    <div style="background-color: #ffffff; padding: 40px; border-radius: 0 0 10px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <p style="font-size: 18px; color: #333333; line-height: 1.6; margin-bottom: 20px;">
+                            Dear <strong>{{ object.student_id.name }}</strong>,
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            This is an <strong style="color: #fa709a;">urgent reminder</strong> that your hostel contract will expire in <strong style="color: #fa709a; font-size: 18px;">15 days</strong>.
+                        </p>
+                        
+                        <div style="background-color: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                            <h3 style="margin: 0 0 15px 0; color: #856404; font-size: 18px;">📋 Contract Details</h3>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold; width: 40%;">Contract End Date:</td>
+                                    <td style="padding: 8px 0; color: #856404; font-size: 16px;"><strong>{{ format_date(object.contract_end) }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Building:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ object.building_id.name or 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Room:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ object.room_id.name or 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Monthly Rent:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ format_amount(object.monthly_rent, object.currency_id) if object.monthly_rent else 'N/A' }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div style="background-color: #f8d7da; border: 2px solid #dc3545; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                            <p style="margin: 0; font-size: 16px; color: #721c24;">
+                                <strong>⏰ Action Required:</strong> Please contact the hostel administration <strong>immediately</strong> to discuss your renewal options and complete the necessary paperwork.
+                            </p>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            To avoid any disruption to your accommodation, we strongly recommend:
+                        </p>
+                        
+                        <ul style="font-size: 16px; color: #555555; line-height: 1.8; padding-left: 25px;">
+                            <li style="margin-bottom: 10px;"><strong>Contact us today</strong> to initiate the renewal process</li>
+                            <li style="margin-bottom: 10px;">Review and sign the renewal agreement</li>
+                            <li style="margin-bottom: 10px;">Complete any required payments or documentation</li>
+                        </ul>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            Our administration team is available to assist you with the renewal process. Please reach out to us at your earliest convenience.
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-top: 30px;">
+                            Best regards,<br/>
+                            <strong>The Hostel Management Team</strong>
+                        </p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; color: #999999; font-size: 12px;">
+                        <p style="margin: 0;">This is an automated urgent reminder. Please contact the hostel administration immediately.</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <!-- Renewal Reminder Email Template - 7 Days -->
+        <record id="email_template_renewal_reminder_7" model="mail.template">
+            <field name="name">Contract Renewal Reminder - 7 Days</field>
+            <field name="model_id" ref="model_hostel_contract"/>
+            <field name="subject">🚨 FINAL REMINDER: Contract Expiring Soon - {{ object.student_id.name }}</field>
+            <field name="email_from">{{ (user.email_formatted or '') }}</field>
+            <field name="email_to">{{ object.student_id.email or '' }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8f9fa;">
+                    <div style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                        <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🚨 FINAL REMINDER</h1>
+                    </div>
+                    
+                    <div style="background-color: #ffffff; padding: 40px; border-radius: 0 0 10px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <p style="font-size: 18px; color: #333333; line-height: 1.6; margin-bottom: 20px;">
+                            Dear <strong>{{ object.student_id.name }}</strong>,
+                        </p>
+                        
+                        <p style="font-size: 18px; color: #eb3349; line-height: 1.8; margin-bottom: 20px; font-weight: bold;">
+                            ⚠️ URGENT: Your hostel contract expires in <strong style="font-size: 22px;">7 DAYS</strong>!
+                        </p>
+                        
+                        <div style="background-color: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                            <h3 style="margin: 0 0 15px 0; color: #856404; font-size: 18px;">📋 Contract Details</h3>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold; width: 40%;">Contract End Date:</td>
+                                    <td style="padding: 8px 0; color: #856404; font-size: 16px;"><strong>{{ format_date(object.contract_end) }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Building:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ object.building_id.name or 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Room:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ object.room_id.name or 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #333333; font-weight: bold;">Monthly Rent:</td>
+                                    <td style="padding: 8px 0; color: #856404;">{{ format_amount(object.monthly_rent, object.currency_id) if object.monthly_rent else 'N/A' }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div style="background-color: #f8d7da; border: 3px solid #dc3545; padding: 25px; border-radius: 8px; margin: 25px 0;">
+                            <p style="margin: 0 0 15px 0; font-size: 18px; color: #721c24; font-weight: bold;">
+                                🚨 IMMEDIATE ACTION REQUIRED
+                            </p>
+                            <p style="margin: 0; font-size: 16px; color: #721c24; line-height: 1.8;">
+                                Your contract will expire in <strong>7 days</strong>. If you wish to continue your stay, you must complete the renewal process <strong>immediately</strong>. Failure to renew may result in the need to vacate the premises.
+                            </p>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            <strong>Please take the following steps TODAY:</strong>
+                        </p>
+                        
+                        <ol style="font-size: 16px; color: #555555; line-height: 1.8; padding-left: 25px;">
+                            <li style="margin-bottom: 12px;"><strong>Contact the hostel administration immediately</strong> - Visit or call our office today</li>
+                            <li style="margin-bottom: 12px;"><strong>Review renewal terms</strong> - Discuss your renewal options and any changes</li>
+                            <li style="margin-bottom: 12px;"><strong>Complete renewal paperwork</strong> - Sign the renewal agreement</li>
+                            <li style="margin-bottom: 12px;"><strong>Make necessary payments</strong> - Ensure all fees are paid</li>
+                        </ol>
+                        
+                        <div style="background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 30px 0; border-left: 4px solid #2196F3;">
+                            <p style="margin: 0; font-size: 15px; color: #0c5460;">
+                                <strong>📞 Contact Information:</strong> Please reach out to our administration office as soon as possible. Our team is ready to assist you with the renewal process.
+                            </p>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-bottom: 20px;">
+                            We value you as a resident and want to ensure a smooth renewal process. Please don't delay - contact us today!
+                        </p>
+                        
+                        <p style="font-size: 16px; color: #555555; line-height: 1.8; margin-top: 30px;">
+                            Best regards,<br/>
+                            <strong>The Hostel Management Team</strong>
+                        </p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; color: #999999; font-size: 12px;">
+                        <p style="margin: 0; font-weight: bold; color: #eb3349;">This is a FINAL automated reminder. Immediate action is required.</p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

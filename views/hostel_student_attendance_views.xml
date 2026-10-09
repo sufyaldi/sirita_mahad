@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_student_attendance_tree" model="ir.ui.view">
+        <field name="name">hostel.student.attendance.tree</field>
+        <field name="model">hostel.student.attendance</field>
+        <field name="arch" type="xml">
+            <list
+                  decoration-success="status == 'present'"
+                  decoration-danger="status == 'absent'"
+                  decoration-warning="status in ['late', 'early_departure']">
+                <field name="student_id"/>
+                <field name="date"/>
+                <field name="checkin_datetime"/>
+                <field name="checkout_datetime"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'present'"
+                       decoration-danger="status == 'absent'"
+                       decoration-warning="status in ['late', 'early_departure']"/>
+                <field name="building_id"/>
+                <field name="verified_by_id"/>
+                <field name="remarks"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_student_attendance_form" model="ir.ui.view">
+        <field name="name">hostel.student.attendance.form</field>
+        <field name="model">hostel.student.attendance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id" options="{'no_create': True}"/>
+                            <field name="date"/>
+                            <field name="building_id"/>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                            <field name="checkin_datetime"/>
+                            <field name="checkout_datetime"/>
+                            <field name="verified_by_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="remarks" placeholder="Remarks..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_student_attendance_search" model="ir.ui.view">
+        <field name="name">hostel.student.attendance.search</field>
+        <field name="model">hostel.student.attendance</field>
+        <field name="arch" type="xml">
+            <search string="Student Attendance">
+                <field name="student_id" string="Student"/>
+                <field name="building_id" string="Building"/>
+                <field name="date"/>
+                <field name="verified_by_id" string="Verified By"/>
+                <filter string="Present" name="present" domain="[('status', '=', 'present')]"/>
+                <filter string="Absent" name="absent" domain="[('status', '=', 'absent')]"/>
+                <filter string="Late Entry" name="late" domain="[('status', '=', 'late')]"/>
+                <filter string="Early Departure" name="early_departure" domain="[('status', '=', 'early_departure')]"/>
+                <separator/>
+                <filter string="My Verifications" name="my_verifications" domain="[('verified_by_id.user_id', '=', uid)]"/>
+                <group>
+                    <filter string="Student" name="group_student" domain="[]" context="{'group_by': 'student_id'}"/>
+                    <filter string="Date" name="group_date" domain="[]" context="{'group_by': 'date'}"/>
+                    <filter string="Building" name="group_building" domain="[]" context="{'group_by': 'building_id'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Calendar View -->
+    <record id="view_student_attendance_calendar" model="ir.ui.view">
+        <field name="name">hostel.student.attendance.calendar</field>
+        <field name="model">hostel.student.attendance</field>
+        <field name="arch" type="xml">
+            <calendar string="Student Attendance" date_start="date" color="status"
+                      mode="month">
+                <field name="student_id"/>
+                <field name="date"/>
+                <field name="checkin_datetime"/>
+                <field name="checkout_datetime"/>
+                <field name="status"/>
+                <field name="building_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="view_student_attendance_graph" model="ir.ui.view">
+        <field name="name">hostel.student.attendance.graph</field>
+        <field name="model">hostel.student.attendance</field>
+        <field name="arch" type="xml">
+            <graph string="Attendance Summary" type="bar">
+                <field name="status" type="row"/>
+                <field name="id" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_student_attendance" model="ir.actions.act_window">
+        <field name="name">Student Attendance</field>
+        <field name="res_model">hostel.student.attendance</field>
+        <field name="view_mode">list,form,calendar,graph</field>
+        <field name="context">{'search_default_present': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create student attendance records (check-in/check-out).
+            </p>
+            <p>
+                Track daily attendance by student, date, building entry point, and status (present, absent, late, early departure).
+            </p>
+        </field>
+    </record>
+</odoo>

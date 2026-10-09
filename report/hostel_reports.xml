@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_hostel_wizard" model="ir.actions.report">
+        <field name="name">Hostel Report</field>
+        <field name="model">hostel.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sirita_mahad.report_hostel_wizard</field>
+        <field name="print_report_name">'Hostel_%s_Report_%s' % (object.report_type, object.create_date.strftime('%Y%m%d'))</field>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

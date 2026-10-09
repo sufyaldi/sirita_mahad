@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_contract_tree" model="ir.ui.view">
+        <field name="model">hostel.contract</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="student_id"/>
+                <field name="bed_id"/>
+                <field name="contract_start"/>
+                <field name="contract_end"/>
+                <field name="state"/>
+                <field name="force_upgrade"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_contract_form" model="ir.ui.view">
+        <field name="name">hostel.contract.form</field>
+        <field name="model">hostel.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_contract_email"
+                            type="object"
+                            string="Send Contract Email"
+                            class="oe_highlight"
+                            invisible="not student_id"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <field name="student_id"/>
+                        <field name="bed_id"/>
+                    </group>
+
+                    <group>
+                        <field name="contract_start"/>
+                        <field name="contract_end"/>
+                    </group>
+
+                    <group>
+                        <field name="monthly_rent"/>
+                        <field name="security_deposit"/>
+                        <field name="deposit_status"/>
+                        <field name="outstanding_rent_balance" readonly="1"/>
+                    </group>
+
+                    <group>
+                <field name="force_upgrade"/>
+                <field name="original_room_type"
+                       invisible="not force_upgrade"/>
+                
+                <group string="Occupied Room Info" invisible="state != 'active'">
+                    <field name="force_upgrade" readonly="1"/>
+                    <field name="original_room_type" readonly="1" invisible="not force_upgrade"/>
+                </group>
+                    </group>
+
+                    <group>
+                        <field name="active"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Rent Invoices" name="rent_invoices" invisible="state != 'active'">
+                            <field name="rent_invoice_ids" nolabel="1">
+                                <list decoration-success="state == 'paid'" decoration-danger="state == 'overdue'" decoration-muted="state == 'cancelled'" create="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="period_start"/>
+                                    <field name="period_end"/>
+                                    <field name="amount"/>
+                                    <field name="due_date"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="invoice_id"/>
+                                    <button name="action_create_invoice" type="object" string="Create Invoice" icon="fa-file-text-o" invisible="invoice_id or state == 'cancelled'"/>
+                                    <button name="action_view_invoice" type="object" string="View" icon="fa-external-link" invisible="not invoice_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_contract_search" model="ir.ui.view">
+        <field name="model">hostel.contract</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="student_id"/>
+                <field name="bed_id"/>
+                <field name="building_id"/>
+                <field name="state"/>
+
+                <filter name="active_contracts" string="Active Contracts"
+                        domain="[('state','=','active')]"/>
+
+                <filter name="ending_next_10_days" string="Ending in Next 10 Days"
+                        domain="[('contract_end', '&gt;=', context_today()), ('contract_end', '&lt;=', (context_today() + datetime.timedelta(days=10))), ('state', '=', 'active')]"/>
+
+                <filter name="ending_next_30_days" string="Ending in Next 30 Days"
+                        domain="[('contract_end', '&gt;=', context_today()), ('contract_end', '&lt;=', (context_today() + datetime.timedelta(days=30))), ('state', '=', 'active')]"/>
+
+                <filter name="ending_today" string="Ending Today"
+                        domain="[('contract_end', '=', context_today()), ('state', 'in', ['active', 'draft'])]"/>
+
+                <group>
+                    <filter name="building" string="Building" domain="[]" context="{'group_by': 'building_id'}"/>
+                    <filter name="state" string="State" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_contract" model="ir.actions.act_window">
+        <field name="res_model">hostel.contract</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

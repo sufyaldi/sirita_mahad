@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Sequence for room inspection reference -->
+    <record id="seq_hostel_room_inspection" model="ir.sequence">
+        <field name="name">Hostel Room Inspection</field>
+        <field name="code">hostel.room.inspection</field>
+        <field name="prefix">INSP</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_room_inspection_tree" model="ir.ui.view">
+        <field name="name">hostel.room.inspection.tree</field>
+        <field name="model">hostel.room.inspection</field>
+        <field name="arch" type="xml">
+            <list
+                  decoration-success="state == 'completed'"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-info="state == 'in_progress'">
+                <field name="name"/>
+                <field name="inspection_date"/>
+                <field name="scheduled_date"/>
+                <field name="building_id"/>
+                <field name="room_id"/>
+                <field name="inspected_by_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'completed'"
+                       decoration-info="state in ('scheduled', 'in_progress')"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_room_inspection_form" model="ir.ui.view">
+        <field name="name">hostel.room.inspection.form</field>
+        <field name="model">hostel.room.inspection</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_schedule"
+                            type="object"
+                            string="Schedule"
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start"
+                            type="object"
+                            string="Start Inspection"
+                            invisible="state not in ('draft', 'scheduled')"/>
+                    <button name="action_complete"
+                            type="object"
+                            string="Complete"
+                            class="oe_highlight"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            invisible="state in ('completed', 'cancelled')"
+                            class="btn-danger"/>
+                    <button name="action_reset_draft"
+                            type="object"
+                            string="Reset to Draft"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,scheduled,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="inspection_date"/>
+                            <field name="scheduled_date"/>
+                            <field name="building_id"/>
+                            <field name="room_id"/>
+                            <field name="inspected_by_id"/>
+                        </group>
+                        <group>
+                            <field name="state" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="checklist_note" placeholder="General checklist notes..."/>
+                        <field name="findings" placeholder="Inspection findings and remarks..."/>
+                    </group>
+                    <notebook>
+                        <page string="Checklist" name="checklist">
+                            <field name="line_ids" nolabel="1">
+                                <list create="1" delete="1" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="result" widget="badge"
+                                           decoration-success="result == 'ok'"
+                                           decoration-danger="result == 'not_ok'"
+                                           decoration-muted="result == 'na'"/>
+                                    <field name="remarks"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_room_inspection_search" model="ir.ui.view">
+        <field name="name">hostel.room.inspection.search</field>
+        <field name="model">hostel.room.inspection</field>
+        <field name="arch" type="xml">
+            <search string="Room Inspections">
+                <field name="name"/>
+                <field name="building_id"/>
+                <field name="room_id"/>
+                <field name="inspected_by_id"/>
+                <field name="inspection_date"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Scheduled" name="scheduled" domain="[('state', '=', 'scheduled')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Open" name="open" domain="[('state', 'in', ['draft', 'scheduled', 'in_progress'])]"/>
+                <group>
+                    <filter string="Building" name="group_building" domain="[]" context="{'group_by': 'building_id'}"/>
+                    <filter string="Status" name="group_state" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_room_inspection" model="ir.actions.act_window">
+        <field name="name">Room Inspections</field>
+        <field name="res_model">hostel.room.inspection</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_open': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Schedule a room inspection.</p>
+            <p>Record inspections by building or room, with checklist items (OK / Not OK / N/A) and findings.</p>
+        </field>
+    </record>
+</odoo>

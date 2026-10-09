@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================ -->
+    <!--  Main dispatch template                                      -->
+    <!-- ============================================================ -->
+    <template id="report_hostel_wizard">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="wizard">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <t t-set="report_data" t-value="wizard.get_report_data()"/>
+
+                        <!-- Report Header -->
+                        <div style="text-align:center; margin-bottom:20px;">
+                            <h2 style="color:#2A8FD6; margin-bottom:4px;">
+                                <t t-out="report_data['title']"/>
+                            </h2>
+                            <p style="color:#666; font-size:12px; margin:0;">
+                                Generated on <t t-out="report_data['generated_on']"/> by
+                                <t t-out="report_data['generated_by']"/>
+                            </p>
+                            <p t-if="report_data.get('subtitle')"
+                               style="color:#888; font-size:11px; margin:2px 0 0 0;">
+                                <t t-out="report_data['subtitle']"/>
+                            </p>
+                        </div>
+
+                        <!-- Dispatch to sub-template -->
+                        <t t-if="wizard.report_type == 'students_inhouse'"
+                           t-call="sirita_mahad.report_students_inhouse"/>
+                        <t t-if="wizard.report_type == 'occupancy'"
+                           t-call="sirita_mahad.report_occupancy"/>
+                        <t t-if="wizard.report_type == 'financial'"
+                           t-call="sirita_mahad.report_financial"/>
+                        <t t-if="wizard.report_type == 'attendance'"
+                           t-call="sirita_mahad.report_attendance"/>
+                        <t t-if="wizard.report_type == 'visitors'"
+                           t-call="sirita_mahad.report_visitors"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--  Shared styles                                               -->
+    <!-- ============================================================ -->
+    <template id="report_hostel_styles">
+        <style>
+            .hostel-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 11px;
+                margin-bottom: 16px;
+            }
+            .hostel-table thead th {
+                background-color: #2A8FD6;
+                color: #fff;
+                padding: 8px 10px;
+                text-align: left;
+                font-weight: 600;
+                border: 1px solid #2280c2;
+            }
+            .hostel-table tbody td {
+                padding: 6px 10px;
+                border: 1px solid #dee2e6;
+                vertical-align: middle;
+            }
+            .hostel-table tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+            /* summary boxes removed — each report uses its own table-based summary */
+            .hostel-section-title {
+                font-size: 13px;
+                font-weight: 600;
+                color: #333;
+                border-bottom: 2px solid #2A8FD6;
+                padding-bottom: 4px;
+                margin: 20px 0 10px 0;
+            }
+            .hostel-badge {
+                display: inline-block;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 10px;
+                font-weight: 600;
+                color: #fff !important;
+            }
+            .badge-active { background-color: #28a745 !important; }
+            .badge-draft  { background-color: #6c757d !important; }
+            .badge-closed { background-color: #dc3545 !important; }
+            .badge-present { background-color: #28a745 !important; }
+            .badge-absent  { background-color: #dc3545 !important; }
+            .badge-late    { background-color: #fd7e14 !important; }
+            .badge-early   { background-color: #ffc107 !important; color: #333 !important; }
+            .badge-early_departure { background-color: #ffc107 !important; color: #333 !important; }
+            .badge-pending  { background-color: #ffc107 !important; color: #333 !important; }
+            .badge-approved { background-color: #17a2b8 !important; }
+            .badge-checked_in { background-color: #28a745 !important; }
+            .badge-completed  { background-color: #6c757d !important; }
+            .badge-rejected   { background-color: #dc3545 !important; }
+            .badge-cancelled  { background-color: #343a40 !important; }
+            .badge-paid   { background-color: #28a745 !important; }
+            .badge-invoiced { background-color: #17a2b8 !important; }
+            .badge-open   { background-color: #ffc107 !important; color: #333 !important; }
+            .badge-overdue { background-color: #dc3545 !important; }
+            .text-right { text-align: right !important; }
+            .text-center { text-align: center !important; }
+            .no-records { text-align:center; color:#888 !important; padding:30px 0; font-size:13px; }
+        </style>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--  1. Students Currently In-House                              -->
+    <!-- ============================================================ -->
+    <template id="report_students_inhouse">
+        <t t-call="sirita_mahad.report_hostel_styles"/>
+        <t t-set="records" t-value="report_data['records']"/>
+        <t t-set="summary" t-value="report_data['summary']"/>
+
+        <style>
+            .sih-summary {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 18px;
+            }
+            .sih-summary td {
+                text-align: center;
+                padding: 10px 8px;
+                border: 1px solid #dee2e6;
+            }
+            .sih-summary .ss-num {
+                font-size: 22px;
+                font-weight: 700;
+                display: block;
+                line-height: 1.2;
+                color: #333;
+            }
+            .sih-summary .ss-lbl {
+                font-size: 9px;
+                color: #666 !important;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: block;
+            }
+            .sih-tbl {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 10px;
+                table-layout: fixed;
+                color: #333 !important;
+            }
+            .sih-tbl thead th {
+                background-color: #2A8FD6 !important;
+                color: #fff !important;
+                padding: 7px 6px;
+                text-align: left;
+                font-weight: 600;
+                font-size: 9px;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                border: 1px solid #2280c2;
+            }
+            .sih-tbl tbody tr {
+                background-color: #fff;
+            }
+            .sih-tbl tbody td {
+                padding: 5px 6px;
+                border: 1px solid #dee2e6;
+                vertical-align: middle;
+                color: #333 !important;
+            }
+            .sih-tbl tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+        </style>
+
+        <!-- Summary -->
+        <table class="sih-summary">
+            <tr>
+                <td>
+                    <span class="ss-num" style="color:#2A8FD6;"><t t-out="summary['total']"/></span>
+                    <span class="ss-lbl">Total Students</span>
+                </td>
+                <td>
+                    <span class="ss-num" style="color:#333;"><t t-out="summary['buildings']"/></span>
+                    <span class="ss-lbl">Buildings</span>
+                </td>
+            </tr>
+        </table>
+
+        <t t-if="records">
+            <table class="sih-tbl">
+                <colgroup>
+                    <col style="width:4%;"/>
+                    <col style="width:20%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:10%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:10%;"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Student</th>
+                        <th>Building</th>
+                        <th>Room</th>
+                        <th>Bed</th>
+                        <th>Contract Start</th>
+                        <th>Contract End</th>
+                        <th class="text-right">Monthly Rent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="idx" t-value="0"/>
+                    <t t-foreach="records" t-as="c">
+                        <t t-set="idx" t-value="idx + 1"/>
+                        <tr>
+                            <td class="text-center" style="color:#999;"><t t-out="idx"/></td>
+                            <td style="font-weight:600;"><t t-out="c.student_id.name"/></td>
+                            <td><t t-out="c.building_id.name or '-'"/></td>
+                            <td><t t-out="c.room_id.name or '-'"/></td>
+                            <td><t t-out="c.bed_id.name or '-'"/></td>
+                            <td><t t-out="c.contract_start" t-options='{"widget": "date"}'/></td>
+                            <td><t t-out="c.contract_end" t-options='{"widget": "date"}'/></td>
+                            <td class="text-right" style="font-weight:600;">
+                                <t t-out="c.monthly_rent" t-options='{"widget": "monetary", "display_currency": c.currency_id}'/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+        <t t-else="">
+            <p class="no-records">No active students currently in-house.</p>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--  2. Occupancy Report                                         -->
+    <!-- ============================================================ -->
+    <template id="report_occupancy">
+        <t t-call="sirita_mahad.report_hostel_styles"/>
+        <t t-set="records" t-value="report_data['records']"/>
+        <t t-set="summary" t-value="report_data['summary']"/>
+
+        <style>
+            .occ-summary {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 18px;
+            }
+            .occ-summary td {
+                width: 20%;
+                text-align: center;
+                padding: 10px 8px;
+                border: 1px solid #dee2e6;
+            }
+            .occ-summary .os-num {
+                font-size: 22px;
+                font-weight: 700;
+                display: block;
+                line-height: 1.2;
+                color: #333;
+            }
+            .occ-summary .os-lbl {
+                font-size: 9px;
+                color: #666 !important;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: block;
+            }
+            .occ-tbl {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 10px;
+                table-layout: fixed;
+                color: #333 !important;
+            }
+            .occ-tbl thead th {
+                background-color: #2A8FD6 !important;
+                color: #fff !important;
+                padding: 7px 6px;
+                text-align: left;
+                font-weight: 600;
+                font-size: 9px;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                border: 1px solid #2280c2;
+            }
+            .occ-tbl tbody tr {
+                background-color: #fff;
+            }
+            .occ-tbl tbody td {
+                padding: 5px 6px;
+                border: 1px solid #dee2e6;
+                vertical-align: middle;
+                color: #333 !important;
+            }
+            .occ-tbl tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+        </style>
+
+        <!-- Summary -->
+        <table class="occ-summary">
+            <tr>
+                <td>
+                    <span class="os-num" style="color:#2A8FD6;"><t t-out="summary['total_rooms']"/></span>
+                    <span class="os-lbl">Total Rooms</span>
+                </td>
+                <td>
+                    <span class="os-num" style="color:#333;"><t t-out="summary['total_beds']"/></span>
+                    <span class="os-lbl">Total Beds</span>
+                </td>
+                <td>
+                    <span class="os-num" style="color:#28a745;"><t t-out="summary['occupied_beds']"/></span>
+                    <span class="os-lbl">Occupied</span>
+                </td>
+                <td>
+                    <span class="os-num" style="color:#fd7e14;"><t t-out="summary['vacant_beds']"/></span>
+                    <span class="os-lbl">Vacant</span>
+                </td>
+                <td>
+                    <span class="os-num" style="color:#2A8FD6;"><t t-out="summary['occupancy_rate']"/>%</span>
+                    <span class="os-lbl">Occupancy Rate</span>
+                </td>
+            </tr>
+        </table>
+
+        <t t-if="records">
+            <table class="occ-tbl">
+                <colgroup>
+                    <col style="width:4%;"/>
+                    <col style="width:18%;"/>
+                    <col style="width:18%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:12%;"/>
+                    <col style="width:12%;"/>
+                    <col style="width:10%;"/>
+                    <col style="width:12%;"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Building</th>
+                        <th>Room</th>
+                        <th>Room Type</th>
+                        <th class="text-center">Total Beds</th>
+                        <th class="text-center">Occupied</th>
+                        <th class="text-center">Vacant</th>
+                        <th class="text-center">Occupancy %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="idx" t-value="0"/>
+                    <t t-foreach="records" t-as="r">
+                        <t t-set="idx" t-value="idx + 1"/>
+                        <tr>
+                            <td class="text-center" style="color:#999;"><t t-out="idx"/></td>
+                            <td><t t-out="r['building']"/></td>
+                            <td><t t-out="r['room']"/></td>
+                            <td><t t-out="r['room_type']"/></td>
+                            <td class="text-center"><t t-out="r['total_beds']"/></td>
+                            <td class="text-center" style="font-weight:600; color:#28a745;"><t t-out="r['occupied']"/></td>
+                            <td class="text-center"><t t-out="r['vacant']"/></td>
+                            <td class="text-center" style="font-weight:600;"><t t-out="r['rate']"/>%</td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+        <t t-else="">
+            <p class="no-records">No room data found.</p>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--  3. Financial Report                                         -->
+    <!-- ============================================================ -->
+    <template id="report_financial">
+        <t t-call="sirita_mahad.report_hostel_styles"/>
+        <t t-set="records" t-value="report_data['records']"/>
+        <t t-set="summary" t-value="report_data['summary']"/>
+
+        <style>
+            .fin-summary {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 18px;
+            }
+            .fin-summary td {
+                text-align: center;
+                padding: 10px 8px;
+                border: 1px solid #dee2e6;
+            }
+            .fin-summary .fs-num {
+                font-size: 18px;
+                font-weight: 700;
+                display: block;
+                line-height: 1.2;
+                color: #333;
+            }
+            .fin-summary .fs-lbl {
+                font-size: 9px;
+                color: #666 !important;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: block;
+            }
+            .fin-tbl {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 10px;
+                table-layout: fixed;
+                color: #333 !important;
+            }
+            .fin-tbl thead th {
+                background-color: #2A8FD6 !important;
+                color: #fff !important;
+                padding: 7px 6px;
+                text-align: left;
+                font-weight: 600;
+                font-size: 9px;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                border: 1px solid #2280c2;
+            }
+            .fin-tbl tbody tr {
+                background-color: #fff;
+            }
+            .fin-tbl tbody td {
+                padding: 5px 6px;
+                border: 1px solid #dee2e6;
+                vertical-align: middle;
+                color: #333 !important;
+            }
+            .fin-tbl tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+        </style>
+
+        <!-- Summary -->
+        <table class="fin-summary">
+            <tr>
+                <td>
+                    <span class="fs-num" style="color:#2A8FD6;"><t t-out="summary['total_invoices']"/></span>
+                    <span class="fs-lbl">Total Invoices</span>
+                </td>
+                <td>
+                    <span class="fs-num" style="color:#333;"><t t-out="summary['total_amount']"/></span>
+                    <span class="fs-lbl">Total Amount</span>
+                </td>
+                <td>
+                    <span class="fs-num" style="color:#28a745;"><t t-out="summary['paid_amount']"/></span>
+                    <span class="fs-lbl">Paid</span>
+                </td>
+                <td>
+                    <span class="fs-num" style="color:#fd7e14;"><t t-out="summary['outstanding']"/></span>
+                    <span class="fs-lbl">Outstanding</span>
+                </td>
+                <td>
+                    <span class="fs-num" style="color:#dc3545;"><t t-out="summary['overdue']"/></span>
+                    <span class="fs-lbl">Overdue</span>
+                </td>
+            </tr>
+        </table>
+
+        <t t-if="records">
+            <table class="fin-tbl">
+                <colgroup>
+                    <col style="width:4%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:18%;"/>
+                    <col style="width:22%;"/>
+                    <col style="width:12%;"/>
+                    <col style="width:16%;"/>
+                    <col style="width:14%;"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Invoice</th>
+                        <th>Student</th>
+                        <th>Period</th>
+                        <th>Due Date</th>
+                        <th class="text-right">Amount</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="idx" t-value="0"/>
+                    <t t-foreach="records" t-as="inv">
+                        <t t-set="idx" t-value="idx + 1"/>
+                        <tr>
+                            <td class="text-center" style="color:#999;"><t t-out="idx"/></td>
+                            <td><t t-out="inv.name"/></td>
+                            <td><t t-out="inv.student_id.name or '-'"/></td>
+                            <td>
+                                <t t-out="inv.period_start" t-options='{"widget": "date"}'/>
+                                <span style="color:#999;"> – </span>
+                                <t t-out="inv.period_end" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td><t t-out="inv.due_date" t-options='{"widget": "date"}'/></td>
+                            <td class="text-right" style="font-weight:600;">
+                                <t t-out="inv.amount" t-options='{"widget": "monetary", "display_currency": inv.currency_id}'/>
+                            </td>
+                            <td class="text-center">
+                                <span t-attf-class="hostel-badge badge-#{inv.state}">
+                                    <t t-out="dict(inv._fields['state'].selection).get(inv.state, inv.state)"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+        <t t-else="">
+            <p class="no-records">No invoices found for the selected period.</p>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--  4. Attendance Report                                        -->
+    <!-- ============================================================ -->
+    <template id="report_attendance">
+        <t t-call="sirita_mahad.report_hostel_styles"/>
+        <t t-set="records" t-value="report_data['records']"/>
+        <t t-set="summary" t-value="report_data['summary']"/>
+
+        <style>
+            .att-summary {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 18px;
+            }
+            .att-summary td {
+                width: 25%;
+                text-align: center;
+                padding: 10px 8px;
+                border: 1px solid #dee2e6;
+            }
+            .att-summary .as-num {
+                font-size: 22px;
+                font-weight: 700;
+                display: block;
+                line-height: 1.2;
+                color: #333;
+            }
+            .att-summary .as-lbl {
+                font-size: 9px;
+                color: #666 !important;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                display: block;
+            }
+            .att-tbl {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 10px;
+                table-layout: fixed;
+                color: #333 !important;
+            }
+            .att-tbl thead th {
+                background-color: #2A8FD6 !important;
+                color: #fff !important;
+                padding: 7px 6px;
+                text-align: left;
+                font-weight: 600;
+                font-size: 9px;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                border: 1px solid #2280c2;
+            }
+            .att-tbl tbody tr {
+                background-color: #fff;
+            }
+            .att-tbl tbody td {
+                padding: 5px 6px;
+                border: 1px solid #dee2e6;
+                vertical-align: middle;
+                color: #333 !important;
+            }
+            .att-tbl tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+        </style>
+
+        <!-- Summary -->
+        <table class="att-summary">
+            <tr>
+                <td>
+                    <span class="as-num" style="color:#2A8FD6;"><t t-out="summary['total']"/></span>
+                    <span class="as-lbl">Total Records</span>
+                </td>
+                <td>
+                    <span class="as-num" style="color:#28a745;"><t t-out="summary['present']"/></span>
+                    <span class="as-lbl">Present</span>
+                </td>
+                <td>
+                    <span class="as-num" style="color:#dc3545;"><t t-out="summary['absent']"/></span>
+                    <span class="as-lbl">Absent</span>
+                </td>
+                <td>
+                    <span class="as-num" style="color:#fd7e14;"><t t-out="summary['late']"/></span>
+                    <span class="as-lbl">Late</span>
+                </td>
+            </tr>
+        </table>
+
+        <t t-if="records">
+            <table class="att-tbl">
+                <colgroup>
+                    <col style="width:5%;"/>
+                    <col style="width:20%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:17%;"/>
+                    <col style="width:17%;"/>
+                    <col style="width:14%;"/>
+                    <col style="width:13%;"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Student</th>
+                        <th>Date</th>
+                        <th>Check-In</th>
+                        <th>Check-Out</th>
+                        <th>Building</th>
+                        <th style="text-align:center;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="idx" t-value="0"/>
+                    <t t-set="status_colors" t-value="{'present': '#28a745', 'absent': '#dc3545', 'late': '#fd7e14', 'early_departure': '#ffc107'}"/>
+                    <t t-set="status_labels" t-value="{'present': 'Present', 'absent': 'Absent', 'late': 'Late Entry', 'early_departure': 'Early Departure'}"/>
+                    <t t-foreach="records" t-as="att">
+                        <t t-set="idx" t-value="idx + 1"/>
+                        <tr>
+                            <td style="text-align:center; color:#999;"><t t-out="idx"/></td>
+                            <td style="font-weight:600;"><t t-out="att.student_id.name"/></td>
+                            <td><t t-out="att.date" t-options='{"widget": "date"}'/></td>
+                            <td><t t-out="str(att.checkin_datetime)[:16] if att.checkin_datetime else '-'"/></td>
+                            <td><t t-out="str(att.checkout_datetime)[:16] if att.checkout_datetime else '-'"/></td>
+                            <td><t t-out="att.building_id.name or '-'"/></td>
+                            <td style="text-align:center;">
+                                <span t-attf-style="display:inline-block; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; color:#fff; background:#{status_colors.get(att.status, '#6c757d')};"><t t-out="status_labels.get(att.status, att.status)"/></span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+        <t t-else="">
+            <p class="no-records">No attendance records found for the selected period.</p>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--  5. Visitor Report                                           -->
+    <!-- ============================================================ -->
+    <template id="report_visitors">
+        <t t-set="records" t-value="report_data['records']"/>
+        <t t-set="summary" t-value="report_data['summary']"/>
+        <t t-set="status_colors" t-value="{'pending': '#ffc107', 'approved': '#17a2b8', 'rejected': '#dc3545', 'checked_in': '#28a745', 'completed': '#6c757d', 'cancelled': '#343a40'}"/>
+        <t t-set="status_labels" t-value="{'pending': 'Pending', 'approved': 'Approved', 'rejected': 'Rejected', 'checked_in': 'Checked In', 'completed': 'Completed', 'cancelled': 'Cancelled'}"/>
+
+        <!-- Summary -->
+        <table style="width:100%; border-collapse:collapse; margin-bottom:18px;">
+            <tr>
+                <td style="width:25%; text-align:center; padding:10px 8px; border:1px solid #dee2e6; background-color:#fff;">
+                    <span style="font-size:22px; font-weight:700; display:block; color:#2A8FD6;"><t t-out="summary['total']"/></span>
+                    <span style="font-size:9px; color:#666; text-transform:uppercase; display:block;">Total Visitors</span>
+                </td>
+                <td style="width:25%; text-align:center; padding:10px 8px; border:1px solid #dee2e6; background-color:#fff;">
+                    <span style="font-size:22px; font-weight:700; display:block; color:#28a745;"><t t-out="summary['checked_in']"/></span>
+                    <span style="font-size:9px; color:#666; text-transform:uppercase; display:block;">Checked In</span>
+                </td>
+                <td style="width:25%; text-align:center; padding:10px 8px; border:1px solid #dee2e6; background-color:#fff;">
+                    <span style="font-size:22px; font-weight:700; display:block; color:#6c757d;"><t t-out="summary['completed']"/></span>
+                    <span style="font-size:9px; color:#666; text-transform:uppercase; display:block;">Completed</span>
+                </td>
+                <td style="width:25%; text-align:center; padding:10px 8px; border:1px solid #dee2e6; background-color:#fff;">
+                    <span style="font-size:22px; font-weight:700; display:block; color:#e6a100;"><t t-out="summary['pending']"/></span>
+                    <span style="font-size:9px; color:#666; text-transform:uppercase; display:block;">Pending</span>
+                </td>
+            </tr>
+        </table>
+
+        <t t-if="records">
+            <table style="width:100%; border-collapse:collapse; font-size:10px; table-layout:fixed;">
+                <colgroup>
+                    <col style="width:5%;"/>
+                    <col style="width:19%;"/>
+                    <col style="width:17%;"/>
+                    <col style="width:15%;"/>
+                    <col style="width:12%;"/>
+                    <col style="width:22%;"/>
+                    <col style="width:10%;"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th style="background:#2A8FD6; color:#fff; padding:7px 6px; font-weight:600; font-size:9px; text-transform:uppercase; border:1px solid #2280c2; text-align:center;">#</th>
+                        <th style="background:#2A8FD6; color:#fff; padding:7px 6px; font-weight:600; font-size:9px; text-transform:uppercase; border:1px solid #2280c2; text-align:left;">Visitor</th>
+                        <th style="background:#2A8FD6; color:#fff; padding:7px 6px; font-weight:600; font-size:9px; text-transform:uppercase; border:1px solid #2280c2; text-align:left;">Student</th>
+                        <th style="background:#2A8FD6; color:#fff; padding:7px 6px; font-weight:600; font-size:9px; text-transform:uppercase; border:1px solid #2280c2; text-align:left;">Visit Date</th>
+                        <th style="background:#2A8FD6; color:#fff; padding:7px 6px; font-weight:600; font-size:9px; text-transform:uppercase; border:1px solid #2280c2; text-align:center;">Status</th>
+                        <th style="background:#2A8FD6; color:#fff; padding:7px 6px; font-weight:600; font-size:9px; text-transform:uppercase; border:1px solid #2280c2; text-align:left;">Purpose</th>
+                        <th style="background:#2A8FD6; color:#fff; padding:7px 6px; font-weight:600; font-size:9px; text-transform:uppercase; border:1px solid #2280c2; text-align:center;">Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="idx" t-value="0"/>
+                    <t t-foreach="records" t-as="v">
+                        <t t-set="idx" t-value="idx + 1"/>
+                        <t t-set="bg" t-value="'#fff' if idx % 2 == 1 else '#f8f9fa'"/>
+                        <tr t-attf-style="background-color:#{bg};">
+                            <td style="padding:5px 6px; border:1px solid #dee2e6; text-align:center; color:#999;"><t t-out="idx"/></td>
+                            <td style="padding:5px 6px; border:1px solid #dee2e6; color:#333; font-weight:600;"><t t-out="v.name or '-'"/></td>
+                            <td style="padding:5px 6px; border:1px solid #dee2e6; color:#333;"><t t-out="v.student_id.name or '-'"/></td>
+                            <td style="padding:5px 6px; border:1px solid #dee2e6; color:#333;"><t t-out="str(v.visit_datetime)[:16] if v.visit_datetime else '-'"/></td>
+                            <td style="padding:5px 6px; border:1px solid #dee2e6; text-align:center;">
+                                <span t-attf-style="display:inline-block; padding:2px 8px; border-radius:10px; font-size:9px; font-weight:600; color:#fff; background:#{status_colors.get(v.status, '#6c757d')};"><t t-out="status_labels.get(v.status, v.status)"/></span>
+                            </td>
+                            <td style="padding:5px 6px; border:1px solid #dee2e6; color:#555; font-size:9px; word-wrap:break-word;"><t t-out="(v.purpose or '-')[:80]"/></td>
+                            <td style="padding:5px 6px; border:1px solid #dee2e6; color:#333; text-align:center; font-weight:600;"><t t-out="'%.1f' % (v.actual_duration or v.expected_duration)"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+        <t t-else="">
+            <p style="text-align:center; color:#888; padding:30px 0; font-size:13px;">No visitor records found for the selected period.</p>
+        </t>
+    </template>
+
+</odoo>

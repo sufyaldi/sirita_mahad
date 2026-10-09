@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Birthday Greeting Views -->
+    <record id="view_birthday_greeting_tree" model="ir.ui.view">
+        <field name="model">hostel.birthday.greeting</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email_template_id"/>
+                <field name="active"/>
+                <field name="last_run_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_birthday_greeting_form" model="ir.ui.view">
+        <field name="model">hostel.birthday.greeting</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="email_template_id"/>
+                        <field name="active"/>
+                        <field name="last_run_date" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_birthday_greeting" model="ir.actions.act_window">
+        <field name="name">Birthday Greetings</field>
+        <field name="res_model">hostel.birthday.greeting</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Birthday Greeting Log Views -->
+    <record id="view_birthday_greeting_log_tree" model="ir.ui.view">
+        <field name="model">hostel.birthday.greeting.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="student_id"/>
+                <field name="greeting_id"/>
+                <field name="sent_date"/>
+                <field name="status"/>
+                <field name="error_message"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_birthday_greeting_log" model="ir.actions.act_window">
+        <field name="name">Birthday Greeting Log</field>
+        <field name="res_model">hostel.birthday.greeting.log</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Renewal Reminder Views -->
+    <record id="view_renewal_reminder_tree" model="ir.ui.view">
+        <field name="model">hostel.renewal.reminder</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="days_before_expiry"/>
+                <field name="email_template_id"/>
+                <field name="active"/>
+                <field name="last_run_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_renewal_reminder_form" model="ir.ui.view">
+        <field name="model">hostel.renewal.reminder</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="days_before_expiry"/>
+                        <field name="email_template_id"/>
+                        <field name="active"/>
+                        <field name="last_run_date" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_renewal_reminder" model="ir.actions.act_window">
+        <field name="name">Renewal Reminders</field>
+        <field name="res_model">hostel.renewal.reminder</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Renewal Reminder Log Views -->
+    <record id="view_renewal_reminder_log_tree" model="ir.ui.view">
+        <field name="model">hostel.renewal.reminder.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="contract_id"/>
+                <field name="reminder_id"/>
+                <field name="sent_date"/>
+                <field name="days_before_expiry"/>
+                <field name="status"/>
+                <field name="error_message"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_renewal_reminder_log" model="ir.actions.act_window">
+        <field name="name">Renewal Reminder Log</field>
+        <field name="res_model">hostel.renewal.reminder.log</field>
+        <field name="view_mode">list</field>
+    </record>
+
+</odoo>

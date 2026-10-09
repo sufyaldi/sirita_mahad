@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_bed_tree" model="ir.ui.view">
+        <field name="model">hostel.bed</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="room_id"/>
+                <field name="occupancy_status"/>
+                <field name="is_active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_bed_form" model="ir.ui.view">
+        <field name="name">hostel.bed.form</field>
+        <field name="model">hostel.bed</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="room_id"/>
+                    </group>
+                    <group>
+                        <field name="occupancy_status" readonly="1"/>
+                        <field name="is_active"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    <record id="view_bed_search" model="ir.ui.view">-->
+<!--        <field name="model">hostel.bed</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search>-->
+<!--                <field name="name"/>-->
+<!--                <field name="room_id"/>-->
+<!--                <field name="occupancy_status"/>-->
+<!--                <filter name="vacant_beds" string="Vacant Beds"-->
+<!--                        domain="[('occupancy_status','=','vacant')]"/>-->
+<!--                <filter name="occupied_beds" string="Occupied Beds"-->
+<!--                        domain="[('occupancy_status','=','occupied')]"/>-->
+<!--                <group string="Group By">-->
+<!--                    <filter name="room" string="Room" context="{'group_by': 'room_id'}"/>-->
+<!--                </group>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="action_bed" model="ir.actions.act_window">
+        <field name="res_model">hostel.bed</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

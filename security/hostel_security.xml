@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================ -->
+    <!--                  Module Category                             -->
+    <!-- ============================================================ -->
+    <record id="module_category_hostel" model="ir.module.category">
+        <field name="name">Hostel Management</field>
+        <field name="description">Category for Hostel Management access groups</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!--                  Group Privilege                              -->
+    <!-- ============================================================ -->
+    <record id="res_groups_privilege_hostel" model="res.groups.privilege">
+        <field name="name">Hostel</field>
+        <field name="category_id" ref="sirita_mahad.module_category_hostel"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!--                  Security Groups                             -->
+    <!-- ============================================================ -->
+
+    <!-- User: basic read + create/edit on daily operations -->
+    <record id="group_hostel_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="privilege_id" ref="sirita_mahad.res_groups_privilege_hostel"/>
+        <field name="sequence">10</field>
+        <field name="implied_ids" eval="[Command.link(ref('base.group_user'))]"/>
+        <field name="comment">Read access on configuration. Create/edit on daily operations (contracts, check-ins, visitors, attendance, complaints, laundry, meals, maintenance).</field>
+    </record>
+
+    <!-- Manager: full CRUD on operations, create/edit on configuration -->
+    <record id="group_hostel_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="privilege_id" ref="sirita_mahad.res_groups_privilege_hostel"/>
+        <field name="sequence">20</field>
+        <field name="implied_ids" eval="[Command.link(ref('sirita_mahad.group_hostel_user'))]"/>
+        <field name="comment">Full CRUD on operations. Create/edit on configuration, assets, announcements, and automation rules.</field>
+    </record>
+
+    <!-- Admin: unrestricted access to all hostel models -->
+    <record id="group_hostel_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="privilege_id" ref="sirita_mahad.res_groups_privilege_hostel"/>
+        <field name="sequence">30</field>
+        <field name="implied_ids" eval="[Command.link(ref('sirita_mahad.group_hostel_manager'))]"/>
+        <field name="comment">Full access to every hostel model including configuration, deletion, reports, and automation.</field>
+    </record>
+
+</odoo>

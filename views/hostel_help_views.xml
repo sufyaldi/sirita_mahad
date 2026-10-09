@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="hostel_help_page" name="Hostel Help Page">
+        <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>Panduan Sistem Informasi Ma'had Al-Jami'ah — IAIN Parepare</title>
+            <style>
+                * { box-sizing: border-box; margin: 0; padding: 0; }
+                body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; color: #333; line-height: 1.6; }
+                .hw { max-width: 1020px; margin: 0 auto; padding: 30px 20px 50px; }
+
+                .hdr { text-align: center; margin-bottom: 38px; }
+                .hdr h1 { color: #0D9488; font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+                .hdr .sub { color: #666; font-size: 14px; }
+
+                /* TOC */
+                .toc { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 18px 24px; margin-bottom: 34px; }
+                .toc h3 { color: #0D9488; font-size: 15px; margin-bottom: 10px; }
+                .toc-grid { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+                .toc a { color: #0D9488; text-decoration: none; font-size: 13px; padding: 3px 0; display: inline-block; width: 220px; }
+                .toc a:hover { text-decoration: underline; }
+
+                /* Role Box */
+                .rbox { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 8px; padding: 18px 22px; margin-bottom: 34px; }
+                .rbox h3 { color: #0D9488; font-size: 16px; margin-bottom: 12px; }
+                .rtbl { width: 100%; font-size: 13px; border-collapse: collapse; }
+                .rtbl td { padding: 8px 12px; border-bottom: 1px solid #99f6e4; vertical-align: top; }
+                .rtbl tr:last-child td { border-bottom: none; }
+                .rtbl td:first-child { width: 18%; font-weight: 700; white-space: nowrap; }
+                .badge-u { display: inline-block; background: #0d9488; color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; }
+                .badge-m { display: inline-block; background: #f59e0b; color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; }
+                .badge-a { display: inline-block; background: #dc2626; color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; }
+
+                /* Section */
+                .sec { margin-bottom: 32px; page-break-inside: avoid; }
+                .sec-t { color: #0D9488; font-size: 19px; font-weight: 600; border-bottom: 2px solid #0D9488; padding-bottom: 6px; margin-bottom: 14px; }
+                .sec-t i { margin-right: 6px; }
+                .sec p, .sec li { font-size: 13px; color: #444; }
+                .sec ul { margin: 8px 0 8px 20px; }
+                .sec li { margin-bottom: 4px; }
+
+                /* Feature Table */
+                .ft { width: 100%; font-size: 13px; border-collapse: collapse; margin-top: 10px; }
+                .ft td, .ft th { padding: 8px 12px; border: 1px solid #e9ecef; vertical-align: top; }
+                .ft th { background: #0D9488; color: #fff; font-size: 11px; text-transform: uppercase; letter-spacing: .3px; font-weight: 600; text-align: left; }
+                .ft td:first-child { font-weight: 600; white-space: nowrap; width: 22%; }
+                .ft tr:nth-child(even) { background: #f8f9fa; }
+                .ft .acc { color: #999; font-size: 11px; }
+
+                /* Workflow box */
+                .wf { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 6px; padding: 14px 16px; margin-top: 10px; }
+                .wf-title { color: #0D9488; font-weight: 700; font-size: 13px; margin-bottom: 10px; }
+                .wf-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 0; margin-bottom: 8px; }
+                .wf-row:last-child { margin-bottom: 0; }
+                .wf-lbl { font-size: 11px; color: #888; margin-right: 8px; min-width: 70px; }
+                .wf-node { display: inline-block; padding: 4px 12px; border-radius: 14px; font-size: 11px; font-weight: 600; color: #fff; white-space: nowrap; }
+                .wf-arr { display: inline-block; color: #0D9488; font-size: 18px; font-weight: 700; margin: 0 6px; line-height: 1; vertical-align: middle; }
+                .wf-note { font-size: 11px; color: #888; font-style: italic; margin-left: 6px; }
+
+                /* Tip box */
+                .tip { background: #fff8e6; border-left: 4px solid #ffc107; border-radius: 0 6px 6px 0; padding: 10px 14px; margin-top: 10px; font-size: 12px; color: #665500; }
+                .tip strong { color: #b38600; }
+
+                /* Field list */
+                .fld { background: #f9f9f9; border: 1px solid #e9ecef; border-radius: 6px; padding: 12px 16px; margin-top: 10px; font-size: 12px; }
+                .fld strong { color: #333; }
+                .fld-grid { display: flex; flex-wrap: wrap; gap: 4px 0; }
+                .fld-item { width: 50%; padding: 2px 8px 2px 0; color: #555; }
+                .fld-item b { color: #333; font-weight: 600; }
+
+                /* Access row */
+                .ar { background: #f9f9f9; border-radius: 6px; padding: 10px 14px; font-size: 12px; color: #666; margin-top: 10px; }
+
+                /* Footer */
+                .ftr { text-align: center; border-top: 1px solid #e0e0e0; padding-top: 18px; margin-top: 40px; }
+                .ftr p { color: #aaa; font-size: 12px; }
+
+                /* Top/Bottom bar */
+                .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+                .btn-hostel {
+                    display: inline-flex; align-items: center; gap: 8px;
+                    color: #fff; text-decoration: none; padding: 9px 20px;
+                    border-radius: 6px; font-size: 13px; font-weight: 600;
+                    border: none; cursor: pointer; transition: opacity .2s;
+                }
+                .btn-hostel:hover { opacity: 0.85; }
+                .btn-blue { background: #0D9488; }
+                .btn-green { background: #10b981; }
+
+                @media print { .topbar, .bottombar { display: none !important; } }
+            </style>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        </head>
+        <body>
+        <div class="hw">
+
+            <!-- ===== TOP BAR ===== -->
+            <div class="topbar">
+                <a href="/web#action=sirita_mahad.action_hostel_dashboard" class="btn-hostel btn-blue">
+                    <i class="fa fa-arrow-left"/> Kembali ke Dashboard Ma'had
+                </a>
+                <a href="#" onclick="window.print(); return false;" class="btn-hostel btn-green">
+                    <i class="fa fa-print"/> Cetak / Simpan PDF
+                </a>
+            </div>
+
+            <!-- ===== HEADER ===== -->
+            <div class="hdr">
+                <h1><i class="fa fa-graduation-cap" style="margin-right:8px;"/>Panduan Sistem Informasi Ma'had Al-Jami'ah</h1>
+                <p class="sub">Panduan Komprehensif Operasional Hunian, Akademik &amp; Pembinaan Mahasantri — IAIN Parepare</p>
+            </div>
+
+            <!-- ===== TABLE OF CONTENTS ===== -->
+            <div class="toc">
+                <h3><i class="fa fa-list"/> Navigasi Cepat Modul</h3>
+                <div class="toc-grid">
+                    <a href="#sec-roles"><i class="fa fa-shield"/> Hak Akses &amp; Peran</a>
+                    <a href="#sec-dashboard"><i class="fa fa-tachometer"/> Dashboard Monitoring</a>
+                    <a href="#sec-talim"><i class="fa fa-book"/> Akademik &amp; Ta'lim</a>
+                    <a href="#sec-permit"><i class="fa fa-qrcode"/> Perizinan &amp; Gate QR</a>
+                    <a href="#sec-discipline"><i class="fa fa-gavel"/> Kedisiplinan &amp; Takzir</a>
+                    <a href="#sec-buildings"><i class="fa fa-building"/> Gedung Asrama</a>
+                    <a href="#sec-units"><i class="fa fa-th-large"/> Blok &amp; Lantai</a>
+                    <a href="#sec-rooms"><i class="fa fa-home"/> Kamar Santri</a>
+                    <a href="#sec-beds"><i class="fa fa-bed"/> Tempat Tidur / Bed</a>
+                    <a href="#sec-students"><i class="fa fa-user"/> Data Mahasantri</a>
+                    <a href="#sec-contracts"><i class="fa fa-file-text"/> Kontrak Mukim</a>
+                    <a href="#sec-checkin"><i class="fa fa-sign-in"/> Check-In / Check-Out</a>
+                    <a href="#sec-visitors"><i class="fa fa-users"/> Buku Tamu &amp; Kunjungan</a>
+                    <a href="#sec-attendance"><i class="fa fa-calendar-check-o"/> Presensi Mahasantri</a>
+                    <a href="#sec-documents"><i class="fa fa-folder-open"/> Dokumen Mahasantri</a>
+                    <a href="#sec-maintenance"><i class="fa fa-wrench"/> Pemeliharaan Fasilitas</a>
+                    <a href="#sec-complaints"><i class="fa fa-exclamation-triangle"/> Pengaduan &amp; Keluhan</a>
+                    <a href="#sec-mess"><i class="fa fa-cutlery"/> Dapur &amp; Konsumsi</a>
+                    <a href="#sec-laundry"><i class="fa fa-tint"/> Layanan Laundry</a>
+                    <a href="#sec-assets"><i class="fa fa-cubes"/> Sarana &amp; Aset</a>
+                    <a href="#sec-communication"><i class="fa fa-comments"/> Komunikasi &amp; Mading</a>
+                    <a href="#sec-fee"><i class="fa fa-money"/> Keuangan &amp; Tagihan BLU</a>
+                    <a href="#sec-inspections"><i class="fa fa-search"/> Sidak &amp; Inspeksi Kamar</a>
+                    <a href="#sec-reports"><i class="fa fa-bar-chart"/> Laporan &amp; Analisis</a>
+                    <a href="#sec-automation"><i class="fa fa-cogs"/> Otomatisasi Sistem</a>
+                    <a href="#sec-hr"><i class="fa fa-id-card"/> Pengasuh &amp; Musyrif</a>
+                    <a href="#sec-penalty"><i class="fa fa-balance-scale"/> Kategori Pelanggaran</a>
+                    <a href="#sec-settings"><i class="fa fa-sliders"/> Pengaturan Sistem</a>
+                </div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  ACCESS ROLES                                                    -->
+            <!-- ================================================================ -->
+            <div class="rbox" id="sec-roles">
+                <h3><i class="fa fa-shield"/> Pembagian Peran dan Hak Akses Pengguna</h3>
+                <p style="font-size:13px; margin-bottom:12px; color:#555;">Sistem menggunakan hierarki tiga tingkatan peran hak akses formal di lingkungan Ma'had Al-Jami'ah:</p>
+                <table class="rtbl">
+                    <tr>
+                        <td><span class="badge-u">Musyrif / User</span></td>
+                        <td>
+                            <strong>Operasional Lapangan &amp; Pendampingan Santri</strong> — Berwenang mengelola presensi harian santri, memproses check-in/out, mencatat kunjungan tamu, mengajukan tiket perbaikan fasilitas, mencatat keluhan, dan memantau dokumen kesantrian. Memiliki hak baca pada data kamar/gedung.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-m">Pengelola / Manager</span></td>
+                        <td>
+                            <strong>Tata Kelola Fasilitas &amp; Administrasi Mukim</strong> — Memiliki seluruh hak akses Musyrif ditambah wewenang penuh (CRUD) pengelolaan gedung, lantai, kamar, tempat tidur, menu katering/dapur, inventaris aset, maklumat asrama, mading informasi, tagihan hunian, sidak kamar, serta mencetak laporan PDF resmi.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-a">Mudir / Administrator</span></td>
+                        <td>
+                            <strong>Pimpinan &amp; Pengawas Sistem Penuh</strong> — Memiliki wewenang tanpa batas ke seluruh modul Ma'had. Mengelola otomatisasi sistem (cron pengingat mukim, ucapan milad), penugasan pembina/musyrif asrama, aturan master kedisiplinan &amp; poin pelanggaran, konfigurasi sistem, serta integrasi data institusi.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  DASHBOARD                                                       -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-dashboard">
+                <h2 class="sec-t"><i class="fa fa-tachometer"/> Dashboard Monitoring</h2>
+                <p>Dashboard merupakan halaman beranda utama Sistem Informasi Ma'had Al-Jami'ah yang menyajikan tinjauan menyeluruh atas indikator operasional asrama secara langsung (real-time) melalui kartu metrik KPI dan grafik visual interaktif.</p>
+
+                <p style="margin-top:8px;"><strong>Kartu Indikator Kinerja Utama (KPI):</strong></p>
+                <ul>
+                    <li><strong>Mahasantri Aktif</strong> — Total santri yang memiliki kontrak mukim aktif</li>
+                    <li><strong>Ranjang Kosong</strong> — Daya tampung ranjang yang belum terisi di seluruh gedung</li>
+                    <li><strong>Tamu Hari Ini</strong> — Jumlah pengunjung asrama yang terdaftar hari ini</li>
+                    <li><strong>Tamu Menunggu Verifikasi</strong> — Permohonan izin bertamu yang menunggu persetujuan musyrif</li>
+                    <li><strong>Tiket Sarpras Terbuka</strong> — Laporan kerusakan fasilitas asrama yang masih dalam perbaikan</li>
+                    <li><strong>Pengaduan Terbuka</strong> — Aspirasi dan keluhan santri yang sedang ditangani</li>
+                    <li><strong>Cucian Diproses</strong> — Layanan laundry santri yang sedang dalam proses pengerjaan</li>
+                    <li><strong>Presensi Hari Ini</strong> — Rekapitulasi kehadiran shalat fardhu dan apel asrama hari ini</li>
+                    <li><strong>Maklumat Aktif</strong> — Pengumuman resmi ma'had yang sedang aktif dipublikasikan</li>
+                    <li><strong>Kontrak Segera Berakhir</strong> — Mahasantri dengan masa kontrak mukim habis dalam 30 hari</li>
+                    <li><strong>Tagihan Asrama Belum Lunas</strong> — Tagihan biaya sewa asrama BLU yang belum dibayar atau jatuh tempo</li>
+                    <li><strong>Agenda Sidak Kamar</strong> — Jadwal pemeriksaan kebersihan kamar santri mendatang</li>
+                </ul>
+
+                <p style="margin-top:8px;"><strong>Grafik Analisis Visual:</strong> Tren tagihan &amp; realisasi pendapatan BLU, persentase okupansi per gedung, rekapitulasi kehadiran shalat berjamaah, dan kategori pengaduan santri.</p>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Gunakan penyaring rentang tanggal di bagian atas untuk membatasi data KPI dan grafik pada periode tertentu. Setiap kartu KPI bersifat interaktif dan dapat diklik untuk membuka daftar rincian terkait.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Seluruh Pengguna Ma'had (Musyrif, Pengelola, Mudir)</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  1. AKADEMIK & TA'LIM MA'HAD (MODUL KHUSUS)                      -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-talim">
+                <h2 class="sec-t"><i class="fa fa-book"/> Akademik, Ta'lim &amp; Hafalan</h2>
+                <p>Modul pembinaan kurikulum Ma'had Al-Jami'ah yang mengatur pembagian kelompok halaqah ta'lim, pemantauan setoran hafalan Al-Qur'an (Ziyadah &amp; Muraja'ah), serta penerbitan Sertifikat Syahadah kelulusan ma'had sebagai syarat wajib mendaftar ujian skripsi di SIAKAD.</p>
+
+                <table class="ft">
+                    <tr><th>Fitur / Sub-Menu</th><th>Deskripsi &amp; Fungsi Operasional</th></tr>
+                    <tr>
+                        <td>Halaqah / Kelas Ta'lim</td>
+                        <td>Pengelompokan santri ke dalam kelas ta'lim (Al-Qur'an/Kitab) berdasarkan semester dan tahun akademik, lengkap dengan penugasan Musyrif pengampu halaqah.</td>
+                    </tr>
+                    <tr>
+                        <td>Buku Kendali Hafalan</td>
+                        <td>Pencatatan rekam jejak setoran hafalan santri (Ziyadah/Muraja'ah), meliputi Surah, rentang ayat, kelancaran tajwid, nilai mutqin, serta paraf digital musyrif.</td>
+                    </tr>
+                    <tr>
+                        <td>Sertifikat Syahadah Ma'had</td>
+                        <td>Penerbitan ijazah/syahadah resmi kelulusan ma'had yang membuka kunci verifikasi syarat skripsi (<em>is_unlocked_for_skripsi</em>) bagi mahasantri tingkat akhir.</td>
+                    </tr>
+                </table>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Penerbitan Sertifikat Syahadah:</div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Proses:</span>
+                        <span class="wf-node" style="background:#0D9488;">Draft (Pengajuan Nilai)</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#10b981;">Validasi &amp; Kelulusan Mudir</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#2563eb;">Syahadah Terbit (Unlock SIAKAD)</span>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk Penting:</strong> Sertifikat Syahadah yang telah berstatus <em>Validated</em> akan secara otomatis mengaktifkan penanda kelulusan ma'had dan siap disinkronkan ke SIAKAD IAIN Parepare.
+                </div>
+                <div class="ar"><strong>Hak Akses:</strong> Input Hafalan &amp; Halaqah: Musyrif &amp; Pengelola | Validasi Syahadah: Mudir / Kepala Ma'had</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  2. PERIZINAN PESIAR & GATE CONTROL (MODUL KHUSUS)               -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-permit">
+                <h2 class="sec-t"><i class="fa fa-qrcode"/> Perizinan Pesiar &amp; Gate Control</h2>
+                <p>Sistem otomasi izin keluar komplek asrama (Pesiar harian &amp; Bermalam) yang terintegrasi dengan Pos Satpam/Gerbang Utama menggunakan QR Code Token terenkripsi.</p>
+
+                <table class="ft">
+                    <tr><th>Jenis Izin</th><th>Ketentuan Waktu &amp; Alur Persetujuan</th></tr>
+                    <tr>
+                        <td>Izin Pesiar (Harian)</td>
+                        <td>Keluar komplek kampus untuk keperluan mendesak dalam durasi hari yang sama. Cukup disetujui oleh Musyrif pembina kamar.</td>
+                    </tr>
+                    <tr>
+                        <td>Izin Bermalam (Pulang)</td>
+                        <td>Izin meninggalkan asrama lebih dari 24 jam (pulang kampung/tugas luar). Memerlukan persetujuan berjenjang: Musyrif Pembina dilanjutkan oleh Mudir Ma'had.</td>
+                    </tr>
+                    <tr>
+                        <td>Validasi QR Gate Satpam</td>
+                        <td>Santri memperlihatkan QR Code di gerbang. Petugas keamanan melakukan pemindaian (Scan Out saat keluar, Scan In saat kembali). Sistem mencatat stempel waktu aktual secara otomatis.</td>
+                    </tr>
+                </table>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Siklus Perizinan Gerbang:</div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Alur:</span>
+                        <span class="wf-node" style="background:#64748b;">Pengajuan Draft</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#f59e0b;">Disetujui Musyrif</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#0D9488;">Disetujui Mudhir</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#ea580c;">Scan Keluar Gerbang</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#10b981;">Scan Kembali Asrama</span>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong><i class="fa fa-exclamation-triangle"/> Peringatan Keterlambatan:</strong> Apabila santri kembali melebihi batas waktu <em>Expected Return Time</em>, sistem cron otomatis menandai status <strong>Terlambat (is_late)</strong> dan dapat dikonversikan menjadi poin pelanggaran kedisiplinan.
+                </div>
+                <div class="ar"><strong>Hak Akses:</strong> Pengajuan: Santri/Musyrif | Persetujuan: Musyrif &amp; Mudhir | Scan Gerbang: Petugas Satpam/Musyrif Piket</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  3. KEDISIPLINAN & TAKZIR EDUKATIF (MODUL KHUSUS)                 -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-discipline">
+                <h2 class="sec-t"><i class="fa fa-gavel"/> Kedisiplinan &amp; Takzir Santri</h2>
+                <p>Sistem tata tertib santri berbasis akumulasi poin pelanggaran dan pemberian sanksi edukatif (Takzir) yang bertingkat, transparan, dan terukur.</p>
+
+                <table class="ft">
+                    <tr><th>Tingkat Pelanggaran</th><th>Rentang Poin &amp; Bentuk Takzir Edukatif</th></tr>
+                    <tr>
+                        <td>Pelanggaran Ringan (Low)</td>
+                        <td>1 – 5 Poin (Contoh: Keterlambatan shalat berjamaah, tidak merapikan ranjang). Takzir: Hafalan doa/hadits harian, membersihkan area wudhu.</td>
+                    </tr>
+                    <tr>
+                        <td>Pelanggaran Sedang (Medium)</td>
+                        <td>6 – 15 Poin (Contoh: Terlambat izin pesiar, membawa alat elektronik terlarang). Takzir: Hafalan surah pendek pilihan, piket kebersihan masjid.</td>
+                    </tr>
+                    <tr>
+                        <td>Pelanggaran Berat (High)</td>
+                        <td>&gt; 15 Poin (Contoh: Keluar asrama tanpa izin, merusak fasilitas). Tindakan: Pemanggilan wali santri dan penerbitan Surat Peringatan (SP-1, SP-2, SP-3).</td>
+                    </tr>
+                </table>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Tindakan Pelanggaran:</div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Proses:</span>
+                        <span class="wf-node" style="background:#64748b;">Pencatatan Kasus</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#dc2626;">Konfirmasi Poin &amp; Takzir</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#10b981;">Takzir Selesai Dilaksanakan</span>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong><i class="fa fa-info-circle"/> Edukasi Karakter:</strong> Seluruh bentuk takzir wajib bersifat membina spiritual dan karakter mahasantri, dilarang memuat sanksi fisik yang mencederai nilai-nilai kepesantrenan.
+                </div>
+                <div class="ar"><strong>Hak Akses:</strong> Pencatatan Kasus: Musyrif &amp; Pembina | Master Kategori &amp; Konfirmasi SP: Mudir / Kepala Ma'had</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  GEDUNG ASRAMA                                                   -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-buildings">
+                <h2 class="sec-t"><i class="fa fa-building"/> Gedung Asrama</h2>
+                <p>Gedung merupakan unit organisasi hunian tingkat teratas. Setiap gedung fisik asrama di lingkungan Ma'had Al-Jami'ah didaftarkan pada menu ini.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nama Gedung</b> — Nama fisik asrama (misal: "Gedung Asrama Putra A")</div>
+                        <div class="fld-item"><b>Kode</b> — Kode singkat (misal: "G-PA")</div>
+                        <div class="fld-item"><b>Peruntukan Gender</b> — Putra / Putri / Terpisah</div>
+                        <div class="fld-item"><b>Alamat Lokasi</b> — Lokasi fisik di kampus</div>
+                        <div class="fld-item"><b>Status Aktif</b> — Status operasional gedung</div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Pengaturan gender pada gedung akan otomatis diturunkan ke kamar-kamar di dalamnya. Asrama "Putra" hanya dapat dialokasikan untuk mahasantri ikhwan.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Lihat: Seluruh Pengguna | Tambah/Edit/Hapus: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  BLOK & LANTAI                                                   -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-units">
+                <h2 class="sec-t"><i class="fa fa-th-large"/> Blok &amp; Lantai</h2>
+                <p>Blok/Lantai merepresentasikan zonasi lantai atau sayap gedung asrama sebagai pengelompokan perantara antara gedung dan kamar santri.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nama Unit</b> — Nama zona (misal: "Lantai 1", "Sayap Barat")</div>
+                        <div class="fld-item"><b>Gedung Induk</b> — Gedung asrama terkait</div>
+                        <div class="fld-item"><b>Tingkat Lantai</b> — Nomor atau label lantai</div>
+                        <div class="fld-item"><b>Tipe Blok</b> — Klasifikasi zonasi unit</div>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Lihat: Seluruh Pengguna | Tambah/Edit/Hapus: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  KAMAR SANTRI                                                    -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-rooms">
+                <h2 class="sec-t"><i class="fa fa-home"/> Kamar Mahasantri</h2>
+                <p>Kamar berada di bawah blok/lantai dan memuat sejumlah ranjang santri. Setiap kamar memiliki kapasitas daya tampung, jenis kelamin penghuni, dan status kesiapan kebersihan.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nomor Kamar</b> — Nomor/kode kamar (misal: "K-101")</div>
+                        <div class="fld-item"><b>Blok / Lantai</b> — Unit zonasi induk</div>
+                        <div class="fld-item"><b>Tipe Kamar</b> — Single / Berdua / Kamar Barakah (Banyak)</div>
+                        <div class="fld-item"><b>Peruntukan Gender</b> — Putra / Putri</div>
+                        <div class="fld-item"><b>Status Kelayakan</b> — Status kebersihan &amp; kesiapan huni</div>
+                    </div>
+                </div>
+
+                <p style="margin-top:10px;"><strong>Nilai Status Kamar:</strong></p>
+                <ul>
+                    <li><span class="wf-node" style="background:#28a745;">Siap Huni (Ready)</span> Bersih, rapi, dan siap ditempati santri baru</li>
+                    <li><span class="wf-node" style="background:#f59e0b; color:#fff;">Perlu Dibersihkan</span> Membutuhkan pembersihan pasca kepulangan santri</li>
+                    <li><span class="wf-node" style="background:#0D9488;">Buffer / Karantina</span> Penahanan sementara (dalam perbaikan fasilitas atau sidak)</li>
+                    <li><span class="wf-node" style="background:#dc2626;">Rusak / Perbaikan</span> Tidak dapat dialokasikan karena kerusakan sarpras</li>
+                </ul>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Hanya kamar dengan status "Siap Huni (Ready)" yang dapat dialokasikan pada kontrak mukim baru.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Lihat: Seluruh Pengguna | Tambah/Edit/Hapus: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  TEMPAT TIDUR / BED                                              -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-beds">
+                <h2 class="sec-t"><i class="fa fa-bed"/> Tempat Tidur / Ranjang</h2>
+                <p>Ranjang merupakan unit hunian terkecil. Setiap tempat tidur berada di dalam kamar tertentu dan hanya dialokasikan untuk satu mahasantri melalui kontrak mukim.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Kode Ranjang</b> — Label ranjang (misal: "101-A", "101-Atas")</div>
+                        <div class="fld-item"><b>Kamar</b> — Kamar penempatan ranjang</div>
+                        <div class="fld-item"><b>Status Aktif</b> — Kelayakan fisik ranjang</div>
+                        <div class="fld-item"><b>Status Keterisian</b> — Kosong / Terisi (dihitung otomatis)</div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Status keterisian ranjang dikalkulasi otomatis oleh sistem. Bila memiliki kontrak mukim aktif, statusnya menjadi "Terisi"; bila tidak, otomatis "Kosong".
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Lihat: Seluruh Pengguna | Tambah/Edit/Hapus: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  DATA MAHASANTRI                                                 -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-students">
+                <h2 class="sec-t"><i class="fa fa-user"/> Data Mahasantri</h2>
+                <p>Data mahasantri tersimpan terintegrasi pada kontak Odoo (res.partner) dengan penanda khusus mahasantri asrama dan atribut akademik kampus.</p>
+
+                <div class="fld">
+                    <strong>Kolom Informasi Mahasantri:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Status Mahasantri</b> — Menandai kontak sebagai santri ma'had</div>
+                        <div class="fld-item"><b>NIM &amp; Prodi</b> — Nomor Induk Mahasiswa dan Program Studi</div>
+                        <div class="fld-item"><b>Tanggal Lahir</b> — Untuk perhitungan umur dan ucapan milad</div>
+                        <div class="fld-item"><b>Jenis Kelamin</b> — Putra (Ikhwan) / Putri (Akhwat)</div>
+                        <div class="fld-item"><b>Kontak Wali</b> — Nomor telepon orang tua/wali santri</div>
+                        <div class="fld-item"><b>Riwayat Kontrak</b> — Seluruh riwayat masa tinggal santri</div>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Seluruh pengguna dapat melihat dan memperbarui informasi santri</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  KONTRAK MUKIM                                                   -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-contracts">
+                <h2 class="sec-t"><i class="fa fa-file-text"/> Kontrak &amp; Masa Mukim</h2>
+                <p>Kontrak mukim menghubungkan mahasantri dengan ranjang tertentu untuk periode akademik yang telah ditentukan, mencatat biaya asrama, dan menjadi dasar tagihan BLU.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Mahasantri</b> — Santri penghuni kamar</div>
+                        <div class="fld-item"><b>Alokasi Ranjang</b> — Tempat tidur yang ditempati</div>
+                        <div class="fld-item"><b>Kamar / Gedung</b> — Terisi otomatis dari ranjang</div>
+                        <div class="fld-item"><b>Tanggal Mulai</b> — Awal masa tinggal santri</div>
+                        <div class="fld-item"><b>Tanggal Selesai</b> — Akhir periode kontrak mukim</div>
+                        <div class="fld-item"><b>Tarif Iuran BLU</b> — Biaya hunian per periode/bulan</div>
+                        <div class="fld-item"><b>Sisa Tagihan</b> — Dihitung otomatis dari pembayaran</div>
+                        <div class="fld-item"><b>Status Deposit</b> — Jaminan fasilitas (jika ada)</div>
+                    </div>
+                </div>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Siklus Kontrak Mukim:</div>
+                    <div class="wf-row">
+                        <span class="wf-node" style="background:#6c757d;">Konsep (Draft)</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#28a745;">Aktif (Mukim)</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#dc3545;">Selesai (Closed)</span>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Kontrak beralih ke status "Aktif" secara otomatis saat proses Check-In kedatangan dilakukan, dan berubah menjadi "Selesai" saat santri Check-Out.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Tambah/Edit: Seluruh Pengguna | Hapus: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  CHECK-IN / CHECK-OUT KEDATANGAN                                 -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-checkin">
+                <h2 class="sec-t"><i class="fa fa-sign-in"/> Registrasi Check-In &amp; Check-Out</h2>
+                <p>Mencatat kedatangan fisik mahasantri di awal semester dan kepulangan akhir masa studi, mencakup pemeriksaan kelengkapan inventaris kamar.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Kontrak Mukim</b> — Rujukan kontrak santri</div>
+                        <div class="fld-item"><b>Santri &amp; Kamar</b> — Terisi otomatis dari kontrak</div>
+                        <div class="fld-item"><b>Waktu Check-In</b> — Tanggal &amp; jam kedatangan santri</div>
+                        <div class="fld-item"><b>Waktu Check-Out</b> — Tanggal &amp; jam kepulangan santri</div>
+                        <div class="fld-item"><b>Catatan Inventaris</b> — Kelengkapan fasilitas saat tiba</div>
+                        <div class="fld-item"><b>Catatan Kerusakan</b> — Kerusakan sarpras saat pulang</div>
+                        <div class="fld-item"><b>Tanda Tangan Santri</b> — Pengesahan kedatangan/kepulangan</div>
+                        <div class="fld-item"><b>Tagihan Ganti Rugi</b> — Biaya jika ada sarpras yang rusak</div>
+                    </div>
+                </div>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Proses:</div>
+                    <div class="wf-row">
+                        <span class="wf-node" style="background:#6c757d;">Draft</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#28a745;">Checked In (Tiba)</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0D9488;">Checked Out (Pulang)</span>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Tambah/Edit: Seluruh Pengguna | Hapus: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  BUKU TAMU & KUNJUNGAN                                           -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-visitors">
+                <h2 class="sec-t"><i class="fa fa-users"/> Buku Tamu &amp; Kunjungan Wali Santri</h2>
+                <p>Mencatat seluruh kunjungan keluarga, wali santri, dan tamu eksternal ke lingkungan asrama ma'had dengan persetujuan musyrif dan monitoring durasi kunjungan.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nama Tamu</b> — Nama lengkap pengunjung</div>
+                        <div class="fld-item"><b>Nomor KTP/Identitas</b> — Nomor identitas resmi</div>
+                        <div class="fld-item"><b>Nomor Telepon</b> — Nomor HP aktif pengunjung</div>
+                        <div class="fld-item"><b>Santri yang Dikunjungi</b> — Mahasantri yang ditemui</div>
+                        <div class="fld-item"><b>Waktu Kunjungan</b> — Jadwal jam kedatangan</div>
+                        <div class="fld-item"><b>Rencana Durasi</b> — Estimasi lama bertamu (jam)</div>
+                        <div class="fld-item"><b>Keperluan</b> — Alasan kunjungan keluarga</div>
+                        <div class="fld-item"><b>Status Melebihi Waktu</b> — Penanda jika overstay</div>
+                    </div>
+                </div>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Izin Kunjungan:</div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Proses:</span>
+                        <span class="wf-node" style="background:#f59e0b; color:#fff;">Menunggu Persetujuan</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#28a745;">Disetujui Musyrif</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0D9488;">Tamu Masuk (Checked In)</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#64748b;">Selesai (Completed)</span>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Tambah/Edit: Musyrif &amp; Piket Keamanan | Hapus: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  PRESENSI MAHASANTRI                                             -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-attendance">
+                <h2 class="sec-t"><i class="fa fa-calendar-check-o"/> Presensi Shalat &amp; Ta'lim Santri</h2>
+                <p>Pencatatan kehadiran harian mahasantri untuk kegiatan shalat berjamaah subuh/maghrib/isya, apel asrama, dan ta'lim malam.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nama Mahasantri</b> — Santri yang diabsen</div>
+                        <div class="fld-item"><b>Tanggal Presensi</b> — Tanggal kegiatan</div>
+                        <div class="fld-item"><b>Jam Masuk / Keluar</b> — Waktu absensi aktual</div>
+                        <div class="fld-item"><b>Gedung / Mushalla</b> — Lokasi pelaksanaan kegiatan</div>
+                        <div class="fld-item"><b>Status Kehadiran</b> — Hadir / Tidak Hadir / Terlambat</div>
+                        <div class="fld-item"><b>Diverifikasi Oleh</b> — Musyrif / Pembina pendamping</div>
+                    </div>
+                </div>
+
+                <p style="margin-top:10px;"><strong>Kategori Status Kehadiran:</strong></p>
+                <ul>
+                    <li><span class="wf-node" style="background:#28a745;">Hadir</span> Hadir tepat waktu di mushalla/aula</li>
+                    <li><span class="wf-node" style="background:#dc2626;">Ghaib (Alpha)</span> Tidak hadir tanpa keterangan izin</li>
+                    <li><span class="wf-node" style="background:#f59e0b; color:#fff;">Terlambat</span> Tiba setelah kegiatan dimulai</li>
+                    <li><span class="wf-node" style="background:#64748b;">Izin / Sakit</span> Tidak hadir dengan surat izin sah</li>
+                </ul>
+
+                <div class="ar"><strong>Hak Akses:</strong> Input: Musyrif &amp; Pembina | Rekap/Audit: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  DOKUMEN MAHASANTRI                                              -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-documents">
+                <h2 class="sec-t"><i class="fa fa-folder-open"/> Dokumen &amp; Berkas Mahasantri</h2>
+                <p>Pengarsipan digital dokumen penting mahasantri (Surat Pernyataan Kesanggupan, Bukti Pembayaran, KTP, Surat Izin Orang Tua) dengan masa berlaku dokumen.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Pemilik Berkas</b> — Nama mahasantri</div>
+                        <div class="fld-item"><b>Judul Dokumen</b> — Nama berkas/surat</div>
+                        <div class="fld-item"><b>Jenis Berkas</b> — KTP / Sertifikat / Bukti BLU / Foto / Lainnya</div>
+                        <div class="fld-item"><b>Lampiran File</b> — Berkas digital (PDF / JPEG)</div>
+                        <div class="fld-item"><b>Tanggal Terbit &amp; Kedaluwarsa</b> — Masa berlaku dokumen</div>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Seluruh Pengguna dapat mengunggah dan melihat berkas santri</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  PEMELIHARAAN SARPRAS                                            -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-maintenance">
+                <h2 class="sec-t"><i class="fa fa-wrench"/> Pemeliharaan Fasilitas &amp; Sarpras</h2>
+                <p>Layanan tiket perbaikan kerusakan sarana dan prasarana kamar santri, instalasi air, listrik, ranjang, plafon, dan fasilitas umum asrama.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nomor Tiket</b> — Nomor urut perbaikan otomatis</div>
+                        <div class="fld-item"><b>Jenis Kerusakan</b> — Sanitasi / Listrik / Kayu / Pengecatan / AC</div>
+                        <div class="fld-item"><b>Tingkat Urgensi</b> — Rendah / Sedang / Tinggi / Darurat</div>
+                        <div class="fld-item"><b>Lokasi Sarpras</b> — Gedung, lantai, nomor kamar yang rusak</div>
+                        <div class="fld-item"><b>Pelapor</b> — Mahasantri atau musyrif yang melaporkan</div>
+                        <div class="fld-item"><b>Teknisi Penanggung Jawab</b> — Staf sarpras pelaksana perbaikan</div>
+                    </div>
+                </div>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Penanganan Perbaikan:</div>
+                    <div class="wf-row">
+                        <span class="wf-node" style="background:#6c757d;">Tiket Dibuat</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0D9488;">Diverifikasi</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#f59e0b; color:#fff;">Dikerjakan Teknisi</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#28a745;">Perbaikan Selesai</span>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Pelaporan: Seluruh Pengguna | Penugasan Teknisi &amp; Biaya: Pengelola Sarpras</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  PENGADUAN & KELUHAN                                             -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-complaints">
+                <h2 class="sec-t"><i class="fa fa-exclamation-triangle"/> Pengaduan &amp; Aspirasi Santri</h2>
+                <p>Kanal resmi bagi mahasantri untuk menyampaikan keluhan kenyamanan kamar, ketertiban lingkungan asrama, atau layanan dapur secara terstruktur dan tertutup.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Santri Pelapor</b> — Nama mahasantri</div>
+                        <div class="fld-item"><b>Kategori Keluhan</b> — Kebersihan / Keamanan / Pelayanan / Kamar</div>
+                        <div class="fld-item"><b>Judul &amp; Uraian</b> — Kronologi dan rincian keluhan</div>
+                        <div class="fld-item"><b>Petugas Penindak</b> — Musyrif atau pengelola penanggung jawab</div>
+                        <div class="fld-item"><b>Catatan Solusi</b> — Tindakan penyelesaian dari pengelola</div>
+                    </div>
+                </div>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Penanganan Aspirasi:</div>
+                    <div class="wf-row">
+                        <span class="wf-node" style="background:#6c757d;">Diajukan</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#f59e0b; color:#fff;">Dalam Telaah Musyrif</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#28a745;">Diberikan Solusi</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0D9488;">Ditutup</span>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Pengajuan: Seluruh Pengguna | Tindak Lanjut &amp; Solusi: Pengelola &amp; Mudir</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  DAPUR & KONSUMSI ASRAMA                                         -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-mess">
+                <h2 class="sec-t"><i class="fa fa-cutlery"/> Dapur &amp; Konsumsi Santri</h2>
+                <p>Pengelolaan katering asrama, jadwal menu makan harian santri (Pagi, Siang, Malam), serta reservasi katering mahasantri.</p>
+
+                <table class="ft">
+                    <tr><th>Sub-Menu</th><th>Deskripsi &amp; Fungsi</th><th>Pengelola</th></tr>
+                    <tr>
+                        <td>Dapur / Ruang Makan</td>
+                        <td>Konfigurasi ruang makan dan unit katering asrama putra/putri.</td>
+                        <td>Pengelola &amp; Mudir</td>
+                    </tr>
+                    <tr>
+                        <td>Jadwal Menu Makanan</td>
+                        <td>Penyusunan daftar menu makan bergizi harian dan mingguan bagi santri.</td>
+                        <td>Pengelola &amp; Mudir</td>
+                    </tr>
+                    <tr>
+                        <td>Reservasi Porsi Santri</td>
+                        <td>Pencatatan pengambilan porsi makan santri untuk meminimalisir pemborosan makanan.</td>
+                        <td>Seluruh Pengguna</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  LAYANAN LAUNDRY                                                 -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-laundry">
+                <h2 class="sec-t"><i class="fa fa-tint"/> Layanan Cuci Pakaian (Laundry)</h2>
+                <p>Pencatatan serah terima cucian pakaian mahasantri, jumlah potong baju, status pencucian, hingga penyerahan kembali pakaian bersih ke santri.</p>
+
+                <div class="fld">
+                    <strong>Kolom Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nomor Nota</b> — Nomor transaksi cuci otomatis</div>
+                        <div class="fld-item"><b>Nama Mahasantri</b> — Pemilik pakaian</div>
+                        <div class="fld-item"><b>Jenis Layanan</b> — Cuci Kering / Setrika / Komplit</div>
+                        <div class="fld-item"><b>Jumlah Potong</b> — Total helai pakaian yang dicuci</div>
+                        <div class="fld-item"><b>Tanggal Masuk</b> — Waktu pakaian diserahkan ke laundry</div>
+                        <div class="fld-item"><b>Tanggal Pengambilan</b> — Waktu pakaian siap diambil santri</div>
+                    </div>
+                </div>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Layanan Laundry:</div>
+                    <div class="wf-row">
+                        <span class="wf-node" style="background:#6c757d;">Pakaian Masuk</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#f59e0b; color:#fff;">Sedang Dicuci/Setrika</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#28a745;">Selesai &amp; Siap Diambil</span>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Input: Musyrif &amp; Petugas Laundry | Rekap: Pengelola Asrama</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  SARANA & ASET ASRAMA                                            -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-assets">
+                <h2 class="sec-t"><i class="fa fa-cubes"/> Inventaris Sarana &amp; Aset Ma'had</h2>
+                <p>Pengelolaan siklus aset fisik asrama mulai dari pengadaan barang milik negara (BMN/BLU), penempatan di kamar santri, penyusutan nilai, riwayat servis, hingga penghapusan aset.</p>
+
+                <table class="ft">
+                    <tr><th>Sub-Menu</th><th>Deskripsi</th><th>Rincian &amp; Alur Kerja</th></tr>
+                    <tr>
+                        <td>Data Aset &amp; Fasilitas</td>
+                        <td>Pencatatan unit aset individual</td>
+                        <td>
+                            <strong>Kolom Data:</strong> Nama Aset, Kode Aset (Barcode/BMN), Kategori, Lokasi Penempatan (Gedung/Blok/Kamar/Ranjang), Tanggal Perolehan, Biaya Pembelian, Masa Garansi, Tarif Depresiasi, Rekanan/Vendor, Nilai Buku Saat Ini (otomatis), Kondisi Fisik, Status<br/>
+                            <strong>Kondisi Fisik:</strong> Sangat Baik / Baik / Cukup / Buruk / Rusak Berat<br/>
+                            <strong>Alur Status:</strong>
+                            <span class="wf-node" style="background:#0284c7;">Pengadaan</span>
+                            <span class="wf-arr">&#x2192;</span>
+                            <span class="wf-node" style="background:#0D9488;">Dialokasikan</span>
+                            <span class="wf-arr">&#x2192;</span>
+                            <span class="wf-node" style="background:#f59e0b;">Dalam Perbaikan</span>
+                            <span class="wf-arr">&#x2192;</span>
+                            <span class="wf-node" style="background:#6c757d;">Diganti</span> /
+                            <span class="wf-node" style="background:#dc2626;">Dihapuskan</span><br/>
+                            Setiap aset mencatat <strong>Riwayat Pemeliharaan</strong> (biaya perbaikan &amp; catatan teknisi) serta riwayat perpindahan lokasi kamar.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kategori Aset</td>
+                        <td>Pengelompokan jenis barang</td>
+                        <td>
+                            <strong>Kolom Data:</strong> Nama Kategori, Deskripsi, Status Aktif<br/>
+                            Contoh: Furnitur/Mebel (Lemari, Meja Belajar), Perangkat Elektronik (Kipas, AC, Lampu), Sanitasi/Plumbing, Alat Dapur, Kasur &amp; Ranjang.
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Nilai buku aset dihitung otomatis menggunakan garis lurus (straight-line depreciation) berdasarkan harga perolehan dan tingkat penyusutan. Status "Dalam Perbaikan" menandakan sarpras sementara tidak dapat digunakan santri.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Pengelola Sarpras + Administrator BMN/BLU</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  KOMUNIKASI & MADING                                             -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-communication">
+                <h2 class="sec-t"><i class="fa fa-comments"/> Komunikasi &amp; Mading Digital</h2>
+                <p>Sarana penyampaian maklumat resmi, siaran pengumuman digital, dan broadcast pesan terarah kepada mahasantri dan musyrif asrama.</p>
+
+                <table class="ft">
+                    <tr><th>Sub-Menu</th><th>Deskripsi</th><th>Rincian &amp; Alur Kerja</th></tr>
+                    <tr>
+                        <td>Pesan Massal (Broadcast)</td>
+                        <td>Pengiriman pesan terarah ke kelompok santri</td>
+                        <td>
+                            <strong>Kolom Data:</strong> Subjek, Isi Pesan (HTML), Target Penerima, Saluran Kirim (Email/SMS/Notifikasi Sistem)<br/>
+                            <strong>Kriteria Sasaran:</strong> Berdasarkan Gedung / Blok / Kamar / Ranjang / Daftar Santri Tertentu<br/>
+                            <strong>Alur Status:</strong>
+                            <span class="wf-node" style="background:#6c757d;">Draf</span>
+                            <span class="wf-arr">&#x2192;</span>
+                            <span class="wf-node" style="background:#0D9488;">Terkirim</span><br/>
+                            Sistem mencatat log pengiriman per santri (Terkirim / Gagal) beserta saluran yang digunakan, total penerima, dan rekap keberhasilan.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Maklumat &amp; Pengumuman</td>
+                        <td>Edaran resmi pengelola Ma'had</td>
+                        <td>
+                            <strong>Kolom Data:</strong> Judul, Nomor Referensi, Kategori, Prioritas (Rendah/Biasa/Tinggi/Mendesak), Isi Pengumuman (HTML), Target Gedung, Tanggal Berlaku (Mulai/Selesai)<br/>
+                            <strong>Alur Status:</strong>
+                            <span class="wf-node" style="background:#6c757d;">Draf</span>
+                            <span class="wf-arr">&#x2192;</span>
+                            <span class="wf-node" style="background:#0D9488;">Diterbitkan</span>
+                            <span class="wf-arr">&#x2192;</span>
+                            <span class="wf-node" style="background:#ffc107; color:#333;">Kedaluwarsa</span> /
+                            <span class="wf-node" style="background:#6c757d;">Diarsipkan</span><br/>
+                            Tugas terjadwal (cron) secara otomatis mengubah status pengumuman menjadi kedaluwarsa setelah melewati batas tanggal berakhir.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mading Digital (Papan Informasi)</td>
+                        <td>Tampilan Kanban visual</td>
+                        <td>Menampilkan kartu seluruh maklumat aktif dalam tampilan papan informasi untuk kemudahan visualisasi dan pemantauan cepat.</td>
+                    </tr>
+                    <tr>
+                        <td>Kategori Pengumuman</td>
+                        <td>Klasifikasi maklumat</td>
+                        <td><strong>Kolom Data:</strong> Nama Kategori, Urutan Tampil. Digunakan untuk mengelompokkan edaran (contoh: Akademik Ta'lim, Jadwal Piket, Keamanan/Tata Tertib, Informasi Darurat).</td>
+                    </tr>
+                </table>
+
+                <div class="ar"><strong>Hak Akses:</strong> Pengelola Ma'had + Administrator</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  KEUANGAN & TAGIHAN BLU                                          -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-fee">
+                <h2 class="sec-t"><i class="fa fa-money"/> Keuangan &amp; Tagihan Asrama (BLU)</h2>
+                <p>Penerbitan, pemantauan, dan rekonsiliasi tagihan tarif layanan asrama/mukim mahasantri yang terintegrasi langsung dengan modul Akuntansi/Invoicing BLU IAIN Parepare.</p>
+
+                <div class="fld">
+                    <strong>Kolom Data Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Kontrak Mukim</b> - Rujukan kontrak santri</div>
+                        <div class="fld-item"><b>Mahasantri</b> - Terisi otomatis dari kontrak</div>
+                        <div class="fld-item"><b>Uraian Tagihan</b> - Deskripsi biaya sewa/layanan</div>
+                        <div class="fld-item"><b>Periode Tagihan</b> - Rentang tanggal masa mukim</div>
+                        <div class="fld-item"><b>Nominal Tarif</b> - Besaran biaya asrama</div>
+                        <div class="fld-item"><b>Jatuh Tempo</b> - Batas akhir pembayaran</div>
+                        <div class="fld-item"><b>Denda/Kompensasi</b> - Biaya keterlambatan bila ada</div>
+                        <div class="fld-item"><b>Total Tagihan</b> - Akumulasi otomatis nominal + denda</div>
+                        <div class="fld-item"><b>Faktur Akuntansi</b> - Tautan ke invoice resmi (account.move)</div>
+                    </div>
+                </div>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Tagihan</div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Alur Utama:</span>
+                        <span class="wf-node" style="background:#6c757d;">Draf</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0284c7;">Ditagihkan</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0D9488;">Lunas</span>
+                    </div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Menunggak:</span>
+                        <span class="wf-node" style="background:#0284c7;">Ditagihkan</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#dc2626;">Jatuh Tempo</span>
+                        <span class="wf-note">(otomatis saat melewati batas tanggal bayar)</span>
+                    </div>
+                </div>
+
+                <ul style="margin-top:10px;">
+                    <li>Tombol <strong>Buat Faktur (Create Invoice)</strong> mengonversi draf tagihan asrama menjadi invoice resmi akuntansi Odoo (<code>account.move</code>).</li>
+                    <li>Tombol <strong>Lihat Faktur (View Invoice)</strong> membuka rincian faktur untuk rekonsiliasi dan verifikasi pembayaran kas/bank.</li>
+                    <li>Tersedia <strong>Cron Otomatis</strong> untuk menerbitkan tagihan bulanan atau per semester bagi seluruh kontrak santri yang masih aktif.</li>
+                    <li>Sinkronisasi status berlangsung otomatis: ketika faktur akuntansi dinyatakan lunas, status tagihan asrama otomatis berubah menjadi "Lunas".</li>
+                </ul>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Jadwal penerbitan tagihan berkala dapat dikonfigurasi melalui menu Pengaturan. Mahasantri yang memiliki tunggakan otomatis terdata dalam daftar peringatan perpanjangan kontrak.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Bagian Keuangan + Pengelola Ma'had + Administrator</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  SIDAK & INSPEKSI KAMAR                                          -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-inspections">
+                <h2 class="sec-t"><i class="fa fa-search"/> Sidak &amp; Inspeksi Kamar Santri</h2>
+                <p>Penyusunan jadwal, pelaksanaan sidak mendadak, serta pemeriksaan berkala kebersihan, kerapian, dan kelayakan kamar santri dengan instrumen checklist terstandar.</p>
+
+                <div class="fld">
+                    <strong>Kolom Data Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>No. Pemeriksaan</b> - Nomor registrasi unik</div>
+                        <div class="fld-item"><b>Tanggal Sidak</b> - Tanggal realisasi sidak</div>
+                        <div class="fld-item"><b>Jadwal Rencana</b> - Tanggal agenda pemeriksaan</div>
+                        <div class="fld-item"><b>Gedung / Kamar</b> - Lokasi kamar yang disidak</div>
+                        <div class="fld-item"><b>Pemeriksa</b> - Musyrif / Tim Pengasuh yang bertugas</div>
+                        <div class="fld-item"><b>Catatan Checklist</b> - Keterangan umum temuan</div>
+                        <div class="fld-item"><b>Hasil / Evaluasi</b> - Rekomendasi atau takzir kamar</div>
+                    </div>
+                </div>
+
+                <p style="margin-top:10px;"><strong>Item Checklist Pemeriksaan:</strong></p>
+                <ul>
+                    <li><strong>Kriteria Uji:</strong> Objek yang diperiksa (misalnya: Kebersihan Lantai, Kerapian Ranjang, Kebersihan Kamar Mandi, Tidak Ada Alat Masak Listrik Terlarang).</li>
+                    <li><strong>Status Hasil:</strong> Memenuhi Syarat (OK) / Tidak Memenuhi (Not OK) / Tidak Relevan (N/A).</li>
+                    <li><strong>Catatan Temuan:</strong> Keterangan mendetail atas barang terlarang atau kerusakan yang ditemukan.</li>
+                </ul>
+
+                <div class="wf">
+                    <div class="wf-title">Alur Pelaksanaan Sidak</div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Proses Sidak:</span>
+                        <span class="wf-node" style="background:#6c757d;">Draf Rencana</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0284c7;">Terjadwal</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#f59e0b;">Sedang Berjalan</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#0D9488;">Selesai Dievaluasi</span>
+                    </div>
+                    <div class="wf-row">
+                        <span class="wf-lbl">Batal:</span>
+                        <span class="wf-node" style="background:#888;">Semua Status</span>
+                        <span class="wf-arr">&#x2192;</span>
+                        <span class="wf-node" style="background:#dc2626;">Dibatalkan</span>
+                    </div>
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Musyrif / Pembina + Pengelola Ma'had</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  LAPORAN & ANALISIS                                              -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-reports">
+                <h2 class="sec-t"><i class="fa fa-bar-chart"/> Laporan &amp; Analisis Statistik</h2>
+                <p>Pusat pencetakan dokumen rekapitulasi, cetak lembar kerja PDF, dan analisis statistik data hunian asrama untuk bahan evaluasi pimpinan Ma'had dan Rektorat.</p>
+
+                <p style="margin-top:10px;"><strong>Langkah Mencetak Laporan:</strong></p>
+                <ul>
+                    <li>Buka menu <strong>Laporan &gt; Buat Laporan</strong>.</li>
+                    <li>Pilih <strong>Jenis Laporan</strong> yang dibutuhkan pada menu tarik-turun.</li>
+                    <li>Tentukan rentang tanggal <strong>Dari Tanggal</strong> sampai <strong>Hingga Tanggal</strong>.</li>
+                    <li>Pilih <strong>Format Ekspor</strong> (Dokumen PDF).</li>
+                    <li>Klik tombol <strong>Cetak / Unduh Laporan</strong>.</li>
+                </ul>
+
+                <table class="ft" style="margin-top:14px;">
+                    <tr><th style="width:22%;">Jenis Laporan</th><th>Deskripsi Isi</th><th style="width:36%;">Rincian Data</th></tr>
+                    <tr>
+                        <td><i class="fa fa-home" style="color:#0D9488;"/> Santri Aktif Mukim</td>
+                        <td>Daftar seluruh mahasantri yang memiliki kontrak aktif dan menempati asrama</td>
+                        <td>
+                            <strong>Ringkasan:</strong> Total mahasantri, breakdown per jenis kelamin (Ikhwan/Akhwat), total kontrak aktif.<br/>
+                            <strong>Tabel Rincian:</strong> No, Nama Mahasantri, Kamar, Ranjang, Gedung, Tgl Mulai Mukim, Tgl Selesai.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-pie-chart" style="color:#10b981;"/> Okupansi &amp; Kapasitas</td>
+                        <td>Rasio tingkat keterisian ranjang dan kapasitas kamar di seluruh gedung</td>
+                        <td>
+                            <strong>Ringkasan:</strong> Total kamar, total kapasitas bed, bed terisi, bed kosong, persentase okupansi (%).<br/>
+                            <strong>Tabel Rincian:</strong> No, Kamar, Gedung, Blok/Lantai, Tipe Kamar, Total Bed, Terisi, Kosong, % Keterisian.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-money" style="color:#f59e0b;"/> Rekapitulasi Keuangan BLU</td>
+                        <td>Laporan tagihan sewa asrama, pembayaran kas, dan tunggakan santri</td>
+                        <td>
+                            <strong>Ringkasan:</strong> Total tertagih, total lunas diterima, sisa piutang, total denda/kompensasi.<br/>
+                            <strong>Tabel Rincian:</strong> No, Nama Santri, Periode, Nominal, Jatuh Tempo, Denda, Total, Status Lunas.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-calendar-check-o" style="color:#0D9488;"/> Rekap Presensi Shalat</td>
+                        <td>Rekapitulasi kehadiran shalat fardhu berjamaah dan pengajian santri</td>
+                        <td>
+                            <strong>Ringkasan:</strong> Total catatan, akumulasi hadir, tidak hadir (alpa), sakit, dan izin.<br/>
+                            <strong>Tabel Rincian:</strong> No, Mahasantri, Tanggal, Waktu Shalat, Waktu Presensi, Gedung, Status Kehadiran.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-users" style="color:#10b981;"/> Buku Tamu &amp; Kunjungan</td>
+                        <td>Rekapitulasi catatan pengunjung asrama dalam kurun waktu tertentu</td>
+                        <td>
+                            <strong>Ringkasan:</strong> Total kunjungan, disetujui, ditolak, selesai berkunjung.<br/>
+                            <strong>Tabel Rincian:</strong> No, Nama Pengunjung, Santri yang Dikunjungi, Tanggal Kunjungan, Keperluan, Durasi, Status.
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Filter tanggal secara default memilih bulan berjalan. Sesuaikan tanggal jika memerlukan arsip evaluasi semesteran. Laporan keuangan mencakup semua faktur yang jatuh tempo pada rentang waktu yang dipilih.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Pengelola Ma'had + Bagian Keuangan + Mudir Ma'had</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  OTOMATISASI SISTEM                                              -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-automation">
+                <h2 class="sec-t"><i class="fa fa-cogs"/> Otomatisasi Sistem (Background Jobs)</h2>
+                <p>Konfigurasi pengiriman notifikasi otomatis dan tugas terjadwal sistem (Cron Jobs) untuk efisiensi operasional pengasuhan.</p>
+
+                <table class="ft">
+                    <tr><th>Fitur Otomatis</th><th>Deskripsi</th><th>Rincian Operasional</th></tr>
+                    <tr>
+                        <td><i class="fa fa-birthday-cake" style="color:#ec4899;"/> Ucapan Milad Mahasantri</td>
+                        <td>Pengiriman otomatis tahniah / ucapan milad ke santri</td>
+                        <td>
+                            <strong>Kolom Data:</strong> Nama Konfigurasi, Templat Email/Pesan, Status Aktif, Tanggal Terakhir Berjalan.<br/>
+                            Cron berjalan otomatis setiap hari pada pukul 06:00: mencari santri yang berulang tahun pada hari tersebut dan mengirimkan doa/tahniah via templat yang telah dipersonalisasi. Riwayat pengiriman tersimpan di log sistem.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-bell" style="color:#f59e0b;"/> Pengingat Perpanjangan Mukim</td>
+                        <td>Notifikasi dini sebelum masa kontrak berakhir</td>
+                        <td>
+                            <strong>Kolom Data:</strong> Nama Pengingat, Hari Sebelum Berakhir (H-30, H-7), Templat Notifikasi, Status Aktif.<br/>
+                            Cron memindai kontrak yang akan habis masa berlakunya dan mengirimkan instruksi perpanjangan mukim atau pengembalian kunci asrama kepada santri terkait secara berkala.
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Anda dapat membuat beberapa tahapan pengingat (misalnya: Peringatan 30 hari sebelum berakhir, lalu pengingat akhir 7 hari sebelum berakhir) dengan teks pesan yang berbeda tingkat urgensinya.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Administrator Sistem</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  SDM PENGASUH & MUSYRIF                                          -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-hr">
+                <h2 class="sec-t"><i class="fa fa-id-card"/> Manajemen Pembina &amp; Musyrif (SDM)</h2>
+                <p>Pengelolaan data pembina, musyrif/musyrifah, satuan pengamanan, dan staf kebersihan asrama yang terintegrasi dengan modul Kepegawaian (HR) Odoo.</p>
+
+                <div class="fld">
+                    <strong>Kolom Tambahan Khusus Ma'had:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nomor Induk Pembina</b> - NIP / NIDN / Kode internal</div>
+                        <div class="fld-item"><b>Jenis Penugasan</b> - Dosen Pembina / Musyrif Mukim / Tenaga Teknis</div>
+                        <div class="fld-item"><b>Dokumen SK &amp; Berkas</b> - Berkas SK Mudir/Rektor &amp; portofolio</div>
+                    </div>
+                </div>
+
+                <p style="margin-top:10px;"><strong>Fitur Integrasi Kepegawaian:</strong></p>
+                <ul>
+                    <li><strong>Arsip Dokumen SK &amp; Sertifikat:</strong> Menyimpan salinan KTP, SK Pembina Ma'had, sertifikat tahfidz/syahadah, dan surat tugas dengan fitur pemantauan masa berlaku SK.</li>
+                    <li><strong>Presensi &amp; Piket Jaga:</strong> Memantau jam piket pengasuhan, ronda malam, dan dispensasi tugas pembina.</li>
+                    <li><strong>Pengajuan Izin Pembina:</strong> Alur pengajuan dan persetujuan izin ketidakhadiran musyrif dalam membina halaqah.</li>
+                </ul>
+
+                <div class="ar"><strong>Hak Akses:</strong> Pengelola Ma'had + Administrator Kepegawaian</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  KATEGORI TAKZIR FINANSIAL                                       -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-penalty">
+                <h2 class="sec-t"><i class="fa fa-balance-scale"/> Tarif Ganti Rugi &amp; Takzir Finansial</h2>
+                <p>Konfigurasi daftar baku denda dan biaya ganti rugi atas kerusakan sarana/fasilitas asrama atau pelanggaran tata tertib saat proses check-out santri.</p>
+
+                <div class="fld">
+                    <strong>Kolom Data Utama:</strong>
+                    <div class="fld-grid">
+                        <div class="fld-item"><b>Nama Ganti Rugi / Takzir</b> - Contoh: "Kerusakan Kunci Kamar", "Kaca Jendela Pecah"</div>
+                        <div class="fld-item"><b>Tarif Baku (Rp)</b> - Besaran biaya standar</div>
+                        <div class="fld-item"><b>Kategori</b> - Kerusakan Fasilitas / Pelanggaran Tata Tertib / Kehilangan Aset</div>
+                        <div class="fld-item"><b>Mata Uang</b> - IDR (Rupiah)</div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk:</strong> Saat melakukan check-out dan menambahkan item denda/ganti rugi, pemilihan kategori ini akan secara otomatis mengisi nominal tarif standar. Petugas berwenang dapat menyesuaikan besaran ganti rugi sesuai kondisi riil di lapangan.
+                </div>
+
+                <div class="ar"><strong>Hak Akses:</strong> Pengelola Ma'had + Administrator</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  PENGATURAN SISTEM                                               -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-settings">
+                <h2 class="sec-t"><i class="fa fa-sliders"/> Pengaturan &amp; Konfigurasi Sistem</h2>
+                <p>Pusat konfigurasi parameter teknis dan kebijakan operasional modul Ma'had Al-Jami'ah yang dapat disesuaikan pada Pengaturan Odoo.</p>
+
+                <p style="margin-top:8px;"><strong>Cakupan Parameter Konfigurasi:</strong></p>
+                <ul>
+                    <li><strong>Dashboard Monitoring:</strong> Pengaturan rentang default indikator kinerja utama (KPI) asrama.</li>
+                    <li><strong>Buku Tamu:</strong> Batas waktu kunjungan dan verifikasi persetujuan musyrif.</li>
+                    <li><strong>Presensi &amp; Jam Malam:</strong> Batas toleransi jam malam asrama dan jadwal shalat berjamaah.</li>
+                    <li><strong>Tagihan Asrama (BLU):</strong> Penentuan siklus penagihan otomatis dan integrasi jurnal piutang.</li>
+                    <li><strong>Denda &amp; Toleransi:</strong> Persentase denda keterlambatan dan masa tenggang pembayaran.</li>
+                    <li><strong>Tiket Pemeliharaan:</strong> Penugasan teknisi otomatis dan target SLA perbaikan sarpras.</li>
+                    <li><strong>Pengaduan Santri:</strong> Alur eskalasi penanganan keluhan fasilitas ke pimpinan.</li>
+                    <li><strong>Layanan Dapur &amp; Katering:</strong> Jam pemesanan menu dan kebijakan pembatalan makan santri.</li>
+                    <li><strong>Layanan Laundry:</strong> Tarif cuci kiloan/satuan dan estimasi waktu penyelesaian.</li>
+                    <li><strong>Sidak &amp; Kebersihan:</strong> Jadwal rutin inspeksi kamar per blok/gedung.</li>
+                    <li><strong>Maklumat &amp; Pengumuman:</strong> Masa aktif tayang otomatis sebelum kedaluwarsa.</li>
+                    <li><strong>Dokumen Kesantrian:</strong> Ambang batas peringatan masa berlaku dokumen/identitas santri.</li>
+                    <li><strong>Templat Pesan &amp; Notifikasi:</strong> Kustomisasi kata-kata email pengingat dan maklumat.</li>
+                    <li><strong>Hak Akses &amp; Keamanan:</strong> Kebijakan otorisasi modul dan pengesahan bertingkat.</li>
+                </ul>
+
+                <div class="ar"><strong>Hak Akses:</strong> Administrator Sistem (melalui Pengaturan &gt; Manajemen Ma'had)</div>
+            </div>
+
+            <!-- ===== BOTTOM BAR ===== -->
+            <div class="bottombar" style="text-align:center; margin-top:30px;">
+                <a href="/web#action=sirita_mahad.action_hostel_dashboard" class="btn-hostel btn-blue">
+                    <i class="fa fa-arrow-left"/> Kembali ke Dashboard Ma'had
+                </a>
+            </div>
+
+            <!-- ===== FOOTER ===== -->
+            <div class="ftr">
+                <p style="margin-bottom:4px; font-weight:600; color:#0D9488;">Sistem Informasi Manajemen Ma'had Al-Jami'ah v17.0</p>
+                <p>UPT Ma'had Al-Jami'ah &amp; TIPD Institut Agama Islam Negeri (IAIN) Parepare</p>
+            </div>
+
+        </div>
+        </body>
+        </html>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--  Action to open Help Page                                    -->
+    <!-- ============================================================ -->
+    <record id="action_hostel_help" model="ir.actions.act_url">
+        <field name="name">Help Guide</field>
+        <field name="url">/hostel/help</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

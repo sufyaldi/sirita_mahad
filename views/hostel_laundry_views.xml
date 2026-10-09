@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Sequence for laundry request reference -->
+    <record id="seq_hostel_laundry_request" model="ir.sequence">
+        <field name="name">Hostel Laundry Request</field>
+        <field name="code">hostel.laundry.request</field>
+        <field name="prefix">LAUN</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_laundry_request_tree" model="ir.ui.view">
+        <field name="name">hostel.laundry.request.tree</field>
+        <field name="model">hostel.laundry.request</field>
+        <field name="arch" type="xml">
+            <list
+                  decoration-success="state == 'completed'"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-info="state == 'in_progress'">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="building_id"/>
+                <field name="request_date"/>
+                <field name="service_type"/>
+                <field name="quantity"/>
+                <field name="fee"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'completed'"
+                       decoration-info="state in ('submitted', 'in_progress')"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="delivery_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_laundry_request_form" model="ir.ui.view">
+        <field name="name">hostel.laundry.request.form</field>
+        <field name="model">hostel.laundry.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit"
+                            type="object"
+                            string="Submit"
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start"
+                            type="object"
+                            string="In Progress"
+                            invisible="state not in ('submitted', 'in_progress')"/>
+                    <button name="action_complete"
+                            type="object"
+                            string="Mark Completed"
+                            class="oe_highlight"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            invisible="state in ('completed', 'cancelled')"
+                            class="btn-danger"/>
+                    <button name="action_reset_draft"
+                            type="object"
+                            string="Reset to Draft"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="student_id" options="{'no_create': True}"/>
+                            <field name="building_id"/>
+                            <field name="request_date"/>
+                            <field name="service_type"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="fee"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="pickup_date"/>
+                            <field name="delivery_date"/>
+                            <field name="state" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="items_description" placeholder="e.g. 2 shirts, 1 jeans..."/>
+                        <field name="notes" placeholder="Internal notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_laundry_request_search" model="ir.ui.view">
+        <field name="name">hostel.laundry.request.search</field>
+        <field name="model">hostel.laundry.request</field>
+        <field name="arch" type="xml">
+            <search string="Laundry Requests">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="building_id"/>
+                <field name="request_date"/>
+                <field name="service_type"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Submitted" name="submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Open" name="open" domain="[('state', 'in', ['submitted', 'in_progress'])]"/>
+                <group>
+                    <filter string="Student" name="group_student" domain="[]" context="{'group_by': 'student_id'}"/>
+                    <filter string="Service Type" name="group_service" domain="[]" context="{'group_by': 'service_type'}"/>
+                    <filter string="Status" name="group_state" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_laundry_request" model="ir.actions.act_window">
+        <field name="name">Laundry Requests</field>
+        <field name="res_model">hostel.laundry.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_open': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a laundry request.</p>
+            <p>Students submit laundry requests (wash, iron, wash &amp; iron, dry clean). Track status and fee.</p>
+        </field>
+    </record>
+</odoo>

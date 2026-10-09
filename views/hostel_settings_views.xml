@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Hostel Management settings in General Settings -->
+    <record id="res_config_settings_view_form_hostel" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hostel</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Hostel Management" string="Hostel Management" name="hostel_management">
+
+                    <!-- Dashboard -->
+                    <block title="Dashboard" name="hostel_dashboard_settings">
+                        <group>
+                            <group string="Date Range &amp; Behaviour">
+                                <field name="hostel_default_dashboard_range_days"/>
+                                <field name="hostel_dashboard_show_expiry_highlights"/>
+                                <field name="hostel_dashboard_auto_refresh_interval"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Visitors -->
+                    <block title="Visitors" name="hostel_visitor_settings">
+                        <group>
+                            <group string="Approval &amp; Limits">
+                                <field name="hostel_visitor_require_approval"/>
+                                <field name="hostel_visitor_max_per_day"/>
+                                <field name="hostel_visitor_overstay_minutes"/>
+                            </group>
+                            <group string="Notifications">
+                                <field name="hostel_visitor_notify_email"/>
+                                <field name="hostel_visitor_notify_sms"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Attendance -->
+                    <block title="Student Attendance" name="hostel_attendance_settings">
+                        <group>
+                            <group string="Behaviour">
+                                <field name="hostel_attendance_source"/>
+                                <field name="hostel_attendance_late_grace"/>
+                            </group>
+                            <group string="Notifications">
+                                <field name="hostel_attendance_absent_notify_guardian"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Fee Management -->
+                    <block title="Fee Management &amp; Penalties" name="hostel_fee_settings">
+                        <group>
+                            <group string="Rent Invoicing">
+                                <field name="hostel_rent_invoice_day"/>
+                                <field name="hostel_payment_reminder_days_before_due"/>
+                            </group>
+                            <group string="Late Payment Penalties">
+                                <field name="hostel_late_payment_penalty_type"/>
+                                <field name="hostel_late_payment_penalty_value"/>
+                            </group>
+                            <group string="Integration">
+                                <field name="hostel_enable_payment_gateway"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Room Allocation -->
+                    <block title="Room Allocation" name="hostel_allocation_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_enable_allocation_requests"/>
+                                <field name="hostel_allocation_strategy"/>
+                                <field name="hostel_allow_mixed_gender_buildings"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Maintenance -->
+                    <block title="Maintenance" name="hostel_maintenance_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_maintenance_default_priority"/>
+                                <field name="hostel_maintenance_auto_assign"/>
+                                <field name="hostel_maintenance_notify_requester"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Complaints -->
+                    <block title="Complaints &amp; Grievances" name="hostel_complaint_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_complaint_allow_anonymous"/>
+                                <field name="hostel_complaint_escalation_days"/>
+                            </group>
+                            <group string="Notifications">
+                                <field name="hostel_complaint_notify_student"/>
+                                <field name="hostel_complaint_notify_manager"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Mess / Food -->
+                    <block title="Mess / Food" name="hostel_mess_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_meal_booking_cutoff_hours"/>
+                                <field name="hostel_meal_charge_enabled"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Laundry -->
+                    <block title="Laundry" name="hostel_laundry_settings">
+                        <group>
+                            <group string="Default Fees">
+                                <field name="hostel_laundry_default_fee_wash"/>
+                                <field name="hostel_laundry_default_fee_iron"/>
+                                <field name="hostel_laundry_default_fee_wash_iron"/>
+                                <field name="hostel_laundry_default_fee_dry_clean"/>
+                            </group>
+                            <group string="Limits">
+                                <field name="hostel_laundry_max_items"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Room Inspections -->
+                    <block title="Room Inspections" name="hostel_inspection_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_inspection_default_frequency"/>
+                                <field name="hostel_inspection_auto_schedule"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Notice Board -->
+                    <block title="Notice Board / Announcements" name="hostel_announcement_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_announcement_default_target"/>
+                                <field name="hostel_announcement_email_broadcast"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Documents -->
+                    <block title="Document Management" name="hostel_document_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_document_expiry_warning_days"/>
+                                <field name="hostel_require_documents_on_checkin"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Security / Portal -->
+                    <block title="Security &amp; Portals" name="hostel_security_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_security_enable_student_portal"/>
+                                <field name="hostel_security_enable_staff_portal"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Communication -->
+                    <block title="Communication (Email &amp; SMS)" name="hostel_communication_settings">
+                        <group>
+                            <group string="Email">
+                                <field name="hostel_default_email_template_contract"/>
+                                <field name="hostel_default_email_template_visitor"/>
+                            </group>
+                            <group string="SMS">
+                                <field name="hostel_enable_sms"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Reporting -->
+                    <block title="Reporting &amp; Export" name="hostel_reporting_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_enable_advanced_reports"/>
+                                <field name="hostel_default_export_format"/>
+                            </group>
+                        </group>
+                    </block>
+
+                    <!-- Mobile / API -->
+                    <block title="Mobile &amp; API" name="hostel_mobile_settings">
+                        <group>
+                            <group>
+                                <field name="hostel_enable_rest_api"/>
+                                <field name="hostel_mobile_app_base_url"/>
+                            </group>
+                        </group>
+                    </block>
+
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

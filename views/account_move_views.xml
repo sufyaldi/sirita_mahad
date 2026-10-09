@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Invoice Views Enhancement -->
+    <record id="view_account_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.hostel</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']" position="before">
+                <group>
+                    <field name="invoice_category"/>
+                    <field name="hostel_contract_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

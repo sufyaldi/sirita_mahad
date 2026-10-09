@@ -1,0 +1,1200 @@
+/* Hostel Dashboard - New Design (Tickets/Performance style) */
+
+/* Odoo 18: make the action manager the scroll container */
+.hostel_dashboard .o_action_manager {
+    overflow: auto !important;
+}
+
+.o_hostel_dashboard {
+    background: #f0f2f5;
+    min-height: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.o_hostel_dashboard_container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem;
+    padding-bottom: 2rem;
+    min-height: 100%;
+}
+
+/* Dashboard Header */
+.o_hostel_dashboard_header {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e8ecf0;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.o_hostel_dashboard_header_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, #0D9488 0%, #0D9488 100%);
+    color: #fff;
+}
+
+.o_hostel_dashboard_header_brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.o_hostel_dashboard_logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.o_hostel_dashboard_logo i {
+    font-size: 1.5rem;
+}
+
+.o_hostel_dashboard_header_title_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.o_hostel_dashboard_title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.o_hostel_dashboard_subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.85);
+}
+
+.o_hostel_dashboard_header_actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.o_hostel_header_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.o_hostel_header_btn i {
+    font-size: 0.9rem;
+}
+
+.o_hostel_header_btn_outline {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.o_hostel_header_btn_outline:hover {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    text-decoration: none;
+}
+
+.o_hostel_header_btn_primary {
+    background: #fff;
+    color: #0D9488;
+    border: none;
+}
+
+.o_hostel_header_btn_primary:hover {
+    background: #f8f9fa;
+    color: #0D9488;
+    text-decoration: none;
+}
+
+.o_hostel_dashboard_header_bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: #fafbfc;
+    border-top: 1px solid #eee;
+}
+
+.o_hostel_date_filter_card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.o_hostel_date_filter_group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.o_hostel_date_filter_label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.o_hostel_date_input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    background: #fff;
+    min-width: 140px;
+}
+
+.o_hostel_date_input:focus {
+    border-color: #0D9488;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(42, 143, 214, 0.15);
+}
+
+.o_hostel_date_filter_sep {
+    color: #adb5bd;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.o_hostel_date_filter_btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.o_hostel_header_btn_apply {
+    background: #0D9488;
+    color: #fff !important;
+    border: none;
+}
+
+.o_hostel_header_btn_apply:hover {
+    background: #0D9488;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.o_hostel_header_btn_reset {
+    background: transparent;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+}
+
+.o_hostel_header_btn_reset:hover {
+    background: #f8f9fa;
+    color: #495057;
+    border-color: #ced4da;
+    text-decoration: none;
+}
+
+.o_hostel_dashboard_range_label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.o_hostel_dashboard_range_label i {
+    color: #0D9488;
+}
+
+@media (max-width: 768px) {
+    .o_hostel_dashboard_header_top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .o_hostel_dashboard_header_bottom {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .o_hostel_date_filter_card {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .o_hostel_date_filter_sep {
+        display: none;
+    }
+}
+
+/* Loading */
+.o_hostel_loading {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+/* Top Row: 2 blocks side by side */
+.o_hostel_top_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+    .o_hostel_top_row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.o_hostel_block {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.o_hostel_block_primary {
+    border-top: 4px solid #0D9488;
+}
+
+.o_hostel_block_secondary {
+    border-top: 4px solid #0D9488;
+}
+
+.o_hostel_block_title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #343a40;
+    margin: 0 0 1rem 0;
+}
+
+/* Occupancy & Contracts cards */
+.o_hostel_occ_cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.o_hostel_occ_card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.o_hostel_occ_card.hostel-clickable {
+    cursor: pointer;
+}
+
+.o_hostel_occ_card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.o_hostel_occ_card_icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.o_hostel_occ_card_body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.o_hostel_occ_card_value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.o_hostel_occ_card_label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
+.o_hostel_occ_pct {
+    background: #e3f2fd;
+}
+.o_hostel_occ_pct .o_hostel_occ_card_icon {
+    background: #0D9488;
+    color: #fff;
+}
+.o_hostel_occ_pct .o_hostel_occ_card_value {
+    color: #0D9488;
+}
+.o_hostel_occ_pct .o_hostel_occ_card_label {
+    color: #1565c0;
+}
+
+.o_hostel_occ_students {
+    background: #ede7f6;
+}
+.o_hostel_occ_students .o_hostel_occ_card_icon {
+    background: #5e35b1;
+    color: #fff;
+}
+.o_hostel_occ_students .o_hostel_occ_card_value {
+    color: #5e35b1;
+}
+.o_hostel_occ_students .o_hostel_occ_card_label {
+    color: #4527a0;
+}
+
+.o_hostel_occ_vacant {
+    background: #e8f5e9;
+}
+.o_hostel_occ_vacant .o_hostel_occ_card_icon {
+    background: #198754;
+    color: #fff;
+}
+.o_hostel_occ_vacant .o_hostel_occ_card_value {
+    color: #198754;
+}
+.o_hostel_occ_vacant .o_hostel_occ_card_label {
+    color: #2d6a4f;
+}
+
+/* Occupancy bottom metrics row */
+.o_hostel_occ_metrics {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eef1f4;
+}
+
+.o_hostel_occ_metric {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.6rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.o_hostel_occ_metric i {
+    color: #0D9488;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.o_hostel_occ_metric_val {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+.o_hostel_occ_metric_lbl {
+    font-size: 0.65rem;
+    color: #6c757d;
+    white-space: nowrap;
+}
+
+.o_hostel_occ_metric_warn {
+    background: #fff8f0;
+}
+.o_hostel_occ_metric_warn i {
+    color: #e65100;
+}
+.o_hostel_occ_metric_warn .o_hostel_occ_metric_val {
+    color: #e65100;
+}
+
+@media (max-width: 600px) {
+    .o_hostel_occ_cards {
+        grid-template-columns: 1fr;
+    }
+    .o_hostel_occ_metrics {
+        flex-direction: column;
+    }
+}
+
+/* Revenue & Performance cards */
+.o_hostel_rev_cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.o_hostel_rev_card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.o_hostel_rev_card.hostel-clickable {
+    cursor: pointer;
+}
+
+.o_hostel_rev_card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.o_hostel_rev_card_icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.o_hostel_rev_card_body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.o_hostel_rev_card_value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.o_hostel_rev_card_label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
+.o_hostel_rev_paid {
+    background: #e8f5e9;
+}
+.o_hostel_rev_paid .o_hostel_rev_card_icon {
+    background: #198754;
+    color: #fff;
+}
+.o_hostel_rev_paid .o_hostel_rev_card_value {
+    color: #198754;
+}
+.o_hostel_rev_paid .o_hostel_rev_card_label {
+    color: #2d6a4f;
+}
+
+.o_hostel_rev_out {
+    background: #fff3e0;
+}
+.o_hostel_rev_out .o_hostel_rev_card_icon {
+    background: #e65100;
+    color: #fff;
+}
+.o_hostel_rev_out .o_hostel_rev_card_value {
+    color: #e65100;
+}
+.o_hostel_rev_out .o_hostel_rev_card_label {
+    color: #8d3800;
+}
+
+.o_hostel_rev_rate {
+    background: #e3f2fd;
+}
+.o_hostel_rev_rate .o_hostel_rev_card_icon {
+    background: #0D9488;
+    color: #fff;
+}
+.o_hostel_rev_rate .o_hostel_rev_card_value {
+    color: #0D9488;
+}
+.o_hostel_rev_rate .o_hostel_rev_card_label {
+    color: #1565c0;
+}
+
+/* Revenue bottom metrics row */
+.o_hostel_rev_metrics {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eef1f4;
+}
+
+.o_hostel_rev_metric {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.6rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.o_hostel_rev_metric i {
+    color: #0D9488;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.o_hostel_rev_metric_val {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+.o_hostel_rev_metric_lbl {
+    font-size: 0.65rem;
+    color: #6c757d;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .o_hostel_rev_cards {
+        grid-template-columns: 1fr;
+    }
+    .o_hostel_rev_metrics {
+        flex-direction: column;
+    }
+}
+
+/* Bottom Row: 2 section cards */
+.o_hostel_bottom_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+@media (max-width: 992px) {
+    .o_hostel_bottom_row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.o_hostel_block_visitors {
+    border-top: 4px solid #0D9488;
+}
+
+.o_hostel_block_maint {
+    border-top: 4px solid #e65100;
+}
+
+.o_hostel_section_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.o_hostel_section_head .o_hostel_block_title {
+    margin: 0;
+}
+
+.o_hostel_section_head .o_hostel_block_title i {
+    margin-right: 6px;
+    color: #6c757d;
+}
+
+.o_hostel_section_action {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #0D9488;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s;
+}
+
+.o_hostel_section_action:hover {
+    color: #1a6fad;
+    text-decoration: none;
+}
+
+/* Stat cards */
+.o_hostel_stat_cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.o_hostel_stat_cards_3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.o_hostel_stat_card {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.o_hostel_stat_card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.o_hostel_stat_icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.o_hostel_stat_body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.o_hostel_stat_value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.o_hostel_stat_label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+    margin-top: 1px;
+}
+
+.o_hostel_stat_blue { background: #e3f2fd; }
+.o_hostel_stat_blue .o_hostel_stat_icon { background: #0D9488; color: #fff; }
+.o_hostel_stat_blue .o_hostel_stat_value { color: #0D9488; }
+.o_hostel_stat_blue .o_hostel_stat_label { color: #1565c0; }
+
+.o_hostel_stat_amber { background: #fff3e0; }
+.o_hostel_stat_amber .o_hostel_stat_icon { background: #e65100; color: #fff; }
+.o_hostel_stat_amber .o_hostel_stat_value { color: #e65100; }
+.o_hostel_stat_amber .o_hostel_stat_label { color: #8d3800; }
+
+.o_hostel_stat_red { background: #fce4ec; }
+.o_hostel_stat_red .o_hostel_stat_icon { background: #c62828; color: #fff; }
+.o_hostel_stat_red .o_hostel_stat_value { color: #c62828; }
+.o_hostel_stat_red .o_hostel_stat_label { color: #8e0000; }
+
+.o_hostel_stat_purple { background: #ede7f6; }
+.o_hostel_stat_purple .o_hostel_stat_icon { background: #5e35b1; color: #fff; }
+.o_hostel_stat_purple .o_hostel_stat_value { color: #5e35b1; }
+.o_hostel_stat_purple .o_hostel_stat_label { color: #4527a0; }
+
+.o_hostel_stat_teal { background: #e0f2f1; }
+.o_hostel_stat_teal .o_hostel_stat_icon { background: #00796b; color: #fff; }
+.o_hostel_stat_teal .o_hostel_stat_value { color: #00796b; }
+.o_hostel_stat_teal .o_hostel_stat_label { color: #004d40; }
+
+/* Stat footer pills */
+.o_hostel_stat_footer {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eef1f4;
+}
+
+.o_hostel_stat_pill {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.6rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.o_hostel_stat_pill i {
+    color: #6c757d;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.o_hostel_stat_pill strong {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+.o_hostel_stat_pill span {
+    font-size: 0.62rem;
+    color: #6c757d;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .o_hostel_stat_cards,
+    .o_hostel_stat_cards_3 {
+        grid-template-columns: 1fr;
+    }
+    .o_hostel_stat_footer {
+        flex-direction: column;
+    }
+}
+
+/* Charts Panel - unified analytics section */
+.o_hostel_dashboard .o_hostel_charts_panel {
+    background: #fff !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 1.5rem;
+    overflow: visible;
+    border: 1px solid #e8ecf0;
+    display: block !important;
+}
+
+.o_hostel_dashboard .o_hostel_charts_panel_header {
+    padding: 1.5rem 1.75rem;
+    background: linear-gradient(135deg, #0D9488 0%, #0D9488 100%) !important;
+    color: #fff !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.o_hostel_dashboard .o_hostel_charts_panel_title {
+    display: flex !important;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+}
+
+.o_hostel_dashboard .o_hostel_charts_panel_title i {
+    font-size: 1.4rem;
+    opacity: 0.95;
+    color: #fff !important;
+}
+
+.o_hostel_dashboard .o_hostel_charts_panel_subtitle {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    color: rgba(255,255,255,0.9) !important;
+}
+
+.o_hostel_dashboard .o_hostel_charts_panel_body {
+    padding: 1.5rem 1.75rem !important;
+    background: #fff !important;
+    display: block !important;
+}
+
+.o_hostel_dashboard .o_hostel_charts_grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.25rem;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel {
+    min-width: 0;
+    display: block !important;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel_inner {
+    background: #fafbfc !important;
+    border-radius: 12px;
+    border: 1px solid #eef1f4;
+    overflow: visible;
+    min-height: 180px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel_inner:hover {
+    box-shadow: 0 2px 12px rgba(111, 66, 193, 0.12);
+    border-color: #d0d7de;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel_header {
+    display: flex !important;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+    background: #fff !important;
+    border-bottom: 1px solid #eef1f4;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2c3e50 !important;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel_header i {
+    color: #0D9488 !important;
+    font-size: 1rem;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel_content {
+    padding: 1.25rem !important;
+    font-size: 0.9rem;
+    min-height: 140px !important;
+    background: #fafbfc !important;
+    display: block !important;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel_lg .o_hostel_chart_panel_content {
+    min-height: 200px !important;
+}
+
+.o_hostel_dashboard .o_hostel_chart_panel_sm .o_hostel_chart_panel_content {
+    min-height: 160px !important;
+}
+
+@media (max-width: 992px) {
+    .o_hostel_dashboard .o_hostel_charts_grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .o_hostel_dashboard .o_hostel_charts_panel_header,
+    .o_hostel_dashboard .o_hostel_charts_panel_body {
+        padding: 1rem 1.25rem !important;
+    }
+}
+
+/* Chart 1: Occupancy - Circular progress cards */
+.o_hostel_dashboard .o_hostel_occupancy_chart {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.o_hostel_dashboard .o_hostel_occupancy_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    min-width: 90px;
+}
+
+.o_hostel_occupancy_circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--occ-color, #0D9488) calc(var(--pct, 0) * 3.6deg),
+        #eef1f4 0
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.o_hostel_dashboard .o_hostel_occupancy_circle::before {
+    content: "";
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #fafbfc;
+    position: absolute;
+}
+
+.o_hostel_dashboard .o_hostel_occupancy_pct {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #2c3e50;
+    position: relative;
+    z-index: 1;
+}
+
+.o_hostel_dashboard .o_hostel_occupancy_card.o_hostel_occ_high .o_hostel_occupancy_circle { --occ-color: #28a745; }
+.o_hostel_dashboard .o_hostel_occupancy_card.o_hostel_occ_med .o_hostel_occupancy_circle { --occ-color: #fd7e14; }
+.o_hostel_dashboard .o_hostel_occupancy_card.o_hostel_occ_low .o_hostel_occupancy_circle { --occ-color: #0D9488; }
+
+.o_hostel_dashboard .o_hostel_occupancy_label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.o_hostel_dashboard .o_hostel_occupancy_stats {
+    font-size: 0.7rem;
+    color: #6c757d;
+    margin-top: 0.2rem;
+}
+
+/* Chart 2: Revenue - Chart.js Doughnut */
+.o_hostel_dashboard .o_hostel_chartjs_wrap {
+    position: relative;
+    width: 100%;
+    height: 240px;
+}
+
+.o_hostel_dashboard .o_hostel_chartjs_wrap canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.o_hostel_dashboard .o_hostel_chart_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #0D9488;
+    font-size: 1.5rem;
+}
+
+/* Chart 3 & 4: Attendance + Visitors - Chart.js Bar */
+.o_hostel_dashboard .o_hostel_chartjs_compact {
+    height: 180px;
+}
+
+
+/* Empty state */
+.o_hostel_chart_empty {
+    text-align: center;
+    padding: 2rem;
+    color: #adb5bd;
+}
+
+.o_hostel_chart_empty i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+}
+
+.o_hostel_chart_empty p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* Compact chart wrapper (for panel layout) */
+.o_hostel_chart_compact {
+    min-height: 120px;
+}
+
+/* ----------------------------------------------------------------
+   Chart bar rows (OWL horizontal bar charts)
+   ---------------------------------------------------------------- */
+.o_hostel_chart_row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.o_hostel_chart_row:last-child {
+    margin-bottom: 0;
+}
+
+.o_hostel_chart_row_compact {
+    margin-bottom: 0.35rem;
+    gap: 0.5rem;
+}
+
+.o_hostel_chart_label {
+    min-width: 140px;
+    max-width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.o_hostel_chart_row_compact .o_hostel_chart_label {
+    min-width: 100px;
+    max-width: 140px;
+    font-size: 0.78rem;
+}
+
+.o_hostel_chart_bar_bg {
+    flex: 1;
+    height: 22px;
+    background: #eef1f4;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.o_hostel_chart_row_compact .o_hostel_chart_bar_bg {
+    height: 18px;
+}
+
+.o_hostel_chart_bar_fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #0D9488, #14B8A6);
+    transition: width 0.6s ease;
+    min-width: 4px;
+}
+
+.o_hostel_chart_bar_fill.o_hostel_chart_revenue {
+    background: linear-gradient(90deg, #198754, #34c38f);
+}
+
+.o_hostel_chart_bar_fill.o_hostel_chart_attendance {
+    background: linear-gradient(90deg, #3949ab, #7986cb);
+}
+
+.o_hostel_chart_bar_fill.o_hostel_chart_visitors {
+    background: linear-gradient(90deg, #00796b, #4db6ac);
+}
+
+@media (max-width: 600px) {
+    .o_hostel_chart_label {
+        min-width: 80px;
+        max-width: 120px;
+        font-size: 0.75rem;
+    }
+    .o_hostel_chart_bar_bg {
+        height: 16px;
+    }
+}
+
+/* Quick Actions Panel */
+.o_hostel_qa_panel {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.o_hostel_qa_head {
+    margin-bottom: 1rem;
+}
+
+.o_hostel_qa_title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #343a40;
+    margin: 0;
+}
+
+.o_hostel_qa_title i {
+    margin-right: 6px;
+    color: #e65100;
+}
+
+.o_hostel_qa_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.o_hostel_qa_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 0.5rem;
+    border-radius: 10px;
+    background: #f8f9fa;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.o_hostel_qa_card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    background: #fff;
+    text-decoration: none;
+}
+
+.o_hostel_qa_icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.o_hostel_qa_label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #374151;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.o_hostel_qa_card:hover .o_hostel_qa_label {
+    color: #1f2937;
+}
+
+.o_hostel_qa_blue .fa { color: #fff; }
+.o_hostel_qa_blue { background: #0D9488; }
+
+.o_hostel_qa_green .fa { color: #fff; }
+.o_hostel_qa_green { background: #198754; }
+
+.o_hostel_qa_purple .fa { color: #fff; }
+.o_hostel_qa_purple { background: #5e35b1; }
+
+.o_hostel_qa_teal .fa { color: #fff; }
+.o_hostel_qa_teal { background: #00796b; }
+
+.o_hostel_qa_indigo .fa { color: #fff; }
+.o_hostel_qa_indigo { background: #3949ab; }
+
+.o_hostel_qa_amber .fa { color: #fff; }
+.o_hostel_qa_amber { background: #e65100; }
+
+.o_hostel_qa_red .fa { color: #fff; }
+.o_hostel_qa_red { background: #c62828; }
+
+.o_hostel_qa_cyan .fa { color: #fff; }
+.o_hostel_qa_cyan { background: #0097a7; }
+
+@media (max-width: 992px) {
+    .o_hostel_qa_grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .o_hostel_qa_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Clickable elements */
+.hostel-clickable {
+    cursor: pointer;
+}

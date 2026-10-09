@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Employee Views Enhancement -->
+    <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.hostel</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_location_id']" position="after">
+                <field name="employee_code"/>
+                <field name="employment_type"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Documents" name="documents">
+                    <field name="document_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="document_type"/>
+                            <field name="document_number"/>
+                            <field name="issue_date"/>
+                            <field name="expiry_date"/>
+                            <field name="days_to_expiry"/>
+                            <field name="is_expired" widget="boolean_toggle"/>
+                            <field name="is_expiring_soon" widget="boolean_toggle"/>
+                        </list>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="document_type"/>
+                                    <field name="document_number"/>
+                                </group>
+                                <group>
+                                    <field name="issue_date"/>
+                                    <field name="expiry_date"/>
+                                    <field name="days_to_expiry" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="document_file" filename="filename"/>
+                                    <field name="filename" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="notes"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

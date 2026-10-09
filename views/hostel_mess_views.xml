@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Mess Search -->
+    <record id="view_mess_search" model="ir.ui.view">
+        <field name="name">hostel.mess.search</field>
+        <field name="model">hostel.mess</field>
+        <field name="arch" type="xml">
+            <search string="Mess">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="building_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Mess Tree -->
+    <record id="view_mess_tree" model="ir.ui.view">
+        <field name="name">hostel.mess.tree</field>
+        <field name="model">hostel.mess</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="not active">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="building_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Mess Form -->
+    <record id="view_mess_form" model="ir.ui.view">
+        <field name="name">hostel.mess.form</field>
+        <field name="model">hostel.mess</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="building_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Menus" name="menus">
+                            <field name="menu_ids" nolabel="1">
+                                <list create="1" delete="1" editable="bottom">
+                                    <field name="menu_date"/>
+                                    <field name="meal_type"/>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Bookings" name="bookings">
+                            <field name="booking_ids" nolabel="1" readonly="1">
+                                <list>
+                                    <field name="student_id"/>
+                                    <field name="booking_date"/>
+                                    <field name="meal_type"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="attended_at"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Mess Menu Tree -->
+    <record id="view_mess_menu_tree" model="ir.ui.view">
+        <field name="name">hostel.mess.menu.tree</field>
+        <field name="model">hostel.mess.menu</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="mess_id"/>
+                <field name="menu_date"/>
+                <field name="meal_type"/>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Mess Menu Form -->
+    <record id="view_mess_menu_form" model="ir.ui.view">
+        <field name="name">hostel.mess.menu.form</field>
+        <field name="model">hostel.mess.menu</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="mess_id"/>
+                            <field name="menu_date"/>
+                            <field name="meal_type"/>
+                        </group>
+                        <group>
+                            <field name="name" placeholder="e.g. North Indian Lunch"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="List of items..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Meal Booking Tree -->
+    <record id="view_meal_booking_tree" model="ir.ui.view">
+        <field name="name">hostel.meal.booking.tree</field>
+        <field name="model">hostel.meal.booking</field>
+        <field name="arch" type="xml">
+            <list
+                  decoration-success="state == 'attended'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="student_id"/>
+                <field name="mess_id"/>
+                <field name="booking_date"/>
+                <field name="meal_type"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'attended'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="attended_at"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Meal Booking Form -->
+    <record id="view_meal_booking_form" model="ir.ui.view">
+        <field name="name">hostel.meal.booking.form</field>
+        <field name="model">hostel.meal.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_mark_attended"
+                            type="object"
+                            string="Mark Attended"
+                            class="oe_highlight"
+                            invisible="state != 'booked'"/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel Booking"
+                            invisible="state != 'booked'"
+                            class="btn-danger"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id" options="{'no_create': True}"/>
+                            <field name="mess_id"/>
+                            <field name="booking_date"/>
+                            <field name="meal_type"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="attended_at" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Meal Booking Search -->
+    <record id="view_meal_booking_search" model="ir.ui.view">
+        <field name="name">hostel.meal.booking.search</field>
+        <field name="model">hostel.meal.booking</field>
+        <field name="arch" type="xml">
+            <search string="Meal Bookings">
+                <field name="student_id"/>
+                <field name="mess_id"/>
+                <field name="booking_date"/>
+                <field name="meal_type"/>
+                <filter string="Booked" name="booked" domain="[('state', '=', 'booked')]"/>
+                <filter string="Attended" name="attended" domain="[('state', '=', 'attended')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <group>
+                    <filter string="Student" name="group_student" domain="[]" context="{'group_by': 'student_id'}"/>
+                    <filter string="Mess" name="group_mess" domain="[]" context="{'group_by': 'mess_id'}"/>
+                    <filter string="Date" name="group_date" domain="[]" context="{'group_by': 'booking_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_mess" model="ir.actions.act_window">
+        <field name="name">Mess / Dining</field>
+        <field name="res_model">hostel.mess</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a mess (dining) location.</p>
+            <p>Manage mess menus and link to buildings. Students can book meals per mess.</p>
+        </field>
+    </record>
+
+    <record id="action_mess_menu" model="ir.actions.act_window">
+        <field name="name">Mess Menus</field>
+        <field name="res_model">hostel.mess.menu</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_meal_type': 'lunch'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a mess menu for a date and meal type.</p>
+            <p>Define breakfast, lunch, dinner or snack menu with items/description.</p>
+        </field>
+    </record>
+
+    <record id="action_meal_booking" model="ir.actions.act_window">
+        <field name="name">Meal Bookings</field>
+        <field name="res_model">hostel.meal.booking</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a meal booking.</p>
+            <p>Students book meals by mess, date and meal type. Mark as attended when they take the meal.</p>
+        </field>
+    </record>
+</odoo>
