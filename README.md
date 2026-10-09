@@ -65,6 +65,7 @@ Modul ini menyediakan instrumen terintegrasi untuk pengawasan fasilitas asrama, 
 
 ### Struktur Direktori Modul
 
+```text
 sirita_mahad/
 |-- __init__.py
 |-- __manifest__.py
@@ -149,6 +150,7 @@ sirita_mahad/
     |-- hr_employee_views.xml
     |-- menu.xml
     `-- res_partner_views.xml
+```
 
 ---
 
