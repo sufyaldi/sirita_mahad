@@ -2,6 +2,7 @@
 <odoo>
     <menuitem id="menu_hostel_root"
               name="Ma'had Al-Jami'ah"
+              web_icon="sirita_mahad,static/description/icon.png"
               groups="sirita_mahad.group_hostel_user"/>
 
     <!-- ============================================================ -->
