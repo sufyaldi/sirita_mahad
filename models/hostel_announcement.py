@@ -52,7 +52,6 @@ class HostelAnnouncement(models.Model):
     content = fields.Html(
         string="Content",
         required=True,
-        tracking=True,
     )
     target_type = fields.Selection(
         [
