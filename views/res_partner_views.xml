@@ -6,8 +6,10 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="priority">20</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='vat']" position="after">
-                <field name="is_student"/>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="is_student" string="Apakah Mahasantri?" widget="boolean_toggle"/>
+                <field name="nim" invisible="not is_student"/>
+                <field name="prodi" invisible="not is_student"/>
             </xpath>
             <xpath expr="//sheet/notebook" position="inside">
                 <page string="Student Information"

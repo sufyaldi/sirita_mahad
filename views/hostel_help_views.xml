@@ -32,6 +32,7 @@
                 .badge-u { display: inline-block; background: #0d9488; color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; }
                 .badge-m { display: inline-block; background: #f59e0b; color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; }
                 .badge-a { display: inline-block; background: #dc2626; color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; }
+                .badge-s { display: inline-block; background: #3b82f6; color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; }
 
                 /* Section */
                 .sec { margin-bottom: 32px; page-break-inside: avoid; }
@@ -144,6 +145,7 @@
                     <a href="#sec-hr"><i class="fa fa-id-card"/> Pengasuh &amp; Musyrif</a>
                     <a href="#sec-penalty"><i class="fa fa-balance-scale"/> Kategori Pelanggaran</a>
                     <a href="#sec-settings"><i class="fa fa-sliders"/> Pengaturan Sistem</a>
+                    <a href="#sec-portal"><i class="fa fa-globe"/> Website &amp; Portal Berita</a>
                 </div>
             </div>
 
@@ -170,6 +172,12 @@
                         <td><span class="badge-a">Mudir / Administrator</span></td>
                         <td>
                             <strong>Pimpinan &amp; Pengawas Sistem Penuh</strong> — Memiliki wewenang tanpa batas ke seluruh modul Ma'had. Mengelola otomatisasi sistem (cron pengingat mukim, ucapan milad), penugasan pembina/musyrif asrama, aturan master kedisiplinan &amp; poin pelanggaran, konfigurasi sistem, serta integrasi data institusi.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-s">Mahasantri / Student</span></td>
+                        <td>
+                            <strong>Pengguna Layanan (Portal Only)</strong> — Hak akses terbatas pada informasi akun pribadi. Dapat melihat dan mengunduh tagihan BLU, mencetak sertifikat digital dan transkrip kelulusan, memantau riwayat presensi/hafalan, serta mengajukan perizinan pesiar secara mandiri melalui portal.
                         </td>
                     </tr>
                 </table>
@@ -231,21 +239,23 @@
                 </table>
 
                 <div class="wf">
-                    <div class="wf-title">Alur Penerbitan Sertifikat Syahadah:</div>
+                    <div class="wf-title">Alur Penerbitan Sertifikat Syahadah (dengan TTE):</div>
                     <div class="wf-row">
                         <span class="wf-lbl">Proses:</span>
                         <span class="wf-node" style="background:#0D9488;">Draft (Pengajuan Nilai)</span>
                         <span class="wf-arr">→</span>
-                        <span class="wf-node" style="background:#10b981;">Validasi &amp; Kelulusan Mudir</span>
+                        <span class="wf-node" style="background:#f59e0b;">Pembubuhan Tanda Tangan Elektronik</span>
                         <span class="wf-arr">→</span>
-                        <span class="wf-node" style="background:#2563eb;">Syahadah Terbit (Unlock SIAKAD)</span>
+                        <span class="wf-node" style="background:#10b981;">Validasi Mudir</span>
+                        <span class="wf-arr">→</span>
+                        <span class="wf-node" style="background:#2563eb;">Syahadah &amp; QR Code Terbit (TTE)</span>
                     </div>
                 </div>
 
                 <div class="tip">
-                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk Penting:</strong> Sertifikat Syahadah yang telah berstatus <em>Validated</em> akan secara otomatis mengaktifkan penanda kelulusan ma'had dan siap disinkronkan ke SIAKAD IAIN Parepare.
+                    <strong><i class="fa fa-lightbulb-o"/> Petunjuk Penting (Validasi Digital &amp; SIAKAD):</strong> Sertifikat Syahadah yang telah berstatus <em>Validated</em> akan dilengkapi dengan Tanda Tangan Elektronik (TTE) tersertifikasi dan sebuah kode QR unik. Setiap dokumen PDF hasil cetakan dapat diverifikasi validitas aslinya oleh pihak rektorat maupun sistem SIAKAD IAIN Parepare dengan sekadar melakukan pemindaian QR Code tersebut.
                 </div>
-                <div class="ar"><strong>Hak Akses:</strong> Input Hafalan &amp; Halaqah: Musyrif &amp; Pengelola | Validasi Syahadah: Mudir / Kepala Ma'had</div>
+                <div class="ar"><strong>Hak Akses:</strong> Input Hafalan &amp; Halaqah: Musyrif &amp; Pengelola | Penandatanganan (TTE) &amp; Validasi Syahadah: Mudir / Kepala Ma'had</div>
             </div>
 
             <!-- ================================================================ -->
@@ -1128,6 +1138,37 @@
                 </ul>
 
                 <div class="ar"><strong>Hak Akses:</strong> Administrator Sistem (melalui Pengaturan &gt; Manajemen Ma'had)</div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!-- WEBSITE & PORTAL KABAR MA'HAD -->
+            <!-- ================================================================ -->
+            <div class="sec" id="sec-portal">
+                <h2 class="sec-t"><i class="fa fa-globe"/> Website &amp; Portal Kabar Ma'had</h2>
+                <p style="margin-bottom:12px;">
+                    Sistem ini mengelola sebuah Portal Publik (Website) mandiri untuk Ma'had Al-Jami'ah. Portal ini terhubung langsung dengan sistem utama institut melalui mekanisme sinkronisasi data (crawling).
+                </p>
+                
+                <table class="ft">
+                    <tr>
+                        <th>Fitur Utama</th>
+                        <th>Penjelasan Penggunaan</th>
+                    </tr>
+                    <tr>
+                        <td>Sinkronisasi Berita (Scraping)</td>
+                        <td>
+                            Sistem secara asinkron (otomatis) menarik publikasi berita dan artikel yang relevan dengan kepesantrenan/asrama dari situs web utama IAIN Parepare. Admin tidak perlu lagi melakukan entri artikel ganda. Artikel yang terkait akan langsung dimuat ulang (*ingestion*) ke modul Blog "Kabar Ma'had".
+                            <div class="acc"><i class="fa fa-cogs"/> Dapat juga dipicu secara manual via command line atau <i>Scheduled Action</i>.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Publikasi Kabar Ma'had</td>
+                        <td>
+                            Untuk meninjau, mengedit teks ringkasan (*subtitle*), atau menyembunyikan artikel hasil sinkronisasi, masuk ke menu <strong>Website → Blog Posts</strong>. Anda dapat mengaktifkan bendera <em>Published</em> agar berita bisa diakses masyarakat umum melalui portal publik.
+                        </td>
+                    </tr>
+                </table>
+                <div class="ar"><strong>Hak Akses:</strong> Pemeliharaan &amp; Publikasi Website: Pengelola / Mudir</div>
             </div>
 
             <!-- ===== BOTTOM BAR ===== -->

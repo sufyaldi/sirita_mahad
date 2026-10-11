@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree / List View Master Mahasantri -->
+    <record id="view_mahad_student_tree" model="ir.ui.view">
+        <field name="name">mahad.student.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list string="Master Data Mahasantri" default_order="name asc">
+                <field name="nim"/>
+                <field name="name" string="Nama Mahasantri"/>
+                <field name="prodi"/>
+                <field name="gender"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <button name="action_create_portal_user" string="Buat/Reset Akun Portal" type="object" icon="fa-key" class="btn-sm btn-outline-primary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View Master Mahasantri -->
+    <record id="view_mahad_student_form" model="ir.ui.view">
+        <field name="name">mahad.student.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form string="Mahasantri">
+                <header>
+                    <button name="action_create_portal_user" string="Buat / Reset Akun Portal Mahasantri" type="object" class="btn-primary" icon="fa-user-plus"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Nama Mahasantri"/>
+                        <h1>
+                            <field name="name" placeholder="Nama Lengkap Mahasantri" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Identitas Akademik">
+                            <field name="nim" placeholder="Contoh: 2620203879203003"/>
+                            <field name="prodi" placeholder="Contoh: Pendidikan Bahasa Arab"/>
+                            <field name="gender"/>
+                            <field name="is_student" invisible="1"/>
+                        </group>
+                        <group string="Kontak &amp; Informasi">
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="date_of_birth"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Riwayat Asrama">
+                            <field name="hostel_contract_ids" readonly="1">
+                                <list>
+                                    <field name="building_id"/>
+                                    <field name="room_id"/>
+                                    <field name="bed_id"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Master Mahasantri -->
+    <record id="action_mahad_student" model="ir.actions.act_window">
+        <field name="name">Master Mahasantri</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_student', '=', True)]</field>
+        <field name="context">{'default_is_student': True}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_mahad_student_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_mahad_student_form')})]"/>
+    </record>
+
+    <!-- Menu Item Master Mahasantri -->
+    <menuitem id="menu_mahad_student_master"
+              name="Master Mahasantri"
+              parent="sirita_mahad.menu_hostel_master"
+              action="action_mahad_student"
+              sequence="5"/>
+
+</odoo>
